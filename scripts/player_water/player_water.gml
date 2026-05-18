@@ -178,32 +178,22 @@ function player_set_underwater(value, object = obj_water)
 	{
 		//Speed up the player
 		y_speed *= 1.25;
-		
-		//Execute this only if the collision happens at the top
-		if(side == C_TOP)
-		{
-			//Create effects
-			create_effect(x, object.y, spr_water_splash, 0.35);
-			
-			//Play sound
-			play_sound(sfx_water_splash);
-		}
 	}
 	else
 	{		
 		//Slow down the player
 		x_speed *= 0.5;
 		y_speed *= 0.25;
-		
-		//Execute this only if the collision happens at the top
-		if(side == C_TOP)
-		{
-			//Create effects
-			create_effect(x, object.y, spr_water_splash, 0.35);
+	}
+	
+	//Execute this only if the collision happens at the top
+	if(side == C_TOP)
+	{
+		//Create effect
+		create_effect(x, object.y, spr_water_splash, 0.35);
 			
-			//Play sound
-			play_sound(sfx_water_splash);
-		}
+		//Play sound
+		play_sound(sfx_water_splash);
 	}
 	
 	//Trigger the flag
