@@ -265,6 +265,7 @@
     {"id":{"name":"obj_titlecard","path":"objects/obj_titlecard/obj_titlecard.yy",},},
     {"id":{"name":"obj_water_effect","path":"objects/obj_water_effect/obj_water_effect.yy",},},
     {"id":{"name":"obj_water","path":"objects/obj_water/obj_water.yy",},},
+    {"id":{"name":"obj_waterpool","path":"objects/obj_waterpool/obj_waterpool.yy",},},
     {"id":{"name":"obj_window","path":"objects/obj_window/obj_window.yy",},},
     {"id":{"name":"par_background","path":"objects/par_background/par_background.yy",},},
     {"id":{"name":"par_breakable_floor","path":"objects/par_breakable_floor/par_breakable_floor.yy",},},

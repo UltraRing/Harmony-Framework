@@ -4,12 +4,20 @@ function player_water()
 	water_run = false;
 	
 	//Stop executing if theres no water
-	if(!instance_exists(obj_water) || !collision_allow) exit;
-	
+	if(!instance_exists(obj_water) && !instance_exists(obj_waterpool) || !collision_allow) exit;
+
 	// Constants 
-	var waterY = obj_water.y;
+	var waterY = (instance_exists(obj_water) ? obj_water.y : 0);
 	var waterRange = 8;
 	var waterSpd = 4;
+	var waterPool = collision_point(x, y + hitbox_h + waterRange, obj_waterpool, true, false);
+	
+	// Check for water pools below you
+	if(waterPool)
+	{
+		// Change the constant to the found waterpool's Y
+		waterY = waterPool.y;
+	}
 	
 	// Is player's bottom side in the water's range?
 	if(y + hitbox_h > waterY - waterRange && y + hitbox_h < waterY + waterRange && ground
@@ -25,7 +33,7 @@ function player_water()
 			if(FRAME_TIMER mod 4 == 0 && global.water_running_effect == 1)
 			{
 				//Create effects
-				create_effect(obj_player.x, obj_water.y, spr_water_splash, 0.35, obj_player.depth - 1);
+				create_effect(obj_player.x, waterY, spr_water_splash, 0.35, obj_player.depth - 1);
 				play_sound(sfx_water_splash);	
 			}
 		}
@@ -42,46 +50,21 @@ function player_water()
 	if(!water_run || on_terrain)
 		audio_stop_sound(sfx_water_run);
 	
-	
-	//Entering water
-	if(y >= obj_water.y)
+	if(instance_exists(obj_water))
 	{
-		//Player hitting the water
-		if(!underwater)
+		//Entering water
+		if(y >= obj_water.y)
 		{
-			//Slow down the player
-			x_speed *= 0.5;
-			y_speed *= 0.25;
-			
-			//Create effects
-			create_effect(x, obj_water.y, spr_water_splash, 0.35);
-			
-			//Play sound
-			play_sound(sfx_water_splash);
+			//Player hitting the water
+			player_set_underwater(true);
 		}
-		
-		//Trigger the flag
-		underwater = true;
-	}
 	
-	//Exiting water
-	if(y < obj_water.y)
-	{
-		//Player hitting the water
-		if(underwater)
+		//Exiting water
+		if(y < obj_water.y)
 		{
-			//Speed up the player
-			y_speed *= 1.25;
-			
-			//Create effects
-			create_effect(x, obj_water.y, spr_water_splash, 0.35);
-			
-			//Play sound
-			play_sound(sfx_water_splash);
+			//Player hitting the water
+			player_set_underwater(false);
 		}
-		
-		//Trigger the flag
-		underwater = false;
 	}
 	
 	//Aquaphobia
@@ -122,7 +105,8 @@ function player_water()
 			audio_sound_gain(jing, global.bgm_volume, 0);
 		}
 		
-	}else
+	}
+	else
 	{
 		air = 0;
 	}
@@ -130,7 +114,8 @@ function player_water()
 	if(air < 20*60) audio_stop_sound(j_drowning);
 	
 	//Drown!
-	if(air > 32*60 && knockout_type != K_DROWN){
+	if(air > 32*60 && knockout_type != K_DROWN)
+	{
 		play_sound(sfx_drown);
 		obj_camera.mode = 99;
 		state = player_state_knockout;
@@ -138,6 +123,7 @@ function player_water()
 		x_speed = 0
 		y_speed = 0
 	}
+	
 	//Create the countdown
 	switch(air){
 		case 20*60:
@@ -176,4 +162,50 @@ function player_water()
 			drown_bubble.angle = facing == -1 ? 180 : 0;
 			break;	
 	}
+}
+
+function player_set_underwater(value, object = obj_water)
+{
+	//If the underwater flag is the same, no need to run this again
+	if(underwater == value) exit;
+	
+	//Retrieve collision side
+	var side;
+	with(object) side = player_collide_object();
+	
+	//Player hitting the water
+	if(!value)
+	{
+		//Speed up the player
+		y_speed *= 1.25;
+		
+		//Execute this only if the collision happens at the top
+		if(side == C_TOP)
+		{
+			//Create effects
+			create_effect(x, object.y, spr_water_splash, 0.35);
+			
+			//Play sound
+			play_sound(sfx_water_splash);
+		}
+	}
+	else
+	{		
+		//Slow down the player
+		x_speed *= 0.5;
+		y_speed *= 0.25;
+		
+		//Execute this only if the collision happens at the top
+		if(side == C_TOP)
+		{
+			//Create effects
+			create_effect(x, object.y, spr_water_splash, 0.35);
+			
+			//Play sound
+			play_sound(sfx_water_splash);
+		}
+	}
+	
+	//Trigger the flag
+	underwater = value;
 }
