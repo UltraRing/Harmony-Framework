@@ -212,3 +212,45 @@ function draw_state_restore()
     matrix_set(matrix_view, _state.matrix_view);
     matrix_set(matrix_projection, _state.matrix_projection);
 }
+
+function water_draw(x, y, w, h, color = $5b301e, anim_speed = 0.15, sprite = spr_water)
+{
+	var spr_width = sprite_get_width(sprite);
+	
+	//Draw basic rectangle with blendmode
+	draw_set_color(color);
+	gpu_set_blendmode(bm_subtract);
+	draw_rectangle(x, y, x + w - 1, y + h - 1, false);
+	gpu_set_blendmode(bm_normal);
+	draw_set_color(c_white);
+	
+	//IMPORTANT NOTE!!
+	//Enable this code if you wanna use shaders for color replacing instead of blend modes
+	//You can either use palette_swap or set_color_grading
+	/*
+	//Draw whole ass water
+	if(!surface_exists(surf)) surf = surface_create(global.window_width, global.window_height);
+	
+	//Draw shit in this
+	surface_set_target(surf);
+	
+	//Draw tint surface
+	gpu_set_blendenable(false);
+	surface_copy(surf, 0, 0, application_surface);
+	set_color_grading(yourlut, 17);
+
+	//Done
+	surface_reset_target();
+
+	//Draw surface
+	draw_surface_part(surf, 0, 0, w, h, x, y);
+	shader_reset();
+	gpu_set_blendenable(true);
+	*/
+	
+	//Draw the water horizon
+	for(var i = 0; i < w/spr_width; i++)
+	{
+		draw_sprite(sprite, FRAME_TIMER * anim_speed, (round(x/spr_width) * spr_width) + spr_width * i, y);
+	}
+}
