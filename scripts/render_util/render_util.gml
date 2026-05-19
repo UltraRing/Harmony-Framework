@@ -215,8 +215,6 @@ function draw_state_restore()
 
 function water_draw(x, y, w, h, color = $5b301e, anim_speed = 0.15, sprite = spr_water)
 {
-	var spr_width = sprite_get_width(sprite);
-	
 	//Draw basic rectangle with blendmode
 	draw_set_color(color);
 	gpu_set_blendmode(bm_subtract);
@@ -249,8 +247,5 @@ function water_draw(x, y, w, h, color = $5b301e, anim_speed = 0.15, sprite = spr
 	*/
 	
 	//Draw the water horizon
-	for(var i = 0; i < w/spr_width; i++)
-	{
-		draw_sprite(sprite, FRAME_TIMER * anim_speed, (round(x/spr_width) * spr_width) + spr_width * i, y);
-	}
+	draw_sprite_stretched(sprite, FRAME_TIMER * anim_speed, x, y - sprite_get_yoffset(sprite), w, sprite_get_height(sprite));
 }
