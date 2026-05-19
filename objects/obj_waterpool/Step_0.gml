@@ -1,16 +1,19 @@
 /// @description Script
 	var player = player_find(0),
-		collision = player_collide_object();
+		waterCheck = (instance_exists(obj_water) ? player.y < obj_water.y : true);
 	
+	//In the player object
 	with(player)
 	{
-		if(!collision_rectangle(x - wall_w, y - hitbox_h, x + wall_w, y + hitbox_h, obj_waterpool, true, false))
+		//If you're colliding with a water pool
+		if(player_collide_waterpool())
 		{
-			player_set_underwater(false, obj_waterpool);
-		}
-		
-		if(collision)
-		{
+			//Set the flag to true
 			player_set_underwater(true, other.id);
+		}
+		else
+		{
+			//If you're above the water level object, set the flag to false
+			if(waterCheck) player_set_underwater(false, obj_waterpool);
 		}
 	}

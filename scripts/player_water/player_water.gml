@@ -10,7 +10,7 @@ function player_water()
 	var waterY = (instance_exists(obj_water) ? obj_water.y : 0);
 	var waterRange = 8;
 	var waterSpd = 4;
-	var waterPool = collision_point(x, y + hitbox_h + waterRange, obj_waterpool, true, false);
+	var waterPool = player_collide_waterpool(, waterRange + hitbox_h);
 	
 	// Check for water pools below you
 	if(waterPool)
@@ -49,43 +49,40 @@ function player_water()
 	// Stop the water run sound
 	if(!water_run || on_terrain)
 		audio_stop_sound(sfx_water_run);
-	
-	if(instance_exists(obj_water))
+		
+	//If you aren't colliding with a water pool and you're below the water level
+	if(!player_collide_waterpool() && y >= obj_water.y)
 	{
-		//Entering water
-		if(y >= obj_water.y)
-		{
-			//Player hitting the water
-			player_set_underwater(true);
-		}
-	
-		//Exiting water
-		if(y < obj_water.y)
-		{
-			//Player hitting the water
-			player_set_underwater(false);
-		}
+		//Set the flag to true
+		player_set_underwater(true);
 	}
 	
 	//Aquaphobia
 	if(underwater)
 	{
-		if (shield != S_BUBBLE) {
+		if (shield != S_BUBBLE) 
+		{
 			//bubbles
-			if (bubble_delay > 0 && (air mod bubble_delay == 0)){
+			if (bubble_delay > 0 && (air mod bubble_delay == 0))
+			{
 				bubble_delay = 0
 				var bubble = instance_create_depth(x+6*facing, y-4, depth-1, obj_bubble);
 				bubble.type = 0;	
 				bubble.angle = facing == -1 ? 180 : 0;
 			}
 		
-			if(air mod 60 == 0 ){
+			if(air mod 60 == 0 )
+			{
 				var rand = round(random(1));
 				show_debug_message(rand);
-				if (rand == 0){
+				
+				if(rand == 0)
+				{
 					bubble_delay = irandom_range(6,16)*2
 				}
-				if (air < 20*60) {
+				
+				if (air < 20*60) 
+				{
 					var bubble = instance_create_depth(x+6*facing, y-4, depth-1, obj_bubble);
 					bubble.type = 0;	
 					bubble.angle = facing == -1 ? 180 : 0;
@@ -93,6 +90,7 @@ function player_water()
 			
 			}
 		}
+		
 		//Add air timer
 		air += 1;
 			
@@ -100,7 +98,8 @@ function player_water()
 		if(air == 6*60 || air == 12*60 || air == 18*60) play_sound(sfx_air_warning);
 			
 		//Uh oh drowning music
-		if(!audio_is_playing(j_drowning) && air == 20 * 60){
+		if(!audio_is_playing(j_drowning) && air == 20 * 60)
+		{
 			var jing = audio_play_sound(j_drowning, 0, false);
 			audio_sound_gain(jing, global.bgm_volume, 0);
 		}
@@ -186,8 +185,9 @@ function player_set_underwater(value, object = obj_water)
 		y_speed *= 0.25;
 	}
 	
-	//Execute this only if the collision happens at the top
-	if(side == C_TOP)
+	//Execute this only if the collision happens at the top 
+	//Or the object is the water level and you're below it
+	if(side == C_TOP || object == obj_water && y >= object.y)
 	{
 		//Create effect
 		create_effect(x, object.y, spr_water_splash, 0.35);
@@ -198,4 +198,13 @@ function player_set_underwater(value, object = obj_water)
 	
 	//Trigger the flag
 	underwater = value;
+}
+
+function player_collide_waterpool(offset_x = 0, offset_y = 0)
+{
+	//If you don't allow collisions, return none
+	if(!collision_allow) return noone;
+	
+	//Return this
+	return collision_point(x + offset_x, y + offset_y, obj_waterpool, true, true);
 }
