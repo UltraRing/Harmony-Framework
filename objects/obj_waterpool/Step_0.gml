@@ -6,7 +6,7 @@
 	with(player)
 	{
 		//If you're colliding with a water pool
-		if(player_collide_waterpool())
+		if(instance_collide_waterpool())
 		{
 			//Set the flag to true
 			player_set_underwater(true, other.id);

@@ -1,7 +1,8 @@
 /// @description Script
 	sprite_index = asset_get_index("spr_bubble_" + string(type+1)); 
 	
-	var water = collision_point(x, bbox_top, obj_water, true, true);
+	//Water check
+	var waterpool = instance_collide_waterpool(, sprite_get_bbox_top(sprite_index) - sprite_get_yoffset(sprite_index));
 	
 	//Movement
 	y -= 0.5;
@@ -11,7 +12,7 @@
 	angle = (angle + 2) mod 360;
 	
 	//Destroy outside of window or above water horizon
-	if(!on_screen() || water == noone)
+	if(!on_screen() || (instance_exists(obj_water) && waterpool == noone ? bbox_top < obj_water.y : waterpool == noone))
 	{
 		instance_destroy();
 		exit;
