@@ -10,7 +10,7 @@ function player_water()
 	var waterY = (instance_exists(obj_water) ? obj_water.y : 0);
 	var waterRange = 8;
 	var waterSpd = 4;
-	var waterPool = player_collide_waterpool(, waterRange + hitbox_h);
+	var waterPool = instance_collide_waterpool(, waterRange + hitbox_h);
 	
 	// Check for water pools below you
 	if(waterPool)
@@ -51,7 +51,7 @@ function player_water()
 		audio_stop_sound(sfx_water_run);
 		
 	//If you aren't colliding with a water pool and you're below the water level
-	if(!player_collide_waterpool() && y >= obj_water.y)
+	if(!instance_collide_waterpool() && y >= obj_water.y)
 	{
 		//Set the flag to true
 		player_set_underwater(true);
@@ -165,8 +165,8 @@ function player_water()
 
 function player_set_underwater(value, object = obj_water)
 {
-	//If the underwater flag is the same, no need to run this again
-	if(underwater == value) exit;
+	//If the underwater flag is the same or you don't allow collisions, no need to run this again
+	if(underwater == value || !collision_allow) exit;
 	
 	//Retrieve collision side
 	var side;
@@ -200,11 +200,8 @@ function player_set_underwater(value, object = obj_water)
 	underwater = value;
 }
 
-function player_collide_waterpool(offset_x = 0, offset_y = 0)
+function instance_collide_waterpool(offset_x = 0, offset_y = 0)
 {
-	//If you don't allow collisions, return none
-	if(!collision_allow) return noone;
-	
 	//Return this
 	return collision_point(x + offset_x, y + offset_y, obj_waterpool, true, true);
 }
