@@ -39,7 +39,7 @@
 	}
 	
 	//make the platform fall
-	if (fall && fall_timer = 60 && col && col.ground) {
+	if (fall && fall_timer = 60 && col && p.ground) {
 		fall_timer--	
 	}
 	if (fall && fall_timer < 60) {
