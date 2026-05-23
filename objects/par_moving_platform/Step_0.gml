@@ -38,6 +38,7 @@
 		fall_timer = 60
 	}
 	
+    //
 	//make the platform fall
 	if (fall && fall_timer = 60 && col && p.ground) {
 		fall_timer--	
