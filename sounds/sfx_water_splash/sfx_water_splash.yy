@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.039206,
+  "duration":1.0392064,
   "exportDir":"",
   "name":"sfx_water_splash",
   "parent":{

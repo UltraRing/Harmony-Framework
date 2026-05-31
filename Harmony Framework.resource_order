@@ -10,5 +10,6 @@
     {"name":"game_macros","order":3,"path":"scripts/game_macros/game_macros.yy",},
     {"name":"game_shell_functions","order":5,"path":"scripts/game_shell_functions/game_shell_functions.yy",},
     {"name":"game_util","order":1,"path":"scripts/game_util/game_util.yy",},
+    {"name":"spr_water_editor","order":1,"path":"sprites/spr_water_editor/spr_water_editor.yy",},
   ],
 }

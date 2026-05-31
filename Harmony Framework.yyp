@@ -123,7 +123,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.15",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"Harmony Framework",
   "resources":[
@@ -705,6 +705,7 @@
     {"id":{"name":"spr_tile_collision","path":"sprites/spr_tile_collision/spr_tile_collision.yy",},},
     {"id":{"name":"spr_title_card_piece","path":"sprites/spr_title_card_piece/spr_title_card_piece.yy",},},
     {"id":{"name":"spr_trigger","path":"sprites/spr_trigger/spr_trigger.yy",},},
+    {"id":{"name":"spr_water_editor","path":"sprites/spr_water_editor/spr_water_editor.yy",},},
     {"id":{"name":"spr_water_splash","path":"sprites/spr_water_splash/spr_water_splash.yy",},},
     {"id":{"name":"spr_water","path":"sprites/spr_water/spr_water.yy",},},
     {"id":{"name":"spr_wheeltank","path":"sprites/spr_wheeltank/spr_wheeltank.yy",},},

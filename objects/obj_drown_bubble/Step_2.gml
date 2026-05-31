@@ -31,5 +31,5 @@
 		y = cy + screen_y;
 	}
 	
-	//Ded
+	//Dead
 	if(timer > 110) instance_destroy();

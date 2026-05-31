@@ -1,21 +1,29 @@
 /// @description Draw water 
-
-	//Camera position
-	var cx, cy, sw, sh;
-	cx = camera_get_view_x(view_camera[view_current])-64;
-	cy = camera_get_view_y(view_camera[view_current])
-	sw = global.window_width;
-	sh = global.window_height;
+    //Camera position
+        var cx, cy, sw, sh;
+        cx = camera_get_view_x(view_camera[view_current])-64;
+        cy = camera_get_view_y(view_camera[view_current])
+        sw = global.window_width;
+        sh = global.window_height;
 	
 	//Set x position to the left side of the screen
-	x = cx;
-	
-	//Draw basic rectangle with blendmode
-	draw_set_color($5b301e);
-	gpu_set_blendmode(bm_subtract);
-	draw_rectangle(cx, max(y, cy), cx+sw+64, max(y, cy)+sh, false);
-	gpu_set_blendmode(bm_normal);
-	draw_set_color(c_white);
+        if (!is_pool) x = cx;
+        
+    //Draw basic rectangle with blendmode
+        draw_set_color($5b301e);
+        gpu_set_blendmode(bm_subtract);
+        
+        if (!is_pool) //Water Horizon ----------------------------------------------------
+        {
+            draw_rectangle(cx, max(pos_y+1, cy), cx+sw+64, max(pos_y+1, cy)+sh, false);
+        }
+        else //Water Pool ----------------------------------------------------------------
+        {
+            draw_rectangle(bbox_left, pos_y, bbox_right, bbox_bottom, false);
+        }
+        
+        gpu_set_blendmode(bm_normal);
+        draw_set_color(c_white);
 	
 	//IMPORTANT NOTE!!
 	//Enable this code if you wanna use shaders for color replacing instead of blend modes
@@ -41,6 +49,16 @@
 	shader_reset();
 	gpu_set_blendenable(true);
 	*/
-	//Draw the water horizon
-	for(var i = 0; i < screen_width + 2; i++)
-		draw_sprite(sprite_index, FRAME_TIMER * anim_speed, (round(cx/spr_width)*spr_width)+spr_width*i, y);
+    
+	//Drawing the water
+        if (!is_pool) //Water Horizon --------------------------------------------------------------------------
+        {
+            draw_sprite_ext(spr_water, FRAME_TIMER * anim_speed, 0, pos_y, room_width/spr_width, 1, 0, c_white, 1);
+        } 
+        else //Water Pool --------------------------------------------------------------------------------------
+        {              
+            draw_sprite_ext(spr_water, FRAME_TIMER * anim_speed, x, pos_y, sprite_width/spr_width, 1, 0, c_white, 1);
+        }
+        
+        draw_set_color(c_white);
+        gpu_set_blendmode(bm_normal);

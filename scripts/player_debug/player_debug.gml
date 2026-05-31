@@ -7,6 +7,8 @@ function player_debug(){
 	collision_allow = false;
 	hitbox_allow = false;
 	ground = false;
+    
+    underwater = false;
 	
 	//Default movement speed
 	var speedmode = 1 + keyboard_check(vk_shift);

@@ -14,10 +14,12 @@
 	// Inherit the parent event
 	event_inherited();
 
-	//Water scale
-	if(instance_exists(obj_water))
-	{
-		var a = floor(camera_get_view_y(view_camera[view_current])*factor_y[3] + offset_y[3]); //"3" is the index of the water's parallax
-		bg_scale[3] = floor(obj_water.y - a) * (1 / 96); //"96" is the water parallax sprite's height
-		bg_scale[3] = clamp(bg_scale[3], -1, 1);
-	}
+	//Find Ocean Water Object
+    var waterY;
+    with (obj_water) {
+    	if (!is_pool) waterY = y+8;
+    }
+    //Water scale
+	var a = floor(camera_get_view_y(view_camera[view_current])*factor_y[3] + offset_y[3]); //"3" is the index of the water's parallax
+    bg_scale[3] = floor(waterY - a) * (1 / 96); //"96" is the water parallax sprite's height
+    bg_scale[3] = clamp(bg_scale[3], -1, 1);
