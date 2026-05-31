@@ -184,7 +184,6 @@
     {"name":"inst_709DD83E","path":"rooms/rm_arboreal_agate2/rm_arboreal_agate2.yy",},
     {"name":"inst_76404529","path":"rooms/rm_arboreal_agate2/rm_arboreal_agate2.yy",},
     {"name":"inst_21461A87","path":"rooms/rm_arboreal_agate2/rm_arboreal_agate2.yy",},
-    {"name":"inst_25C86830","path":"rooms/rm_arboreal_agate2/rm_arboreal_agate2.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -195,9 +194,6 @@
         {"$GMRInstance":"v4","%Name":"inst_1AAA6524_1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1AAA6524_1","objectId":{"name":"obj_titlecard","path":"objects/obj_titlecard/obj_titlecard.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":32.0,"y":0.0,},
         {"$GMRInstance":"v4","%Name":"inst_7E6361A3","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7E6361A3","objectId":{"name":"obj_act_trans_marker","path":"objects/obj_act_trans_marker/obj_act_trans_marker.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":224.0,"y":1472.0,},
         {"$GMRInstance":"v4","%Name":"inst_AF96CA","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_AF96CA","objectId":{"name":"obj_water_effect","path":"objects/obj_water_effect/obj_water_effect.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":48.0,"y":0.0,},
-        {"$GMRInstance":"v4","%Name":"inst_25C86830","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_25C86830","objectId":{"name":"obj_water","path":"objects/obj_water/obj_water.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_water","path":"objects/obj_water/obj_water.yy",},"propertyId":{"name":"is_pool","path":"objects/obj_water/obj_water.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":3.875,"scaleY":13.0,"x":384.0,"y":2288.0,},
       ],"layers":[],"name":"Utilities","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRLayer":"","%Name":"Collision","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[
         {"$GMRInstanceLayer":"","%Name":"CollisionTriggers","depth":200,"effectEnabled":true,"effectType":null,"gridX":16,"gridY":16,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
