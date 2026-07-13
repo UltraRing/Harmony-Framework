@@ -42,7 +42,7 @@
 		{
 			var set_room = zone_list[zone_sel][act_sel+1]
 			fade_to_room(set_room, 3);
-			music_set_fade(FADE_OUT, 2);
+			music_set_fade(FADE.OUT, 2);
 		}
 	}
 	

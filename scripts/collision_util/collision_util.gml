@@ -1,4 +1,4 @@
-function collision_get_distance(px, py, mode = CMODE_FLOOR, plane = PLANE_A, semi_solid = false)
+function collision_get_distance(px, py, mode = CMODE.FLOOR, plane = PLANE.A, semi_solid = false)
 {
     px = floor(px);
     py = floor(py);
@@ -10,7 +10,7 @@ function collision_get_distance(px, py, mode = CMODE_FLOOR, plane = PLANE_A, sem
         var l = global.col_tile[i];
 		
 		
-        if ((!semi_solid && l == "CollisionSemi") ||  (plane != PLANE_A && l == "CollisionA") ||  (plane != PLANE_B && l == "CollisionB"))
+        if ((!semi_solid && l == "CollisionSemi") ||  (plane != PLANE.A && l == "CollisionA") ||  (plane != PLANE.B && l == "CollisionB"))
         {
             continue;
         }
@@ -19,19 +19,19 @@ function collision_get_distance(px, py, mode = CMODE_FLOOR, plane = PLANE_A, sem
 
         switch (mode)
         {
-            case CMODE_FLOOR:
+            case CMODE.FLOOR:
                 h = _tile_get_height(px, py, l);
             break;
 
-            case CMODE_LWALL:
+            case CMODE.LWALL:
                 h = _tile_get_width(px, py, l);
             break;
 
-            case CMODE_CEILING:
+            case CMODE.CEILING:
                 h = _tile_get_height(px, py - 1, l, true);
             break;
 
-            case CMODE_RWALL:
+            case CMODE.RWALL:
                 h = _tile_get_width(px - 1, py, l, true);
             break;
         }
@@ -43,7 +43,7 @@ function collision_get_distance(px, py, mode = CMODE_FLOOR, plane = PLANE_A, sem
     return best_h;
 }
 
-function collision_get_angle(px, py, mode = CMODE_FLOOR, plane = PLANE_A)
+function collision_get_angle(px, py, mode = CMODE.FLOOR, plane = PLANE.A)
 {
 	px = floor(px);
 	py = floor(py);
@@ -53,28 +53,28 @@ function collision_get_angle(px, py, mode = CMODE_FLOOR, plane = PLANE_A)
 	
 	switch(mode)
 	{
-		case CMODE_FLOOR:
+		case CMODE.FLOOR:
 			ax = px - px mod ANGLE_GRID_SIZE;
 			bx = px + ((ANGLE_GRID_SIZE - 1) - px mod ANGLE_GRID_SIZE);
 			ay = collision_get_distance(ax, py, mode, plane, true);	
 			by = collision_get_distance(bx, py, mode, plane, true);
 		break;
 		
-		case CMODE_LWALL:
+		case CMODE.LWALL:
 			by = py - py mod ANGLE_GRID_SIZE;
 			ay = py + ((ANGLE_GRID_SIZE - 1) - py mod ANGLE_GRID_SIZE);
 			ax = collision_get_distance(px, ay, mode, plane, true);	
 			bx = collision_get_distance(px, by, mode, plane, true);
 		break;
 		
-		case CMODE_CEILING:
+		case CMODE.CEILING:
 			bx = px - px mod ANGLE_GRID_SIZE;
 			ax = px + ((ANGLE_GRID_SIZE - 1) - px mod ANGLE_GRID_SIZE);
 			by = collision_get_distance(ax, py, mode, plane, true);	
 			ay = collision_get_distance(bx, py, mode, plane, true);
 		break;
 		
-		case CMODE_RWALL:
+		case CMODE.RWALL:
 			ay = py - py mod ANGLE_GRID_SIZE;
 			by = py + ((ANGLE_GRID_SIZE - 1) - py mod ANGLE_GRID_SIZE);
 			bx = collision_get_distance(px, ay, mode, plane, true);	
@@ -86,7 +86,7 @@ function collision_get_angle(px, py, mode = CMODE_FLOOR, plane = PLANE_A)
 	return angle;
 }
 
-function collision_active_sensor(radius_x, radius_y, mode = CMODE_FLOOR, plane = PLANE_A, semi_solid = false)
+function collision_active_sensor(radius_x, radius_y, mode = CMODE.FLOOR, plane = PLANE.A, semi_solid = false)
 {
 	// Default struct
 	var colResult = {

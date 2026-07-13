@@ -9,12 +9,12 @@
 		music.play_data[i] = "";
 		music.fade_multiplier[i] = 1;
 		music.fade_speed[i] = 1;
-		music.fade_type[i] = FADE_IN;
+		music.fade_type[i] = FADE.IN;
 		music.loop_start[i] = 0.00;
 		music.loop_end[i] = 0.00;
 	}
 	
 	//Values for general fade
-	music.general_fade = FADE_IN;
+	music.general_fade = FADE.IN;
 	music.general_fade_speed = 1;
 	music.general_fade_multiplier = 1;

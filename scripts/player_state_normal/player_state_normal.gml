@@ -98,7 +98,7 @@ function player_state_normal(){
 		
 		
 		// Trigger the skidding
-		if(abs(ground_speed) > 4 && mode == CMODE_FLOOR && (hold_right - hold_left) == -sign(ground_speed) && control_lock == 0 && ground)
+		if(abs(ground_speed) > 4 && mode == CMODE.FLOOR && (hold_right - hold_left) == -sign(ground_speed) && control_lock == 0 && ground)
 		{
 			skid_timer = 24;
 			
@@ -123,15 +123,15 @@ function player_state_normal(){
 		}
 
 		// Wall sensors
-		var wall = collision_get_distance(x + (wall_w * facing), y + wall_h, facing == 1 ? CMODE_LWALL : CMODE_RWALL, plane);
+		var wall = collision_get_distance(x + (wall_w * facing), y + wall_h, facing == 1 ? CMODE.LWALL : CMODE.RWALL, plane);
 		
 		//Get input presses
 		var mov = hold_right - hold_left;
 		
 		//Pushing animation
-		if(mov = facing && ground && abs(ground_speed) <= x_accel + 0.5 && mode == CMODE_FLOOR)
+		if(mov = facing && ground && abs(ground_speed) <= x_accel + 0.5 && mode == CMODE.FLOOR)
 		{
-			if(wall < 1 || (pushing == C_LEFT && hold_right) || (pushing == C_RIGHT && hold_left))
+			if(wall < 1 || (pushing == C.LEFT && hold_right) || (pushing == C.RIGHT && hold_left))
 			{
 				anim = ANIM.PUSH;
 			}

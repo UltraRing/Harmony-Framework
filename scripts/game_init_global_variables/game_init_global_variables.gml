@@ -6,6 +6,7 @@ function game_init_global_variables()
 	
 	//Character globals
 	global.character = CHAR_SONIC;			//Global value for the character
+	global.character_total = 0;
 	
 	//Screen values
 	global.window_width  = GAME_WINDOW_WIDTH;				//Window's horizontal size

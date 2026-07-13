@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"Harmony Framework",
-    "path":"Harmony Framework.yyp",
+    "name":"Character Select",
+    "path":"folders/Sprites/Menus Sprites/Character Select.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

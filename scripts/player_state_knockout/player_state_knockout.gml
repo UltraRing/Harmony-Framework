@@ -54,8 +54,8 @@ function player_state_death()
 		
 		if(global.life != 0 && !is_time_over)
 		{
-			fade_change(FADE_OUT, 3,FADE_BLACK)
-			music_set_fade(FADE_OUT, 2);
+			fade_change(FADE.OUT, 3,FADE.BLACK)
+			music_set_fade(FADE.OUT, 2);
 		}
 		else
 		{
@@ -122,8 +122,8 @@ function player_state_drown()
 		
 		if(global.life != 0 && !is_time_over)
 		{
-			fade_change(FADE_OUT, 3,FADE_BLACK)
-			music_set_fade(FADE_OUT, 2);
+			fade_change(FADE.OUT, 3,FADE.BLACK)
+			music_set_fade(FADE.OUT, 2);
 		}
 		else
 		{

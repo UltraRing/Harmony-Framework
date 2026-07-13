@@ -11,8 +11,8 @@
   "name":"obj_special_ring",
   "overriddenProperties":[],
   "parent":{
-    "name":"Harmony Framework",
-    "path":"Harmony Framework.yyp",
+    "name":"Rings",
+    "path":"folders/Objects/Stage Objects/Common Objects/Rings.yy",
   },
   "parentObjectId":null,
   "persistent":false,

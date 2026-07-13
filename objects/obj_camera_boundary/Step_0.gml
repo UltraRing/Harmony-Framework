@@ -4,7 +4,7 @@
 	if(obj_player.knockout_type == K_DIE || obj_player.knockout_type == K_DROWN) exit;
 	
 	//Change the boundary
-	if(player_collide_object(C_MAIN))
+	if(player_collide_object(C.MAIN))
 	{
 		if(!triggered)
 		{

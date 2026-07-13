@@ -20,7 +20,7 @@
 	//Fade out
 	if(timer == 560)
 	{
-		fade_change(FADE_OUT, 2,FADE_BLACK)
+		fade_change(FADE.OUT, 2,FADE.BLACK)
 	}
 	
 	//Do the skip
@@ -28,7 +28,7 @@
 	{
 		if(actionPress)
 		{
-			music_set_fade(FADE_OUT, 2);
+			music_set_fade(FADE.OUT, 2);
 			timer = 560-1;
 		}
 	}

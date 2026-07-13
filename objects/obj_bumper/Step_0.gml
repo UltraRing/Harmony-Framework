@@ -1,6 +1,6 @@
 animator_update(animator);
 
-if player_collide_object(C_MAIN){
+if player_collide_object(C.MAIN){
 	var player = instance_nearest(x,y,obj_player);
 	var angle = point_direction(x,y,player.x,player.y);
 	player.x_speed = BUMPER_FACTOR * dcos(angle);

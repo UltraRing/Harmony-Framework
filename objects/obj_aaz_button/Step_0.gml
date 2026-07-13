@@ -2,7 +2,7 @@
 	var col = player_act_solid();
 
    // Correct side conditions
-	var side = (sign(image_yscale)) ? C_TOP : C_BOTTOM;
+	var side = (sign(image_yscale)) ? C.TOP : C.BOTTOM;
     
     if(col == side)
 	{

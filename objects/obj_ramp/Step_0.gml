@@ -1,6 +1,6 @@
 /// @description Script
 	
-	if(player_collide_object(C_MAIN))
+	if(player_collide_object(C.MAIN))
 	{
 		//If angle is in the range
 		if(obj_player.ground_angle >= angle_start && obj_player.ground_angle <= angle_end)

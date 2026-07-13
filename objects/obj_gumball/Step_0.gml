@@ -9,7 +9,7 @@ y = max(y, obj_gumball_machine.y+64);
 image_index = reward;
 image_speed = 0;
 
-if (player_collide_object(C_MAIN) && !obj_player.input_disable){
+if (player_collide_object(C.MAIN) && !obj_player.input_disable){
 	switch (reward){
 		case GUMBALL.BUBBLE:
 			play_sound(sfx_burst);

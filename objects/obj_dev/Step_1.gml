@@ -14,7 +14,7 @@
 	if(keyboard_check_pressed(ord("M")) && !obj_shell.isOpen)
 	{
 		fade_to_room(rm_stage_select, 4);
-		music_set_fade(FADE_OUT, 5);
+		music_set_fade(FADE.OUT, 5);
 	}
 	
 	//Toggle debug mode
@@ -41,7 +41,7 @@
 		if(keyboard_check_pressed(vk_f2)) 
 		{
 			fade_to_room(room, 5);
-			music_set_fade(FADE_OUT, 5);
+			music_set_fade(FADE.OUT, 5);
 		}
 		if(keyboard_check_pressed(vk_f1)) game_restart();
 		if(keyboard_check_pressed(vk_f10))
@@ -49,7 +49,7 @@
 			global.character = (global.character + 1) mod 3;
 			with(obj_player)
 			{
-				player_animation_list();
+				char_animation_list();
 				animator_reset(animator);
 				
 			}

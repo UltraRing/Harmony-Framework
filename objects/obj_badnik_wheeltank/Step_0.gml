@@ -17,9 +17,9 @@
 	image_xscale = badnikdirection
 	
 	// Collision checks
-	var fcheck = collision_get_distance(x, y + 15, CMODE_FLOOR, PLANE_A, true);
-	var ledgecheck = collision_get_distance(x + 8 * badnikdirection, y + 15, CMODE_FLOOR, PLANE_A, true);
-	var wallcheck = collision_get_distance(x + 12 * badnikdirection, y, badnikdirection ? CMODE_LWALL : CMODE_RWALL, PLANE_A, true);
+	var fcheck = collision_get_distance(x, y + 15, CMODE.FLOOR, PLANE.A, true);
+	var ledgecheck = collision_get_distance(x + 8 * badnikdirection, y + 15, CMODE.FLOOR, PLANE.A, true);
+	var wallcheck = collision_get_distance(x + 12 * badnikdirection, y, badnikdirection ? CMODE.LWALL : CMODE.RWALL, PLANE.A, true);
 	
 	// Grounded state
 	if(grounded)

@@ -3,7 +3,7 @@
 	depth = obj_player.depth + 1;
 	
 	//Hit the checkpoint
-	if(player_collide_object(C_MAIN) && !triggered)
+	if(player_collide_object(C.MAIN) && !triggered)
 	{
 		//Trigger the checkpoint
 		triggered = true;
@@ -60,8 +60,8 @@
 			obj_player.input_disable = true;
 			
 			play_sound(sfx_warp_into);
-			fade_to_room(rm_bonus, 2, FADE_WHITE, 30);
-			music_fade_channel(BGM, FADE_OUT, 3);
+			fade_to_room(rm_bonus, 2, FADE.WHITE, 30);
+			music_fade_channel(BGM, FADE.OUT, 3);
 			
 			global.store_player_state.combinering = obj_player.combinering;
 			global.store_player_state.shield = obj_player.shield;

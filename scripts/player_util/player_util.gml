@@ -134,13 +134,13 @@ function player_react_solid(result)
 	var colY = result.col_y
 	
 	// Vertical collision sides
-	if(side == C_TOP || side == C_BOTTOM)
+	if(side == C.TOP || side == C.BOTTOM)
 	{
 		// Position the object
 		o.y = colY;	
 		
 		// Flag player as on object
-		if(side == C_TOP && o.mode == 0)
+		if(side == C.TOP && o.mode == 0)
 		{
 			o.on_object = true;
 			
@@ -170,7 +170,7 @@ function player_react_solid(result)
 			}
 			
 			// Land the player
-			if(!o.ground && side = C_TOP)
+			if(!o.ground && side = C.TOP)
 			{
 				// Stop falling
 				o.y_speed = 0;
@@ -188,7 +188,7 @@ function player_react_solid(result)
 		// Going up
 		if(o.y_speed < 0)
 		{
-			if(!o.ground && side == C_BOTTOM)
+			if(!o.ground && side == C.BOTTOM)
 				o.y_speed = 0;
 			
 			// If player is going up the walls, then stop
@@ -201,7 +201,7 @@ function player_react_solid(result)
 	}
 		
 	// Horizontal collision sides
-	if(side == C_LEFT || side == C_RIGHT)
+	if(side == C.LEFT || side == C.RIGHT)
 	{
 		// Position the object
 		o.x = colX;	
@@ -210,7 +210,7 @@ function player_react_solid(result)
 		var spdVal = o.ground ? "ground_speed" : "x_speed";
 		var spd = variable_instance_get(o, spdVal);
 			
-		if(side == C_LEFT && spd > 0 || side == C_RIGHT && spd < 0)
+		if(side == C.LEFT && spd > 0 || side == C.RIGHT && spd < 0)
 		{
 			variable_instance_set(o, spdVal, 0);	
 		}
@@ -227,7 +227,7 @@ function player_react_solid(result)
 	}
 }
 
-function player_collide_object(this_hitbox = -1, side = C_MAIN, player_id = 0)
+function player_collide_object(this_hitbox = -1, side = C.MAIN, player_id = 0)
 {	
 	//Get nearest player object:
 	var p = player_find(player_id);
@@ -237,25 +237,25 @@ function player_collide_object(this_hitbox = -1, side = C_MAIN, player_id = 0)
 	switch(side)
 	{
 		//Bottom side of the hitbox:
-		case C_BOTTOM: 
+		case C.BOTTOM: 
 		pBox[BBOX.TOP] = 0;
 		pBox[BBOX.BOTTOM]++;
 		break;
 		
 		//Top side of the hitbox:
-		case C_TOP: 
+		case C.TOP: 
 		pBox[BBOX.BOTTOM] = 0;
 		pBox[BBOX.TOP]--;
 		break;
 		
 		//Left side of the hitbox:
-		case C_LEFT: 
+		case C.LEFT: 
 		pBox[BBOX.RIGHT] = 0;
 		pBox[BBOX.LEFT]--;
 		break;
 		
 		//Right side of the hitbox:
-		case C_RIGHT:
+		case C.RIGHT:
 		pBox[BBOX.LEFT] = 0;
 		pBox[BBOX.RIGHT]++;
 		break;

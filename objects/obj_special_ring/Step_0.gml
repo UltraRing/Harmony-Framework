@@ -43,8 +43,8 @@
 			
 			global.special_ring_store[| id] = true
 			
-			fade_to_room(rm_blue_spheres, 2, FADE_WHITE, 30);
-			music_set_fade(FADE_OUT, 2);
+			fade_to_room(rm_blue_spheres, 2, FADE.WHITE, 30);
+			music_set_fade(FADE.OUT, 2);
 			
 			play_sound(sfx_warp_into);
 		}

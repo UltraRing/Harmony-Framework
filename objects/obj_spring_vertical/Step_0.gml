@@ -6,7 +6,7 @@
 	var player = player_find(0);
 	var m = detach_sides ? 0 : player.mode;
 	
-	if(c == C_TOP && sign(image_yscale) == 1)
+	if(c == C.TOP && sign(image_yscale) == 1)
 	{
 		animator.animation_finished = false;
 		triggered = true;
@@ -29,7 +29,7 @@
 		play_sound(sfx_spring);
 	}
 	
-	if(c == C_BOTTOM && sign(image_yscale) == -1)
+	if(c == C.BOTTOM && sign(image_yscale) == -1)
 	{
 		animator.animation_finished = false;
 		triggered = true;

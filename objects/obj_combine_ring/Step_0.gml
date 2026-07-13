@@ -19,7 +19,7 @@
 	}
 	
 	//Collect the ring
-	if(obj_player.state != player_state_knockout && player_collide_object(C_MAIN))
+	if(obj_player.state != player_state_knockout && player_collide_object(C.MAIN))
 	{
 		global.rings += rings;	
 		instance_destroy();
@@ -45,8 +45,8 @@
 	y_speed += 0.09375;
 			
 	//Collision detection
-	var hc = collision_get_distance(x + 16 * sign(x_speed), y, sign(x_speed) ? CMODE_LWALL : CMODE_RWALL, plane, false);
-	var vc = collision_get_distance(x, y + 16 * sign(y_speed), sign(y_speed) ? CMODE_FLOOR : CMODE_CEILING, plane, sign(y_speed));
+	var hc = collision_get_distance(x + 16 * sign(x_speed), y, sign(x_speed) ? CMODE.LWALL : CMODE.RWALL, plane, false);
+	var vc = collision_get_distance(x, y + 16 * sign(y_speed), sign(y_speed) ? CMODE.FLOOR : CMODE.CEILING, plane, sign(y_speed));
 		
 	// Bounce off floor and ceiling
 	if(vc < 0)

@@ -11,7 +11,7 @@ function music_init()
 		fade_type : noone,
 		loop_start : noone,
 		loop_end : noone,
-		general_fade : FADE_IN,
+		general_fade : FADE.IN,
 		general_fade_speed : 1,
 		general_fade_multiplier : 1
 	}
@@ -133,12 +133,12 @@ function music_cross_fade(target_channel, fade_speed)
 		if(target_channel != i)
 		{
 			obj_global.music.fade_speed[target_channel] = fade_speed;
-			obj_global.music.fade_type[i] = FADE_OUT;
+			obj_global.music.fade_type[i] = FADE.OUT;
 		}
 	}
 	
 	obj_global.music.fade_speed[target_channel] = fade_speed;
-	obj_global.music.fade_type[target_channel] = FADE_IN;	
+	obj_global.music.fade_type[target_channel] = FADE.IN;	
 }
 
 function music_set_fade(fade_type, fade_speed)
@@ -149,7 +149,7 @@ function music_set_fade(fade_type, fade_speed)
 
 function music_reset_fade()
 {
-	music_set_fade(FADE_IN, 1);
+	music_set_fade(FADE.IN, 1);
 	obj_global.music.general_fade_multiplier = 1;
 }
 
@@ -191,7 +191,7 @@ function music_play_priority(music_id, channel)
 		if(channel != i)
 		{
 			obj_global.music.fade_multiplier[i] = 0;	
-			obj_global.music.fade_type[i] = FADE_OUT;
+			obj_global.music.fade_type[i] = FADE.OUT;
 		}
 	}
 	
@@ -234,7 +234,7 @@ function stop_jingle(fade_music_in, fade_speed = 1)
 			//Fade into BGM (optional)
 			if(fade_music_in = true)
 			{
-				music.general_fade = FADE_IN;
+				music.general_fade = FADE.IN;
 				music.general_fade_speed = fade_speed;
 				music.general_fade_multiplier = 0;
 			}

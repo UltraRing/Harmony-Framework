@@ -3,7 +3,7 @@
 	//Update the position
 	y += y_speed;
 	
-	var c = collision_get_distance(x, y - 1, CMODE_FLOOR, PLANE_A, true);
+	var c = collision_get_distance(x, y - 1, CMODE.FLOOR, PLANE.A, true);
 	
 	//Airborne events
 	if(!ground)

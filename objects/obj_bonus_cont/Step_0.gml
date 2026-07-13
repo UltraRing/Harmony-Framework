@@ -9,7 +9,7 @@
 			obj_player.input_disable = true;
 			
 			// Fade back to the level
-			fade_to_room(global.previous_room, 2, FADE_BLACK, 30);
+			fade_to_room(global.previous_room, 2, FADE.BLACK, 30);
 			
 			// Set the flag
 			other.exiting = true;

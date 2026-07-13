@@ -8,7 +8,7 @@
 	y_speed += grav;
 	
 	//Hurt the player
-	if(player_collide_object(C_MAIN))
+	if(player_collide_object(C.MAIN))
 	{
 		var fly_angle = 90 - point_direction(obj_player.x, obj_player.y,x,y) 
 		var fly_cond = (obj_player.state == player_state_tailsfly && abs(fly_angle) < 45)

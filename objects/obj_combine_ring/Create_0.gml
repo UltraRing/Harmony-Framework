@@ -4,5 +4,5 @@
 	y_speed = -4;
 	culling = true;
 	timer = 0;
-	plane = PLANE_A;
+	plane = PLANE.A;
 	

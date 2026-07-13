@@ -312,7 +312,7 @@ switch (state)
 
 			timer_100 = 100;
 			state = BSS_STATE.TELE_OUT;
-			fade_change(FADE_IN, 6, FADE_WHITE); //fade the white flash back out
+			fade_change(FADE.IN, 6, FADE.WHITE); //fade the white flash back out
 		}
 		break;
 
@@ -410,7 +410,7 @@ switch (state)
 		spin_timer += 2;
 
 		//Fade to black while spinning
-		fade_change(FADE_OUT, 3, FADE_BLACK);
+		fade_change(FADE.OUT, 3, FADE.BLACK);
 		exit_timer++;
 		
 		if (exit_timer >= 90 && obj_global.fade.timer == 0) 

@@ -1,5 +1,5 @@
 /// @description Collision Test
-	if (player_collide_object(C_MAIN))
+	if (player_collide_object(C.MAIN))
 	{
 		if (!ground_only || (ground_only && obj_player.ground)) {
 			switch(layer_type)

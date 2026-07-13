@@ -15,7 +15,7 @@
 				invincible_timer = 0
 				invincible = false
 				super_color = SUPER_PALETTE_LOOP
-				player_animation_list();
+				char_animation_list();
 				animator_reset(animator);	
 			}
 			ground_speed = 0;
@@ -28,7 +28,7 @@
 	//Fade out
 	if(timer = 1 && state = 0)
 	{
-		music_set_fade(FADE_OUT, 1)
+		music_set_fade(FADE.OUT, 1)
 	}
 	
 	//Play act clear music
@@ -103,7 +103,7 @@
 	{
 		if(timer = 80)
 		{
-			fade_change(FADE_OUT, 5,FADE_BLACK)
+			fade_change(FADE.OUT, 5,FADE.BLACK)
 		}
 		
 		//Go to the next stage

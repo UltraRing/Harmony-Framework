@@ -1,8 +1,12 @@
 	menu = obj_main_menu;
 	
-	sprites = [spr_sonic_victory, spr_tails_victory, spr_knuckles_victory];
-	char_names = ["SONIC", "TAILS", "KNUCKLES"];
-	char_y = array_create(3, 0);
+	for(var i = 0; i < global.character_total; i++)
+	{
+		sprites[i] = char_get_menu_sprite(i);
+		char_names[i] = string_upper(char_get_name(i));
+	}
+	
+	char_y = array_create(global.character_total, 0);
 	select = 0;
 	
 	transition_offset = 256;

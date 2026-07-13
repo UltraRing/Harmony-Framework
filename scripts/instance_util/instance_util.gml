@@ -22,13 +22,13 @@ function instance_act_solid(o, hitbox_other = noone, this = id, this_hitbox = no
 		{
 			if(o.x + otherHitbox[BBOX.RIGHT] + 1 >= this.x + thisHitbox[BBOX.LEFT])
 			{
-				sideH = C_LEFT;
+				sideH = C.LEFT;
 				colX = this.x + (thisHitbox[BBOX.LEFT] - otherHitbox[BBOX.RIGHT]) - 1;
 			}
 		} 
 		else if(o.x + otherHitbox[BBOX.LEFT] <= this.x + thisHitbox[BBOX.RIGHT] + 1)
 		{
-			sideH = C_RIGHT;
+			sideH = C.RIGHT;
 			colX = this.x + (thisHitbox[BBOX.RIGHT] - otherHitbox[BBOX.LEFT]) + 1;
 		}
 	}
@@ -41,13 +41,13 @@ function instance_act_solid(o, hitbox_other = noone, this = id, this_hitbox = no
 		{
 			if(o.y + otherHitbox[BBOX.BOTTOM] + 1 >= this.y + thisHitbox[BBOX.TOP])
 			{
-				sideV = C_TOP;	
+				sideV = C.TOP;	
 				colY = this.y + (thisHitbox[BBOX.TOP] - otherHitbox[BBOX.BOTTOM]) - 1;
 			}
 		} 
 		else if(o.y + otherHitbox[BBOX.TOP] <= this.y + thisHitbox[BBOX.BOTTOM])
 		{
-			sideV = C_BOTTOM;	
+			sideV = C.BOTTOM;	
 			colY = this.y + (thisHitbox[BBOX.BOTTOM] - otherHitbox[BBOX.TOP]);
 		}
 	}
@@ -322,7 +322,7 @@ function _instance_react_solid(result)
 	var colY = result.col_y
 	
 	// Vertical collision sides
-	if(side == C_TOP || side == C_BOTTOM)
+	if(side == C.TOP || side == C.BOTTOM)
 	{
 		// Position the object
 		o.y = colY;	
@@ -330,13 +330,13 @@ function _instance_react_solid(result)
 		// Stop object's vertical movement if it exists
 		if(variable_instance_exists(o, "y_speed"))
 		{
-			if(side == C_TOP && o.y_speed > 0 || side == C_BOTTOM && o.y_speed < 0)
+			if(side == C.TOP && o.y_speed > 0 || side == C.BOTTOM && o.y_speed < 0)
 				o.y_speed = 0;
 		}
 	}
 	
 	// Horizontal collision sides
-	if(side == C_LEFT || side == C_RIGHT)
+	if(side == C.LEFT || side == C.RIGHT)
 	{
 		// Position the object
 		o.x = colX;	
@@ -344,7 +344,7 @@ function _instance_react_solid(result)
 		// Stop object's horizontal movement if it exists
 		if(variable_instance_exists(o, "y_speed"))
 		{
-			if(side == C_LEFT && o.x_speed > 0 || side == C_RIGHT && o.x_speed < 0)
+			if(side == C.LEFT && o.x_speed > 0 || side == C.RIGHT && o.x_speed < 0)
 				o.x_speed = 0;
 		}
 	}

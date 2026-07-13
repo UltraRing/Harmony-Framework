@@ -26,7 +26,7 @@ function player_state_wallclimb(){
 	}
 	
 	// Wall collision
-	var wallCol = collision_get_distance(x + wall_w * facing, y, facing == 1 ? CMODE_LWALL : CMODE_RWALL, plane, false);
+	var wallCol = collision_get_distance(x + wall_w * facing, y, facing == 1 ? CMODE.LWALL : CMODE.RWALL, plane, false);
 		
 	//Has reached the ground
 	if(ground && hold_down)

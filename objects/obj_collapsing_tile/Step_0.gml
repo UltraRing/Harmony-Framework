@@ -1,6 +1,6 @@
 /// @description Collaps it
 
-	if(obj_player.ground && player_collide_object(noone, C_BOTTOM) && !triggered)
+	if(obj_player.ground && player_collide_object(noone, C.BOTTOM) && !triggered)
 	{
 		triggered = true
 		event_user(1) //generates tile data to be saved

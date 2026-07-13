@@ -6,13 +6,13 @@
 	y_speed = 0;						// Vertical speed movement
 	ground_speed = 0;					// Speed for ground movement
 	ground_angle = 0;					// Value for floor angle
-	mode = CMODE_FLOOR;					// Floor mode value for ground movement
+	mode = CMODE.FLOOR;					// Floor mode value for ground movement
 	x_dir = 0;							// Multiplier for horizontal ground movement
 	y_dir = 1;							// Multiplier for vertical ground movement
 	steps = 1;							// Variable used for precise collision
 	control_lock = 0;					// Timer used for locking controls when you're on steep slopes
 	ceiling_landing = 0;				// Ceiling landing state machine
-	plane = PLANE_A;					// Collision planes/layers
+	plane = PLANE.A;					// Collision planes/layers
 	floor_delay = 0;					// Delay timer for when player changes floor mode, hacky fix for jittery mode changes
 	reach_range = 16;					// Range of how much angle sensors can go below floor checks
 	ceiling_lock = 0;					// Timer used for locking ceiling landing, hacky fix for collision bugs
@@ -117,34 +117,26 @@
 	hitbox_bottom_offset = 0;			// Hitbox offset of the bottom side
 	hitbox_right_offset = 0;			// Hitbox offset of the right side
 	
-	//Normal hitbox unique to each character
-	hitbox_normal =
-	[
-		[9, 19],	// Sonic's hitbox
-		[9, 15],	// Tails' hitbox
-		[9, 19]		// Knuckles' hitbox
-	]
-	
-	//Rolling hitbox unique to each character
-	hitbox_rolling =
-	[
-		[7, 14],	// Sonic's hitbox
-		[7, 14],	// Tails' hitbox
-		[7, 14]		// Knuckles' hitbox
-	]
-	
-	//Camera rolling offset unique to each character
-	camera_rolling_offset = [5, 1, 5];
+	//Setup each character properties
+	for(var i = 0; i < global.character_total; i++)
+	{
+		//Hitboxes
+		hitbox_normal[i] = char_get_hitbox_normal(i);
+		hitbox_rolling[i] = char_get_hitbox_rolling(i);
+		
+		//Camera rolling offset
+		camera_rolling_offset[i] = char_get_camera_roll_offset(i);
+		
+		//Super palettes
+		super_palettes[i] = char_get_super_palette(i);
+	}
 	
 	//the index for the players super form palette
 	super_color = 0;
-	super_palettes = [tex_pal_supersonic, tex_pal_supertails, tex_pal_superknux]
-	#macro SUPER_PALETTE_SIZE 16
-	#macro SUPER_PALETTE_LOOP 7
 	
 	//Setup scripts
 	player_get_input();					//Setup player inputs
-	player_animation_list();			//Initilize the animation list
+	char_animation_list();				//Initilize the animation list
 	
 	//Create important objects:
 	instance_create_depth(0, 0, 0, obj_camera);		//Create the camera object

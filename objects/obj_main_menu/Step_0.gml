@@ -68,8 +68,8 @@
 		// Exit the game
 		if(select == 2)
 		{
-			fade_change(FADE_OUT, 2);
-			music_set_fade(FADE_OUT, 2);
+			fade_change(FADE.OUT, 2);
+			music_set_fade(FADE.OUT, 2);
 				
 			if(obj_global.fade.timer == 0)
 				game_end();	

@@ -1,6 +1,6 @@
 /// @description Script
 	
-	if(player_collide_object(C_MAIN))
+	if(player_collide_object(C.MAIN))
 	{
 		//Force angle
 		obj_player.ground_angle = target_angle;

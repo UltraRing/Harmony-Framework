@@ -24,7 +24,7 @@
 			}
 			else
 			{
-				if(player.attacking && player_collide_object(C_TOP))
+				if(player.attacking && player_collide_object(C.TOP))
 				{
 					collision_flag = false;
 				}
@@ -40,7 +40,7 @@
 			col = player_act_solid();
 		
 		//Bump the monitor
-		if(col == C_BOTTOM && sign(image_yscale) == 1)
+		if(col == C.BOTTOM && sign(image_yscale) == 1)
 		{
 			ground = false;
 			y_speed = -2;	
@@ -111,7 +111,7 @@
 		}
 		
 		//Collision
-		var c = collision_active_sensor(floor((bbox_right - bbox_left) / 2), floor(bbox_bottom - y - 1), CMODE_FLOOR, PLANE_A, true);
+		var c = collision_active_sensor(floor((bbox_right - bbox_left) / 2), floor(bbox_bottom - y - 1), CMODE.FLOOR, PLANE.A, true);
 		
 		if(c.height < 0 && y_speed >= 0)
 		{
@@ -123,7 +123,7 @@
 	else if(check_ground_below)
 	{
 		//Collision
-		var c = collision_active_sensor(floor((bbox_right - bbox_left) / 2), floor(bbox_bottom - y - 1), CMODE_FLOOR, PLANE_A, true);
+		var c = collision_active_sensor(floor((bbox_right - bbox_left) / 2), floor(bbox_bottom - y - 1), CMODE.FLOOR, PLANE.A, true);
 		
 		// Detach if theres nothing below
 		if(c.height > 14)

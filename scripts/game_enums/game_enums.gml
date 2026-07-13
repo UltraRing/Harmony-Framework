@@ -49,3 +49,84 @@
 		NORMAL,
 		SPECIAL_RING
 	}
+	
+	// Collision
+	enum PLANE
+	{	
+		A,
+		B
+	}
+	
+	// Collision side
+	enum C 
+	{
+		MAIN,
+		BOTTOM,
+		TOP,
+		LEFT,
+		RIGHT
+	}
+	
+	// Collision mode
+	enum CMODE 
+	{
+		FLOOR,
+		LWALL,
+		CEILING,
+		RWALL
+	}
+	
+	// Fading
+	enum FADE
+	{
+		IN = 1,
+		OUT = -1,
+		BLACK = 0,
+		WHITE = 1
+	}
+	
+	// Animation for the player
+	enum ANIM 
+	{
+		STAND,
+		WAIT,
+		WALK,
+		RUN,
+		MAXRUN,
+		ROLL,
+		LOOKDOWN,
+		LOOKUP,
+		SPINDASH,
+		SPRING,
+		HURT,
+		PUSH,
+		SKID,
+		SKIDTURN,
+		DIE,
+		DROWN,
+		BREATHE,
+		LEDGE1,
+		LEDGE2,
+		VICTORY,
+		DROPDASH,
+		TAILSFLY,
+		TAILSTIRED,
+		TAILSSWIM,
+		TAILSSWIMTIRED,
+		KNUXGLIDE, 
+		KNUXGLIDETURN,
+		KNUXCLIMBUP, 
+		KNUXCLIMBDOWN,
+		KNUXCLIMBIDLE,
+		KNUXLEDGE,
+		KNUXFALL, 
+		KNUXLAND, 
+		KNUXSLIDE, 
+		KNUXGETUP, 
+		TRANSFORM,
+		
+		// Tails' tails animations
+		TAILS_NORMAL,
+		TAILS_ROLL,
+	}
+	

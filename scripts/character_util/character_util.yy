@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"player_animation_list",
+  "%Name":"character_util",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"player_animation_list",
+  "name":"character_util",
   "parent":{
-    "name":"Misc",
-    "path":"folders/Scripts/Player Scripts/Misc.yy",
+    "name":"Utility Scripts",
+    "path":"folders/Scripts/Utility Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

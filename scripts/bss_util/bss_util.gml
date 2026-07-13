@@ -529,7 +529,7 @@ function bss_stepped_objects()
 					state = BSS_STATE.JETTISON;
 					spin_timer = 0;
 					play_sound(sfx_jettison);
-					music_fade_channel(BGM, FADE_OUT, 1);
+					music_fade_channel(BGM, FADE.OUT, 1);
 				} else {
 					play_sound(sfx_blue_sphere);
 				}
@@ -544,7 +544,7 @@ function bss_stepped_objects()
 				globe_timer = 0;
 				exit_result = "fail";
 				play_sound(sfx_warp_exit);
-				music_fade_channel(BGM, FADE_OUT, 1);
+				music_fade_channel(BGM, FADE.OUT, 1);
 			}
 			break;
 
@@ -605,7 +605,7 @@ function bss_stepped_objects()
 				globe_timer = 0;
 				tele_timer = 0;
 				play_sound(sfx_teleport);
-				fade_change(FADE_OUT, 6, FADE_WHITE); //Mania FXFade white flash, via the project fade system
+				fade_change(FADE.OUT, 6, FADE.WHITE); //Mania FXFade white flash, via the project fade system
 			}
 			break;
 
@@ -645,7 +645,7 @@ function bss_stepped_objects()
 					state = BSS_STATE.JETTISON;
 					spin_timer = 0;
 					play_sound(sfx_jettison);
-					music_fade_channel(BGM, FADE_OUT, 1);
+					music_fade_channel(BGM, FADE.OUT, 1);
 				} else {
 					play_sound(sfx_blue_sphere);
 				}
@@ -663,7 +663,7 @@ function bss_stepped_objects()
 				player_y = (player_y - ashr(cos256(angle), 8)) & 31;
 				exit_result = "fail";
 				play_sound(sfx_warp_exit);
-				music_fade_channel(BGM, FADE_OUT, 1);
+				music_fade_channel(BGM, FADE.OUT, 1);
 			}
 			break;
 

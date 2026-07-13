@@ -5,7 +5,7 @@
 	var col = player_act_solid();
 	
 	//Hurt the player
-	if(col == (sign(image_xscale) == 1 ? C_LEFT : C_RIGHT))
+	if(col == (sign(image_xscale) == 1 ? C.LEFT : C.RIGHT))
 	{
 		var player = player_find(0)
 		if(player.invincible_timer == 0 && player.insta_shield_invincible == 0)

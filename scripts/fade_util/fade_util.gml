@@ -4,7 +4,7 @@ function fade_init()
 		reset : true,
 		spd : 1,
 		timer : 512,
-		type : FADE_IN,
+		type : FADE.IN,
 		target_room : noone,
 		color_type : false,
 		buffer : 0,
@@ -83,7 +83,7 @@ function fade_draw()
 	gpu_set_blendmode(bm_normal);
 }
 
-function fade_to_room(room_target, fade_speed, fade_color = FADE_BLACK, fade_buffer = 0)
+function fade_to_room(room_target, fade_speed, fade_color = FADE.BLACK, fade_buffer = 0)
 {
 	//Get the object
 	var fade = obj_global.fade;
@@ -96,13 +96,13 @@ function fade_to_room(room_target, fade_speed, fade_color = FADE_BLACK, fade_buf
 	fade.buffer = fade_buffer;
 	
 	//Set to correct fade mode
-	fade.type = FADE_OUT;
+	fade.type = FADE.OUT;
 	
 	//Change the fade color
 	fade.color_type = fade_color;
 }
 
-function fade_to_room_next(fade_speed, fade_color = FADE_BLACK, fade_buffer = 0)
+function fade_to_room_next(fade_speed, fade_color = FADE.BLACK, fade_buffer = 0)
 {
 	//Get the object
 	var fade = obj_global.fade;
@@ -115,13 +115,13 @@ function fade_to_room_next(fade_speed, fade_color = FADE_BLACK, fade_buffer = 0)
 	fade.buffer = fade_buffer;
 	
 	//Set to correct fade mode
-	fade.type = FADE_OUT;
+	fade.type = FADE.OUT;
 	
 	//Change the fade color
 	fade.color_type = fade_color;
 }
 
-function fade_in_room(fade_speed, fade_color = FADE_BLACK, fade_buffer = 0)
+function fade_in_room(fade_speed, fade_color = FADE.BLACK, fade_buffer = 0)
 {
 	//Get the object
 	var fade = obj_global.fade;
@@ -137,13 +137,13 @@ function fade_in_room(fade_speed, fade_color = FADE_BLACK, fade_buffer = 0)
 	fade.buffer = fade_buffer;
 	
 	//Set to correct fade mode
-	fade.type = FADE_IN;
+	fade.type = FADE.IN;
 	
 	//Change the fade color
 	fade.color_type = fade_color;
 }
 
-function fade_change(fade_mode, fade_speed, fade_color = FADE_BLACK, fade_buffer = 0)
+function fade_change(fade_mode, fade_speed, fade_color = FADE.BLACK, fade_buffer = 0)
 {
 	//Get the object
 	var fade = obj_global.fade;

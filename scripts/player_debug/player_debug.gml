@@ -55,7 +55,7 @@ function player_debug(){
 	//Become alive again
 	if(state == player_state_death || state == player_state_drown)
 	{
-		fade_change(FADE_IN, 5);
+		fade_change(FADE.IN, 5);
 		music_reset_fade();
 		
 		state = player_state_normal;

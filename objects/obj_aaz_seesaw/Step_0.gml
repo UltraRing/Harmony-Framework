@@ -47,7 +47,7 @@
 	var player = player_find(0);
 	
 	// Move the player
-	if(weightCollision == C_BOTTOM || weightCollision == C_TOP)
+	if(weightCollision == C.BOTTOM || weightCollision == C.TOP)
 		player.y += floor(weight_y - oldY);
 		
 	// Position the player
@@ -92,7 +92,7 @@
 	if(platformRight)
 	{
 		// Crush the player
-		if(weightCollision == C_BOTTOM)
+		if(weightCollision == C.BOTTOM)
 			player_hurt(0, K_DIE);	
 	
 		stepping_side = 1;

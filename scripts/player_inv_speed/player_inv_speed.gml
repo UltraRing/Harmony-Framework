@@ -99,7 +99,7 @@ function player_inv_speed(){
 				invincible_timer = 0
 				invincible = false
 				super_color = SUPER_PALETTE_LOOP
-				player_animation_list();
+				char_animation_list();
 				animator_reset(animator);	
 			}
 		}
@@ -110,7 +110,7 @@ function player_inv_speed(){
 			invincible_timer = 0
 			invincible = false
 			super_color = SUPER_PALETTE_LOOP
-			player_animation_list();
+			char_animation_list();
 			animator_reset(animator);	
 		}
 	}

@@ -18,7 +18,7 @@
 	landed = false;
 	
 	//Handle collision
-	var c = collision_get_distance(x, y + 8, CMODE_FLOOR, PLANE_A, true)
+	var c = collision_get_distance(x, y + 8, CMODE.FLOOR, PLANE.A, true)
 	
 	if(c < 0 && y_speed >= 0)
 	{
