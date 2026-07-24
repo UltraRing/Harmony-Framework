@@ -306,7 +306,7 @@
     {"id":{"name":"level_util","path":"scripts/level_util/level_util.yy",},},
     {"id":{"name":"math_util","path":"scripts/math_util/math_util.yy",},},
     {"id":{"name":"music_util","path":"scripts/music_util/music_util.yy",},},
-    {"id":{"name":"palette_swap","path":"scripts/palette_swap/palette_swap.yy",},},
+    {"id":{"name":"palette_swapper_util","path":"scripts/palette_swapper_util/palette_swapper_util.yy",},},
     {"id":{"name":"player_animation_list","path":"scripts/player_animation_list/player_animation_list.yy",},},
     {"id":{"name":"player_collision","path":"scripts/player_collision/player_collision.yy",},},
     {"id":{"name":"player_control","path":"scripts/player_control/player_control.yy",},},
