@@ -270,7 +270,10 @@ function background_update_layer_values()
     
     //Palette Swapper (If the Palette Swapper PR passes)
         /*
-        palette_swapper_update(palette_swapper);
-        palette_swapper_draw(palette_swapper);
+        if(palette_swapper)
+        {
+            palette_swapper_update(palette_swapper);
+            palette_swapper_draw(palette_swapper);
+        }
         */
 }
