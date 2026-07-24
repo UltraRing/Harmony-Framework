@@ -36,8 +36,8 @@
 		};
 		
 		for (var n = 0; n < bg.bg_id; ++n) {
-			array_push(data.list_x, bg.diff_x[n]);
-			array_push(data.list_y, bg.diff_y[n]);
+			array_push(data.list_x, bg.bg_layers[n].diff_x);
+			array_push(data.list_y, bg.bg_layers[n].diff_y);
 		}
 		variable_struct_set(background_store, name, data);
 	}

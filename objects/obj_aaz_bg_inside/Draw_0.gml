@@ -4,10 +4,10 @@
 	// THIS NEEDS TO BE ABOVE INHERITED EVENT!
 	/*
 	if(condition == true) {
-		background.bg_layers[0].visibility = false;
+		bg_layers[0].visibility = false;
 	}
 	else {
-		background.bg_layers[0].visibility = true;
+		bg_layers[0].visibility = true;
 	}
 	*/
 
@@ -15,7 +15,7 @@
 	event_inherited();
 
 	//Water scale
-	with (background.bg_layers[water_layer])
+	with (bg_layers[water_layer])
     {
     	if(instance_exists(obj_water))
         {

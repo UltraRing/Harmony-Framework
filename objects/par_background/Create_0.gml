@@ -1,2 +1,3 @@
 /// @description Values
-	background = new background_create();
+	bg_layers = [];
+    bg_id = 0;

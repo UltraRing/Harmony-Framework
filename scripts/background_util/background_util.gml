@@ -1,152 +1,146 @@
-function background_create() constructor
+function background_add_layer(sprite, frame, scroll_x, scroll_y, spd_x=0, spd_y=0, off_x=0, off_y=0, vertical_loop=false)
 {
-    bg_layers = [];
-    bg_id = 0;
+    var oldId = bg_id;
     
-    static background_add_layer = function(sprite, frame, scroll_x, scroll_y, spd_x=0, spd_y=0, off_x=0, off_y=0, vertical_loop=false)
-    {
-        var oldId = bg_id;
+    bg_layers[bg_id] = {
+        background_sprite: sprite,
+        background_sprite: sprite,
+        background_frame: frame,
+        factor_x: scroll_x,
+        factor_y: scroll_y,
+        speed_x: spd_x,
+        speed_y: spd_y,
+        offset_x: off_x,
+        offset_y: off_y,
+        background_vertical: vertical_loop,
         
-        bg_layers[bg_id] = {
-            background_sprite: sprite,
-            background_sprite: sprite,
-            background_frame: frame,
-            factor_x: scroll_x,
-            factor_y: scroll_y,
-            speed_x: spd_x,
-            speed_y: spd_y,
-            offset_x: off_x,
-            offset_y: off_y,
-            background_vertical: vertical_loop,
-            
-            line_scroll: false,
-            visibility: true,
-            trigger: false,
-            
-            anim_speed: 0,
-            alpha: 1,
-            
-            blend: {
-                mode: undefined,
-                src: undefined,
-                dst: undefined,
-                eq: undefined,
-                eq_alpha: undefined,
-            },
-            
-            palette_swapper: undefined, //Add support for palette swapper constructor later...
-        }
-        bg_id++;
+        line_scroll: false,
+        visibility: true,
+        trigger: false,
         
-        return oldId;
-    }
-    
-    static background_add_line_layer = function(sprite, frame, scroll_x, scroll_y, spd_x, spd_y, off_x, off_y, gaps, steps, y_scale=1)
-    {
-        var oldId = bg_id;
+        anim_speed: 0,
+        alpha: 1,
         
-        bg_layers[bg_id] = {
-            background_sprite: sprite,
-            background_frame: frame,
-            factor_x: scroll_x,
-            factor_y: scroll_y,
-            speed_x: spd_x,
-            speed_y: spd_y,
-            offset_x: off_x,
-            offset_y: off_y,
-            line_gap: gaps,
-            line_steps: steps,
-            bg_scale: y_scale,
-            
-            background_vertical: false,
-            line_scroll: true,
-            trigger: false,
-            visibility: true,
-            
-            anim_speed: 0,
-            alpha: 1,
-            
-            blend: {
-                mode: undefined,
-                src: undefined,
-                dst: undefined,
-                eq: undefined,
-                eq_alpha: undefined,
-            },
-            
-            palette_swapper: undefined, //Add support for palette swapper constructor later...
-        }
-        bg_id++;
+        blend: {
+            mode: undefined,
+            src: undefined,
+            dst: undefined,
+            eq: undefined,
+            eq_alpha: undefined,
+        },
         
-        return oldId;
+        palette_swapper: undefined,
     }
+    bg_id++;
     
-    static background_layer_set_animation_speed = function(layer_id, speed=0)
-    {
-        bg_layers[layer_id].anim_speed = speed;
+    return oldId;
+}
+
+function background_add_line_layer(sprite, frame, scroll_x, scroll_y, spd_x, spd_y, off_x, off_y, gaps, steps, y_scale=1)
+{
+    var oldId = bg_id;
+    
+    bg_layers[bg_id] = {
+        background_sprite: sprite,
+        background_frame: frame,
+        factor_x: scroll_x,
+        factor_y: scroll_y,
+        speed_x: spd_x,
+        speed_y: spd_y,
+        offset_x: off_x,
+        offset_y: off_y,
+        line_gap: gaps,
+        line_steps: steps,
+        bg_scale: y_scale,
+        
+        background_vertical: false,
+        line_scroll: true,
+        trigger: false,
+        visibility: true,
+        
+        anim_speed: 0,
+        alpha: 1,
+        
+        blend: {
+            mode: undefined,
+            src: undefined,
+            dst: undefined,
+            eq: undefined,
+            eq_alpha: undefined,
+        },
+        
+        palette_swapper: undefined,
     }
+    bg_id++;
     
-    static background_layer_set_alpha = function(layer_id, alpha=1)
-    {
-        bg_layers[layer_id].alpha = alpha;
-    }
-    
-    /// @description                 Set a blendmode to a background layer from a list of preset blend modes, coresponding to the given layer ID.
-    /// @param {layer_id}   layer_id The ID of the background layer.
-    /// @param {mode}       mode     The blendmode preset name. The options are: "lighten", "darken", "addition", and "multiply".
-    static background_layer_set_blendmode_preset = function(layer_id, mode = "normal")
-    {
-        with(bg_layers[layer_id]) {
-        	switch(mode) {
-                case "lighten":
-                    blend.src = bm_one;
-                    blend.dst = bm_dest_color;
-                    
-                    blend.eq = bm_eq_max;
-                    blend.eq_alpha = bm_eq_add;
-                break;
-                case "darken":
-                    blend.src = bm_one;
-                    blend.dst = bm_dest_color;
-                    
-                    blend.eq = bm_eq_min;
-                    blend.eq_alpha = bm_eq_add;
-                break;
-                case "addition":
-                    blend.mode = bm_add;
-                break;
-                case "multiply":
-                    blend.src = bm_zero;
-                    blend.dst = bm_src_color;
-                break;
-            }
+    return oldId;
+}
+
+function background_layer_set_animation_speed(layer_id, speed=0)
+{
+    bg_layers[layer_id].anim_speed = speed;
+}
+
+function background_layer_set_alpha(layer_id, alpha=1)
+{
+    bg_layers[layer_id].alpha = alpha;
+}
+
+/// @description    Set a blendmode to a background layer from a list of preset blend modes, coresponding to the given layer ID.
+/// @param {Real}   layer_id The ID of the background layer.
+/// @param {String} mode     The blendmode preset name. The options are: "lighten", "darken", "addition", and "multiply".
+function background_layer_set_blendmode_preset(layer_id, mode = "normal")
+{
+    with(bg_layers[layer_id]) {
+        switch(mode) {
+            case "lighten":
+                blend.src = bm_one;
+                blend.dst = bm_dest_color;
+                
+                blend.eq = bm_eq_max;
+                blend.eq_alpha = bm_eq_add;
+            break;
+            case "darken":
+                blend.src = bm_one;
+                blend.dst = bm_dest_color;
+                
+                blend.eq = bm_eq_min;
+                blend.eq_alpha = bm_eq_add;
+            break;
+            case "addition":
+                blend.mode = bm_add;
+            break;
+            case "multiply":
+                blend.src = bm_zero;
+                blend.dst = bm_src_color;
+            break;
         }
     }
-    
-    /// @description                 Set a blendmode to a background layer coresponding to the given layer ID.
-    /// @param {layer_id}   layer_id The ID of the background layer.
-    /// @param {mode}       mode     The blendmode constant. It can either take a singular blendmode constant (ex. bm_add) or an array that contains source and destination blendmode factors (ex. [ bm_one, bm_dest_color ]).
-    static background_layer_set_blendmode = function(layer_id, mode)
-    {
-        if(is_array(mode)) {
-            bg_layers[layer_id].blend.src = mode[0];
-            bg_layers[layer_id].blend.dst = mode[1];
-        }
-        else {
-            bg_layers[layer_id].blend.mode = mode;
-        }
-        
+}
+
+/// @description                Set a blendmode to a background layer coresponding to the given layer ID.
+/// @param {Real}               layer_id
+/// @param {Constant.BlendMode} mode The blendmode constant. It can either take a singular Constant.BlendMode constant (ex. bm_add) or an array that contains source and destination Constant.BlendModeFactor's (ex. [ bm_one, bm_dest_color ]).
+function background_layer_set_blendmode(layer_id, mode)
+{
+    if(is_array(mode)) {
+        bg_layers[layer_id].blend.src = mode[0];
+        bg_layers[layer_id].blend.dst = mode[1];
+    }
+    else {
+        bg_layers[layer_id].blend.mode = mode;
     }
     
-    /// @description                           Set a blendequation to a background layer coresponding to the given layer ID.
-    /// @param {layer_id}       layer_id       The ID of the background layer.
-    /// @param {equation}       equation       The blendequation constant.
-    /// @param {equation_alpha} equation_alpha The blendequation constant for the alpha channel.
-    static background_layer_set_blendequation = function(layer_id, equation, equation_alpha = undefined)
-    {
-        bg_layers[layer_id].blend.eq = equation;
-        bg_layers[layer_id].blend.eq_alpha = equation_alpha;
-    }
+}
+
+/// @description                        Set a blendequation to a background layer coresponding to the given layer ID.
+/// @param {Real}                       layer_id
+/// @param {Constant.BlendModeEquation} equation
+/// @param {Constant.BlendModeEquation} equation_alpha
+function background_layer_set_blendequation(layer_id, equation, equation_alpha = undefined)
+{
+    bg_layers[layer_id].blend.eq = equation;
+    bg_layers[layer_id].blend.eq_alpha = equation_alpha;
 }
 
 function background_draw_layer()
@@ -274,6 +268,9 @@ function background_update_layer_values()
             gpu_set_blendequation(blend.eq);
         }
     
-    //Add support for palette swapper constructor later...
-    
+    //Palette Swapper (If the Palette Swapper PR passes)
+        /*
+        palette_swapper_update(palette_swapper);
+        palette_swapper_draw(palette_swapper);
+        */
 }
