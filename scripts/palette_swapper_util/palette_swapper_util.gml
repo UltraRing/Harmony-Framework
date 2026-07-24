@@ -95,7 +95,7 @@
         }
     }
     
-    function palette_play(swapper, palette_id, reset_palette_start=true)
+    function palette_start(swapper, palette_id, reset_palette_start=true)
     {
         if(!global.process_objects)
             exit;
@@ -124,7 +124,7 @@
         }
     }
     
-    function palette_swapper_start(swapper)
+    function palette_swapper_draw(swapper)
     {
         //Get the shader
         var shader = shd_color_replacer;
