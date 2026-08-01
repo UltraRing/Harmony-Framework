@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"bgm_mini_boss",
+  "%Name":"bgm_major_boss",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -10,9 +10,9 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.0,
+  "duration":56.75102,
   "exportDir":"",
-  "name":"bgm_mini_boss",
+  "name":"bgm_major_boss",
   "parent":{
     "name":"Stage Music",
     "path":"folders/Sounds/Music/Stage Music.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"bgm_mini_boss.ogg",
+  "soundFile":"bgm_major_boss.ogg",
   "volume":1.0,
 }

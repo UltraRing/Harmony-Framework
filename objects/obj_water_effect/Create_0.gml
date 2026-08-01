@@ -41,3 +41,29 @@
 		draw_surface_part(global.pal_surf, 0, 0, WINDOW_WIDTH + 32, obj_water.y-cy,cx, cy);
 	}
 	
+	function aaz2_water_dist_bg_end(){
+		if(!instance_exists(obj_water)) exit;
+		
+		var c = view_camera[0];
+	    var cx = camera_get_view_x(c);
+	    var cy = camera_get_view_y(c);
+  
+		
+	    surface_reset_target();
+	
+		//Shader shit
+		var distort_data;
+		
+		for (var i = 0; i < 128; ++i) 
+		{
+			distort_data[i] = 8 * dsin((360 / 128) * i);
+		}
+
+		effect_surface_deform(WINDOW_WIDTH,WINDOW_HEIGHT, distort_data, (cy * (2 / 3)) + FRAME_TIMER / 3)
+	   
+		draw_surface_part(global.pal_surf, -8, obj_water.y-cy, WINDOW_WIDTH + 32, cy, cx-8, obj_water.y);
+	    shader_reset();
+		
+		draw_surface_part(global.pal_surf, 0, 0, WINDOW_WIDTH + 32, obj_water.y-cy,cx, cy);
+	}
+	

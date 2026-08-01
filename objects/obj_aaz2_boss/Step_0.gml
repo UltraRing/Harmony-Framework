@@ -23,11 +23,11 @@
 			// Boss init code
 			visible = true;	
 			
-			y = obj_camera.target_top - 64;
+			y = CAMERA_VIEW_Y - 64;
 			
 			boss_enable = true;
 			
-			music_play(MUSIC.MINI_BOSS);
+			music_play(MUSIC.MAJOR_BOSS);
 			music_reset_fade();
 		}
 	}
@@ -54,6 +54,9 @@
 		inv_timer--;
 			
 	event_user(boss_state);
+	
+	spike_y_target = y + 32;
+	spike_y = mouse_y;
 	
 	// Kill the boss when the HP is 0
 	if(hp == 0)

@@ -15,6 +15,7 @@ function game_init_music_list()
 	
 	// General stage music:
 	music_add(MUSIC.MINI_BOSS, bgm_mini_boss, 6.923);
+	music_add(MUSIC.MAJOR_BOSS, bgm_major_boss);
 	
 	// Game jingles:
 	music_add(MUSIC.GAME_OVER, j_game_over, 0.00, 0.00, false);
@@ -33,6 +34,7 @@ function game_init_music_list()
 		ARBOREAL_AGATE2,
 		TECHDEMO_TOWER,
 		MINI_BOSS,
+		MAJOR_BOSS,
 		BONUS,
 		BLUE_SPHERES,
 		GAME_OVER,
