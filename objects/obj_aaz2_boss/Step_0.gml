@@ -6,8 +6,8 @@
 		music_set_fade(FADE.OUT, 2);
 		
 		// yes, horizontal boundaries are supposed to be hardcoded
-		obj_camera.target_left = xstart - (426 / 2);
-		obj_camera.target_right = xstart + (426 / 2);
+		obj_camera.target_left = xstart - (512 / 2);
+		obj_camera.target_right = xstart + (512 / 2);
 		
 		//obj_camera.target_top = obj_camera.target_bottom - CAMERA_VIEW_H;
 		//obj_camera.target_bottom = ystart + (CAMERA_VIEW_H / 2);
