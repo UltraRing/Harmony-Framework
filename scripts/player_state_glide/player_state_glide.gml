@@ -31,7 +31,7 @@ function player_state_glide(){
 	if(knuckles_angle == 90 || knuckles_angle == -90)
 	{
 		glide_speed += !super ? 0.015625 : 0.046875; //accelerate
-		glide_direction = sign(knuckles_angle)
+		glide_direction = sign(knuckles_angle);
 	}
 	
 	//Limit the glide speed
@@ -58,28 +58,49 @@ function player_state_glide(){
 	this just makes the transition between turning and gliding look nice but not a slog either.
 	This code should work as intended as long as the turn frame count is a ODD number.
 	*/
-	//Determine Glide turn frame
-	var glide_fake_frame_count = animation_get_frame_count(animator, ANIM.KNUXGLIDETURN) + 2 
-	var animation_glide_frame = abs((((90 * facing) + knuckles_angle) / 90) / 2) * (glide_fake_frame_count-1) 
 	
-	var animation_glide_percent = animation_glide_frame / (glide_fake_frame_count-1) 
+	if(KNUCKLES_S3_GLIDE_TURN)
+	{
+		//Determine Glide turn frame
+		var glide_fake_frame_count = animation_get_frame_count(animator, ANIM.KNUXGLIDETURN) + 2;
+		var animation_glide_frame = abs((((90 * facing) + knuckles_angle) / 90) / 2) * (glide_fake_frame_count-1);
 	
-	//check if you should use turn animation
-	if animation_glide_percent > (1/glide_fake_frame_count) && animation_glide_percent < ((glide_fake_frame_count-1)/glide_fake_frame_count){
-		if (!animation_is_playing(animator, ANIM.KNUXGLIDETURN)){
-			facing = sign(knuckles_angle)
-			animation_play(animator,ANIM.KNUXGLIDETURN);
-		}	
-	} else {
-		if (animation_is_playing(animator, ANIM.KNUXGLIDETURN)){
-			animation_play(animator,ANIM.KNUXGLIDE);
-			facing = sign(knuckles_angle)
+		var animation_glide_percent = animation_glide_frame / (glide_fake_frame_count-1);
+	
+		//check if you should use turn animation
+		if(animation_glide_percent > (1 / glide_fake_frame_count) && animation_glide_percent < ((glide_fake_frame_count - 1) / glide_fake_frame_count))
+		{
+			if (!animation_is_playing(animator, ANIM.KNUXGLIDETURN))
+			{
+				facing = sign(knuckles_angle);
+				animation_play(animator,ANIM.KNUXGLIDETURN);
+			}	
+		} 
+		else 
+		{
+			if (animation_is_playing(animator, ANIM.KNUXGLIDETURN))
+			{
+				animation_play(animator,ANIM.KNUXGLIDE);
+				facing = sign(knuckles_angle);
+			}
 		}
-	}
 	
-	//Adjusting glide turn animation based on glide angle
-	if (animation_is_playing(animator, ANIM.KNUXGLIDETURN)){
-		animation_set_frame(animator,round(animation_glide_frame)-1)
+		//Adjusting glide turn animation based on glide angle
+		if (animation_is_playing(animator, ANIM.KNUXGLIDETURN))
+			animation_set_frame(animator, round(animation_glide_frame) - 1);
+	}
+	else
+	{
+		// Glide turn animation
+		if(mov == -1 && facing == 1 || mov == 1 && facing == -1)
+		{
+			facing *= -1;
+			animation_set_frame(animator, 0);
+			animation_play(animator, ANIM.KNUXGLIDETURN);
+		}
+		
+		if(animation_has_finished(animator) && animation_is_playing(animator, ANIM.KNUXGLIDETURN))
+			animation_play(animator, ANIM.KNUXGLIDE);	
 	}
 	
 	

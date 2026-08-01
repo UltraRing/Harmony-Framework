@@ -26,3 +26,5 @@
 	// Configuration flag for allowing water to flash when the electric shield is lost
 	#macro WATER_FLASH false
 	
+	// Configuration flag for usage of Sonic 3's Knuckles glide turning behaviour
+	#macro KNUCKLES_S3_GLIDE_TURN false
