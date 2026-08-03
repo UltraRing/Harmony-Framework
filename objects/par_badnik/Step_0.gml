@@ -3,7 +3,7 @@
 	//Destroy the enemy
 	if((player_collide_object() || player_insta_shield_collide()) && destructible)
 	{
-		var fly_angle = 90 - point_direction(obj_player.x, obj_player.y,x,y) 
+		var fly_angle = 90 - point_direction(obj_player.x, obj_player.y, x, y) 
 		var fly_cond = (obj_player.state == player_state_tailsfly && abs(fly_angle) < 45)
 		
 		if(obj_player.attacking || obj_player.invincible || fly_cond)

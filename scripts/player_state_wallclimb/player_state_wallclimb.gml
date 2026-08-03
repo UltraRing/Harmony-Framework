@@ -33,7 +33,8 @@ function player_state_wallclimb()
 	// Wall collision
 	var wallCol = collision_get_distance(x + wall_w * facing, max(y,obj_camera.limit_top), facing == 1 ? COLLISION_MODE.LEFT_WALL : COLLISION_MODE.RIGHT_WALL, plane, false);
 	var wallColUpper = collision_get_distance(x + wall_w * facing,  max(y - 4,obj_camera.limit_top), facing == 1 ? COLLISION_MODE.LEFT_WALL : COLLISION_MODE.RIGHT_WALL, plane, false);
-		
+	var wUpperAngle = math_uangle(collision_get_angle(x + wall_w * facing,  max(y - 4,obj_camera.limit_top), facing == 1 ? COLLISION_MODE.LEFT_WALL : COLLISION_MODE.RIGHT_WALL, plane));
+
 	//Has reached the ground
 	if(ground && hold_down)
 	{
@@ -53,10 +54,12 @@ function player_state_wallclimb()
 		exit;
 	}
 	
+	var detachDist = floor(wUpperAngle) < 48 ? 0 : 14;
+	
 	//When there's no more wall
-	if(wallCol > 14)
+	if(wallCol > detachDist)
 	{
-		if(wallColUpper > 14 && mov == -1)
+		if(wallColUpper > detachDist && mov == -1)
 		{
 			//If using smooth scroll
 			if(global.knux_camera_smooth)
@@ -78,7 +81,8 @@ function player_state_wallclimb()
 			exit;
 		}
 		
-		if (wallCol >= 16) {
+		if (wallCol >= 16) 
+		{
 			// detach anyway because josh was like "thats bad"
 			state = player_state_knuxfall;
 			exit;
