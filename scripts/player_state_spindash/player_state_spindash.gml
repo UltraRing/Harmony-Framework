@@ -69,6 +69,13 @@ function player_state_spindash(){
 		{
 			x_speed = (8+(floor(spindash_rev)/2)) * facing;
 		}
+		
+		// Play the rolling animation
+		animation_play(animator, ANIM.ROLL);
+		
+		// Update the hitbox
+		_player_hitbox(ground);
+		
 		state = player_state_roll;
 	}
 }

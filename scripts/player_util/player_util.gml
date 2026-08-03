@@ -416,8 +416,8 @@ function _player_react_solid(result)
 	}
 }
 
-/// @self					obj_player	
-/// @description			Function that gets called every time the player lands
+/// @self								obj_player	
+/// @description						An internal function that gets called every time the player lands
 function _player_land_callback()
 {
 	// Reset the badnik chain
@@ -427,5 +427,57 @@ function _player_land_callback()
 	if(state == player_state_roll && !force_roll)
 	{
 		state = player_state_normal;	
+	}
+}
+
+/// @self								obj_player	
+/// @description						An internal function that updates the player hitbox
+/// @param {Bool} reposition			Should the player object get repositioned depending on the ground orentation if the hitbox size changes
+function _player_hitbox(reposition = false)
+{
+	//Get previous hitbox height
+	var old_hitbox_h = hitbox_h;
+	
+	//Reset camera offset if player is not playing rolling animation
+	if(!animation_is_playing(animator, ANIM.ROLL)) 
+	{
+		obj_camera.roll_offset = 0;
+	}
+	
+	//Original hitbox values
+	hitbox_w = hitbox_normal[global.character][0];
+	hitbox_h = hitbox_normal[global.character][1];
+	
+	//Roll hitboxes
+	if(animation_is_playing(animator, ANIM.ROLL) || animation_is_playing(animator, ANIM.DROPDASH) || state == player_state_jump)
+	{
+		//Change the camera offset for rolling
+		if(ground)
+		{
+			obj_camera.roll_offset = camera_rolling_offset[global.character];
+		}
+		
+		//Change the hitbox for rolling animation
+		hitbox_w = hitbox_rolling[global.character][0];
+		hitbox_h = hitbox_rolling[global.character][1];
+	}
+	
+	//Knuckles specific hitboxes
+	if(state == player_state_glide || state == player_state_knuxslide)
+	{
+		hitbox_h = 10;
+	}
+	
+	//Change floor position when jumping or when on ground
+	if(reposition)
+	{
+		x += (old_hitbox_h - hitbox_h) * x_dir;
+		y += (old_hitbox_h - hitbox_h) * y_dir;
+	}
+	
+	//Crouch hitbox offset
+	if(animation_is_playing(animator, ANIM.LOOKDOWN))
+	{
+		hitbox_top_offset = -hitbox_normal[global.character][1];
 	}
 }

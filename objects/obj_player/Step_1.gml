@@ -70,7 +70,7 @@
 	player_visual_angle();
 	
 	//Various hitbox cases
-	player_hitbox();
+	_player_hitbox(ground);
 	
 	//Misc. player stuff
 	player_misc();

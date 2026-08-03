@@ -39,6 +39,12 @@ function player_state_roll(){
 		if(ground_speed == 0 && !force_roll && ground) 
 		{
 			state = player_state_normal;
+			
+			// A hack
+			script_execute(state);
+			
+			// Update the hitbox
+			_player_hitbox(true);
 			exit;
 		}
 	}
@@ -76,7 +82,10 @@ function player_check_roll()
 		//Update the state
 		state = player_state_roll;
 		idle_timer = 0;
-			
+		
+		// Update the hitbox
+		_player_hitbox(true);
+		
 		//Play the sound
 		sound_play(sfx_roll);
 		return true;				// Needed for exit
