@@ -1,5 +1,5 @@
 /// @description Dev menu
-	room_speed = 60;
+	game_set_speed(60, gamespeed_fps);
 	
 	if(keyboard_check_pressed(vk_escape) && !instance_exists(obj_dev_menu) && !obj_shell.isOpen)
 	{
@@ -56,8 +56,8 @@
 			with(obj_bss_controller) bss_setup_character();
 		}
 		
-		if(keyboard_check(vk_f6)) room_speed = 5;
-		if(keyboard_check(vk_backspace)) room_speed = 240;
+		if(keyboard_check(vk_f6)) game_set_speed(5, gamespeed_fps);
+		if(keyboard_check(vk_backspace)) game_set_speed(240, gamespeed_fps);
 	
 		//Stop if player doesn't exist
 		if(!instance_exists(obj_player)) exit;

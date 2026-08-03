@@ -35,7 +35,7 @@
 	{
 		if(f == 1 && x > found_collision.x)
 		{
-			boss_state = AAZ2_BSTATE.SPIKE_DROP;;
+			boss_state = AAZ2_BSTATE.SPIKE_DROP;
 			x = found_collision.x;
 			exit;
 		}

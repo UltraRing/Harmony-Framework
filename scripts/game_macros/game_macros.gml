@@ -1,8 +1,7 @@
 function game_macros()
 {
 	// Developer mode macro
-	#macro DEVMODE false
-	#macro Dev:DEVMODE true
+	#macro DEVMODE (os_get_config() == "Dev")
 	
 	// Easy to access global variable macros
 	#macro WINDOW_WIDTH global.window_width

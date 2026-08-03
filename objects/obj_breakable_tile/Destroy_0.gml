@@ -28,8 +28,8 @@
 	//Get position only for the breakable floor
 	if(breakable_type != "Wall")
 	{
-		var startX	= x + (sprite_width / 2);
-		var startY	= bbox_bottom;
+		startX	= x + (sprite_width / 2);
+		startY	= bbox_bottom;
 	}
 		
 	var curY = endY - startY;
@@ -49,11 +49,13 @@
 			//Remove tiles from the area
 			tilemap_set_at_pixel(tilelayer, 0, tile.x, tile.y)
 				
+			//Main Angle
+			var angle	= darctan2(angleX, curY);
+			
 			switch(breakable_type)
 			{
 				case "Wall":    //Breakable wall physics
 				//Set the angle for the pieces
-				var angle	= darctan2(angleX, curY);
 				var angle2	= 0;
 				if (abs(curX) > 8.0) {
 					if (curX + startX >= startX)
@@ -75,7 +77,6 @@
 				case "Floor/Bounce":
 				case "Floor/No-Bounce":
 				case "Ceiling":
-					var angle		= darctan2(angleX, curY);
 					var velocity	= (abs(curX) + 2.0 * abs(curY)) / 4.0;
 					
 					// TODO: Check this

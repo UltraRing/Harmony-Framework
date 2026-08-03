@@ -64,23 +64,18 @@
 					break;
                     
 					//From the center
+					//and from both left and right
 					case "From the Center":
-						var tx = i - min_x;
-		                if (tx < size_x / 2)
-						{
-		                    tx = max_x - 1 - i;
-						}
-		                piece.delay = collapsing_speed * ((size_y + 2 * (tx) - (j - min_y))) - size_x * 3;
-					break;
-				    
-					//From both left and right
 					case "Both Left and Right":
 						var tx = i - min_x;
-		                if (tx > size_x / 2)
+		                var collapsing_point = collapsing_type == "From the Center" ? (tx < size_x / 2) : (tx > size_x / 2);
+						if (collapsing_point)
 						{
 		                    tx = max_x - 1 - i;
 						}
-		                piece.delay = collapsing_speed * ((size_y + 2 * (tx) - (j - min_y)));
+		                
+						var collapsing_point_delay = collapsing_type == "From the Center" ? (size_x * 3) : 0;
+						piece.delay = collapsing_speed * ((size_y + 2 * (tx) - (j - min_y))) - collapsing_point_delay;
 					break;
 				}
 	        }

@@ -8,11 +8,13 @@ function player_visual_angle()
 		switch(global.rotation_type)
 		{
 			case 0:
+			case 2:
 				//Reset rotation target value
 				var rot = 0;
 			
 				//Change rotation value if its at specific angle
-				if(ground_angle > 33.75 && ground_angle < 333.50) 
+				if((global.rotation_type == 0 && ground_angle > 33.75 && ground_angle < 333.50)
+				|| (global.rotation_type == 2))
 				{
 					rot = ground_angle;
 				}
@@ -41,27 +43,6 @@ function player_visual_angle()
 					visual_angle = 0;	
 				}
 			break;
-			
-			case 2:
-				//Reset rotation target value
-				var rot = 0;
-			
-				//Change rotation value if its at specific angle
-				rot = ground_angle;
-				
-				//Rotate the player
-				if(abs(ground_speed) < 6)
-				{
-					visual_angle += (((rot - visual_angle + 540) mod 360)-180) / 4;
-				}
-				else
-				{
-					visual_angle += (((rot - visual_angle + 540) mod 360)-180) / 2;
-				}
-			
-				//Prevent angle from going into negative
-		        visual_angle = (visual_angle + 360) mod 360;
-			break;
 		}
 	}
 	else
@@ -83,12 +64,5 @@ function player_visual_angle()
 		visual_angle = 0;
 	}
 	
-	if(global.rotation_type == 1)
-	{
-		image_angle = round(visual_angle/45)*45;
-	}
-	else
-	{
-		image_angle = visual_angle;	
-	}
+	image_angle = (global.rotation_type == 1) ? round(visual_angle / 45) * 45 : visual_angle;
 }
