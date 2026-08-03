@@ -12,3 +12,4 @@
 	refrence = noone
 	ox = 0;
 	oy = 0;
+	

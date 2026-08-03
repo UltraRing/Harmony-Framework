@@ -1,3 +1,9 @@
+	if(indestructable)
+	{
+		player_act_solid();
+		exit;	
+	}
+	
 	//Temp values
 	var player;
 	
@@ -17,7 +23,7 @@
 	var c = noone;
 	
 	if(collision_flag)
-		c = player_act_solid()
+		c = player_act_solid();
 	
 	//Destroy the block
 	if(player_collide_object() && !collision_flag)

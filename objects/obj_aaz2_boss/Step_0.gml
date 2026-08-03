@@ -56,10 +56,19 @@
 	event_user(boss_state);
 	
 	spike_y_target = y + 32;
-	spike_y = mouse_y;
 	
 	// Kill the boss when the HP is 0
 	if(hp == 0)
-		boss_state = AAZ1_BSTATE.DEATH;
+	{
+		boss_state = AAZ2_BSTATE.DEATH;
+	}
+	else
+	{
+		// Animate eggman
+		if(inv_timer > 0)
+			animation_play(animator, 2);
+		else
+			animation_play(animator, 0);
+	}
 	
 	timer++;

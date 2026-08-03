@@ -1,17 +1,20 @@
 {
   "$GMObject":"",
   "%Name":"obj_aaz_boss_block",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "eventList":[],
   "managed":true,
   "name":"obj_aaz_boss_block",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_breakable_floor","path":"objects/par_breakable_floor/par_breakable_floor.yy",},"propertyId":{"name":"indestructable","path":"objects/par_breakable_floor/par_breakable_floor.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
+  ],
   "parent":{
     "name":"Boss",
     "path":"folders/Objects/Stage Objects/Arboreal Agate/Boss.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"par_breakable_floor",
+    "path":"objects/par_breakable_floor/par_breakable_floor.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

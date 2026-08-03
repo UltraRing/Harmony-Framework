@@ -205,7 +205,7 @@ function instance_collide(o, hitbox_other = noone, this = id, this_hitbox = noon
 /// @description							Function used for offsetting the hitbox to a target position
 /// @param {Real} px						X position of the hitbox
 /// @param {Real} py						Y position of the hitbox
-/// @param {Array|Struct} [hitbox_other]	The hitbox size (It gets baked as the default)
+/// @param {Array|Struct} [hitbox]			The hitbox size (It gets baked as the default)
 /// @param {Id.Instance} [this]				Instance used for base position (The default is the current instance ID)
 /// @return {Array}
 function instance_position_hitbox(px, py, hitbox = noone, this = id)

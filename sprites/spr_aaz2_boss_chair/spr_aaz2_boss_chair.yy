@@ -1,13 +1,18 @@
 {
   "$GMSprite":"v2",
-  "%Name":"spr_aaz2_boss",
-  "bboxMode":2,
-  "bbox_bottom":76,
-  "bbox_left":25,
+  "%Name":"spr_aaz2_boss_chair",
+  "bboxMode":0,
+  "bbox_bottom":42,
+  "bbox_left":34,
   "bbox_right":69,
   "bbox_top":14,
   "collisionKind":1,
   "collisionTolerance":0,
+  "ConfigValues":{
+    "Dev":{
+      "textureGroupId":"{ \"name\":\"Default\", \"path\":\"texturegroups/Default\" }",
+    },
+  },
   "DynamicTexturePage":false,
   "edgeFiltering":false,
   "For3D":false,
@@ -21,27 +26,8 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"357814d2-1752-42d6-8728-45a441471797","blendMode":0,"displayName":"default","isLocked":false,"name":"357814d2-1752-42d6-8728-45a441471797","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"spr_aaz2_boss",
-  "nineSlice":{
-    "$GMNineSliceData":"",
-    "bottom":0,
-    "enabled":false,
-    "guideColour":[4294902015,4294902015,4294902015,4294902015,],
-    "highlightColour":1728023040,
-    "highlightStyle":0,
-    "left":0,
-    "resourceType":"GMNineSliceData",
-    "resourceVersion":"2.0",
-    "right":0,
-    "tileMode":[
-      0,
-      0,
-      0,
-      0,
-      0,
-    ],
-    "top":0,
-  },
+  "name":"spr_aaz2_boss_chair",
+  "nineSlice":null,
   "origin":4,
   "parent":{
     "name":"Harmony Framework",
@@ -52,7 +38,7 @@
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"spr_aaz2_boss",
+    "%Name":"spr_aaz2_boss_chair",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -76,7 +62,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"spr_aaz2_boss",
+    "name":"spr_aaz2_boss_chair",
     "playback":1,
     "playbackSpeed":30.0,
     "playbackSpeedType":0,
@@ -88,7 +74,7 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"6c6f3f6c-64a0-491c-acb0-ce3e2bb43a94","path":"sprites/spr_aaz2_boss/spr_aaz2_boss.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"6c6f3f6c-64a0-491c-acb0-ce3e2bb43a94","path":"sprites/spr_aaz2_boss_chair/spr_aaz2_boss_chair.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"fdee8a56-4704-4431-bd96-0695200d0875","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
