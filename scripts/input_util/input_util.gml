@@ -25,6 +25,7 @@ function input_init()
 	input_data_controller = [];
 	input_data_controller_axis = [[]];
 	
+	input_controller_id = 0;
 	using_controller = false;
 }
 
@@ -41,17 +42,17 @@ function input_update()
 		
 		// Get the axis flip flag and set it's conditions
 		var axisFlip = input_data_controller_axis[i][1];
-		var axisCondition = axisFlip ? (gamepad_axis_value(0, input_data_controller_axis[i][0]) < -GAMEPAD_AXIS_DEADZONE) : (gamepad_axis_value(0, input_data_controller_axis[i][0]) > GAMEPAD_AXIS_DEADZONE);
+		var axisCondition = axisFlip ? (gamepad_axis_value(input_controller_id, input_data_controller_axis[i][0]) < -GAMEPAD_AXIS_DEADZONE) : (gamepad_axis_value(input_controller_id, input_data_controller_axis[i][0]) > GAMEPAD_AXIS_DEADZONE);
 		
 		// Is the input coming keyboard?
 		var isKeyboard = keyboard_check(input_data_keyboard[i]);
 		
 		// Is the input coming from the controller
-		var isController = axisCondition ||  gamepad_button_check(0, input_data_controller[i]);
+		var isController = axisCondition ||  gamepad_button_check(input_controller_id, input_data_controller[i]);
 		
 		// Decide if gamepad is currently being used or not
 		if(isKeyboard)
-			using_controller = false
+			using_controller = false;
 		else if(isController)
 			using_controller = true;
 		

@@ -19,18 +19,17 @@
 	//Play sound
 	sound_play(sfx_break1);
 
+	//Get breaking positions for wall and floor
+	var breakWallX = dir == 1 ? bbox_right : x;
+	var breakFloorX = x + (sprite_width / 2);
+	var breakWallY = y + (sprite_height / 2);
+	var breakFloorY = bbox_bottom;
+
 	//Get positions
-	var startX	= dir == 1 ? bbox_right : x;
-	var startY	= y + (sprite_height / 2);
+	var startX	= (breakable_type != "Wall") ? breakFloorX : breakWallX;
+	var startY	= (breakable_type != "Wall") ? breakFloorY : breakWallY;
 	var endX	= x + 8;
 	var endY	= y + 8;
-		
-	//Get position only for the breakable floor
-	if(breakable_type != "Wall")
-	{
-		var startX	= x + (sprite_width / 2);
-		var startY	= bbox_bottom;
-	}
 		
 	var curY = endY - startY;
 	for (var j = 0; j < size_y; j++) 
@@ -49,11 +48,13 @@
 			//Remove tiles from the area
 			tilemap_set_at_pixel(tilelayer, 0, tile.x, tile.y)
 				
+			//Main Angle
+			var angle	= darctan2(angleX, curY);
+			
 			switch(breakable_type)
 			{
 				case "Wall":    //Breakable wall physics
 				//Set the angle for the pieces
-				var angle	= darctan2(angleX, curY);
 				var angle2	= 0;
 				if (abs(curX) > 8.0) {
 					if (curX + startX >= startX)
@@ -75,7 +76,6 @@
 				case "Floor/Bounce":
 				case "Floor/No-Bounce":
 				case "Ceiling":
-					var angle		= darctan2(angleX, curY);
 					var velocity	= (abs(curX) + 2.0 * abs(curY)) / 4.0;
 					
 					// TODO: Check this
