@@ -113,7 +113,7 @@
 		//Collision
 		var c = collision_active_sensor(floor((bbox_right - bbox_left) / 2), floor(bbox_bottom - y - 1), COLLISION_MODE.FLOOR, PLANE.A, true);
 		
-		if(c.height < 0 && y_speed >= 0)
+		if(c.height < abs(y_speed) / 2 && y_speed >= 0)
 		{
 			y_speed = 0;
 			ground = true;

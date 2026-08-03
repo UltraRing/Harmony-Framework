@@ -12,7 +12,7 @@
 		y_speed += grav;
 		
 		//Floor detection
-		if(c < 0)
+		if(c < abs(y_speed) / 2)
 		{
 			y += c;
 			ground = true;

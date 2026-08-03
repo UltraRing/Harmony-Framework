@@ -113,7 +113,7 @@
 			new_monitor.ground = false;
 			new_monitor.y_speed = -4;
 			new_monitor.monitor_type = monitor.monitor_type;
-			new_monitor.culling = false;
+			new_monitor.culling_struct.type = CULL_TYPE.DISABLE;
 			
 			y_speed = -2.75;
 			instance_destroy(monitor);	
