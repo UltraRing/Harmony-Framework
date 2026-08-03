@@ -14,39 +14,83 @@
 
 	animator_update(animator);
 
-	if(--timer <= 0)
+	var emitting_type = 2
+	switch(emit_big)
 	{
-		if(!bubble_flag)
+		case "Every Cycle":
+			emitting_type = 0
+		break;
+		case "Every Other Cycle":
+			emitting_type = 1
+		break;
+		case "Every Third Cycle":
+			emitting_type = 2
+		break;
+	}
+	
+	cycle = cycle mod (emitting_type + 1)
+	
+	if (!is_emitting)
+	{
+		if (time_until == 0)
 		{
-			bubble_flag = 1;
-			bubble_type = irandom(0x10000) % 6;
-			
-			if(dud_count-- <= 0)
+			time_until = irandom_range(128,255)
+		}
+		else
+		{
+			if (time == time_until)
 			{
-				bubble_flag |= 2;
-				dud_count = 0;			// temp
+				is_emitting = true
+				cycle_index = irandom_range(0,array_length(bubble_sets)-1)
+				cycle_size = irandom_range(1,array_length(bubble_sets[cycle_index])-1)
+				cycle_set_index = 0
+				time_until = irandom_range(0,31)
 			}
 		}
-		
-		// Set the base timer
-		timer = 16 + irandom(32);
-			
-		var bubble = instance_create_depth(x + random_range(-8, 8), y - 2, depth - 1, obj_bubble);
-			
-		if(bubble_flag & 2 && (!irandom(4) || !bubble_type) && !(bubble_flag & 4))
-		{
-			bubble.type = 2;
-			bubble_flag |= 4;
-		}
-		
-		// Small spawn bubbles
-		if(bubble_type-- <= 0)
-		{
-			bubble.type = irandom(1);
-			bubble_flag = 0;
-			timer += irandom(128) + 64;
-		}
-		
-		// Correct the depth
-		bubble.depth -= bubble.type;
 	}
+	else
+	{
+		if (cycle_set_index > cycle_size)
+		{
+			is_emitting = false;
+			time_until = 0;
+			spawned_big = false;
+			cycle += 1;
+			exit;
+		}
+		
+		if (time == time_until) 
+		{
+			var big_chance = irandom_range(0,3)
+			var bubble = instance_create_depth(x + irandom_range(-8,7), y-4, depth-1, obj_bubble);
+			
+			if (cycle mod (emitting_type + 1) == 0)
+			{
+				if (big_chance == 3 && !spawned_big)
+				{
+					bubble.type = 2
+					spawned_big = true
+				}
+				else if (cycle_set_index == cycle_size && !spawned_big)
+				{
+					bubble.type = 2
+					spawned_big = true
+				}
+				else
+				{
+					bubble.type = bubble_sets[cycle_index][cycle_set_index]
+				}
+			}
+			else
+			{
+				bubble.type = bubble_sets[cycle_index][cycle_set_index]
+			}
+			
+			time_until = irandom_range(0,31)
+			time = 0
+			cycle_set_index += 1 	
+			
+		}
+	}
+	
+	time = min(time + 1, time_until)

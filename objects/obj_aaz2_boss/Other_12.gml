@@ -1,13 +1,6 @@
 	if(keyboard_check_pressed(vk_control))
 	{
-		x_speed = 0;
-		boss_state = AAZ2_BSTATE.MOVE;
-		found_collision = noone;	
-		timer = 0;
-		touched_block = false;
-		spike_y_spd = 0;
-		raise_delay = 0;
-		exit;
+	
 	}
 	
 	// Edge case lol
@@ -18,6 +11,9 @@
 	{
 		if(!touched_block)
 		{
+			if(!audio_is_playing(sfx_chain))
+				sound_play(sfx_chain, true);
+				
 			spike_y += spike_y_spd;
 			spike_y_spd += 0.2;	
 			
@@ -27,6 +23,10 @@
 			{
 				obj_camera.shake_y = 8;
 				touched_block = true;
+				
+				sound_play(sfx_impact);
+				
+				audio_stop_sound(sfx_chain);
 			}
 		}
 		else
@@ -34,7 +34,12 @@
 			if(instance_exists(found_collision))
 			{
 				if(++raise_delay > 30)
+				{
+					if(!audio_is_playing(sfx_chain))
+						sound_play(sfx_chain, true);
+					
 					found_collision.y--;
+				}
 					
 				spike_y = found_collision.y - 18;
 				
@@ -50,14 +55,19 @@
 				
 				if(spike_y == spike_y_target)
 				{
+					audio_stop_sound(sfx_chain);
 					
+					x_speed = 0;
+					boss_state = AAZ2_BSTATE.MOVE;
+					found_collision = noone;	
+					timer = 0;
+					touched_block = false;
+					spike_y_spd = 0;
+					raise_delay = 0;
+					exit;
 				}
 			}
-				
-			show_debug_message(found_collision)	
 		}
 		
 		
 	}
-	
-	//x = math_approach(x, found_collision.x, 2);

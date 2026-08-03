@@ -10,7 +10,7 @@
   "collisionTolerance":0,
   "ConfigValues":{
     "Dev":{
-      "textureGroupId":"{ \"name\":\"Default\", \"path\":\"texturegroups/Default\" }",
+      "textureGroupId":"{ \"name\":\"ArborealAgate\", \"path\":\"texturegroups/ArborealAgate\" }",
     },
   },
   "DynamicTexturePage":false,
@@ -18,7 +18,7 @@
   "For3D":false,
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"1acd40b1-a595-417c-946e-9f6d5262a602","name":"1acd40b1-a595-417c-946e-9f6d5262a602","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"0052abb6-7668-4183-98c7-a2bba8c7056c","name":"0052abb6-7668-4183-98c7-a2bba8c7056c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"bf66cb38-082b-4375-9770-e59b55489f5b","name":"bf66cb38-082b-4375-9770-e59b55489f5b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -31,8 +31,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"Harmony Framework",
-    "path":"Harmony Framework.yyp",
+    "name":"Boss",
+    "path":"folders/Sprites/Stage Sprites/Arboreal Agate/Boss.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -78,8 +78,8 @@
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1acd40b1-a595-417c-946e-9f6d5262a602","path":"sprites/spr_aaz2_boss_eggman_laugh/spr_aaz2_boss_eggman_laugh.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"bc9f212f-483a-499d-8902-8e25ce9093af","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0052abb6-7668-4183-98c7-a2bba8c7056c","path":"sprites/spr_aaz2_boss_eggman_laugh/spr_aaz2_boss_eggman_laugh.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"116c497e-6143-4541-8bc3-93a2a6e76510","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"bf66cb38-082b-4375-9770-e59b55489f5b","path":"sprites/spr_aaz2_boss_eggman_laugh/spr_aaz2_boss_eggman_laugh.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"96ca0b90-6edf-4936-b76b-8eb39dc6874b","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

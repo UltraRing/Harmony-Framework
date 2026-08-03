@@ -8,6 +8,11 @@
   "bbox_top":8,
   "collisionKind":1,
   "collisionTolerance":0,
+  "ConfigValues":{
+    "Dev":{
+      "textureGroupId":"{ \"name\":\"ArborealAgate\", \"path\":\"texturegroups/ArborealAgate\" }",
+    },
+  },
   "DynamicTexturePage":false,
   "edgeFiltering":false,
   "For3D":false,
@@ -26,8 +31,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"Harmony Framework",
-    "path":"Harmony Framework.yyp",
+    "name":"Boss",
+    "path":"folders/Sprites/Stage Sprites/Arboreal Agate/Boss.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

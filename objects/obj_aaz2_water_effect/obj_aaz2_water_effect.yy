@@ -1,17 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_water_effect",
+  "%Name":"obj_aaz2_water_effect",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_water_effect",
+  "name":"obj_aaz2_water_effect",
   "overriddenProperties":[],
   "parent":{
-    "name":"Effects",
-    "path":"folders/Objects/Stage Objects/Effects.yy",
+    "name":"Arboreal Agate",
+    "path":"folders/Objects/Stage Objects/Arboreal Agate.yy",
   },
   "parentObjectId":null,
   "persistent":false,

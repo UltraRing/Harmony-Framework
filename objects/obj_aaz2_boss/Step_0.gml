@@ -8,9 +8,6 @@
 		// yes, horizontal boundaries are supposed to be hardcoded
 		obj_camera.target_left = xstart - (512 / 2);
 		obj_camera.target_right = xstart + (512 / 2);
-		
-		//obj_camera.target_top = obj_camera.target_bottom - CAMERA_VIEW_H;
-		//obj_camera.target_bottom = ystart + (CAMERA_VIEW_H / 2);
 	}
 	
 	if(entrance_trigger)
@@ -37,19 +34,38 @@
 		exit;
 	
 	// Hurt the boss
-	if(player_collide_object() && inv_timer == 0 && hp > 0)
+	if(player_collide_object() && hp > 0)
 	{
-		hp--;
-		inv_timer = 30;
-			
 		var p = player_find(0);
-			
-		p.x_speed *= -0.5;
-		p.y_speed *= -0.5;
-			
-		sound_play(sfx_boss_hit);
-	}
 		
+		if(p.attacking && inv_timer == 0)
+		{
+			hp--;
+			inv_timer = 30;
+			laugh_timer = 0;
+			
+			p.x_speed *= -0.5;
+			p.y_speed *= -0.5;
+			
+			sound_play(sfx_boss_hit);
+		}
+		
+		if(!p.attacking)
+		{
+			player_hurt();	
+			laugh_timer = 60;
+		}
+		
+	}
+	
+	// Make spike a hazard
+	var b = instance_position_hitbox(x, spike_y, [-2, 4, 2, 24], id);
+	if(player_collide_object(b) && hp > 0 && !touched_block)
+	{
+		player_hurt();	
+		laugh_timer = 60;
+	}
+	
 	if(inv_timer > 0)
 		inv_timer--;
 			
@@ -65,10 +81,18 @@
 	else
 	{
 		// Animate eggman
-		if(inv_timer > 0)
-			animation_play(animator, 2);
+		if(laugh_timer == 0)
+		{
+			if(inv_timer > 0)
+				animation_play(animator, 2);
+			else
+				animation_play(animator, 0);
+		}
 		else
-			animation_play(animator, 0);
+		{
+			laugh_timer--;	
+			animation_play(animator, 1);
+		}
 	}
 	
 	timer++;

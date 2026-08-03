@@ -10,7 +10,7 @@
 		draw_sprite(spr_aaz2_boss_spike, 0, floor(x), floor(spike_y));
 	}
 	
-	var f = FRAME_TIMER / 4;
+	var f = FRAME_TIMER / 6;
 	
 	// Apply the palette
 	effect_set_palette(spr_aaz2_boss_palette, f);

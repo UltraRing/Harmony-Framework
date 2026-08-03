@@ -59,7 +59,7 @@
 			distort_data[i] = 8 * dsin((360 / 128) * i);
 		}
 
-		effect_surface_deform(WINDOW_WIDTH,WINDOW_HEIGHT, distort_data, (cy * (2 / 3)) + FRAME_TIMER / 3)
+		effect_surface_deform(WINDOW_WIDTH,WINDOW_HEIGHT, distort_data, (cy * (1 - (2 / 3))) + FRAME_TIMER / 3)
 	   
 		draw_surface_part(global.pal_surf, -8, obj_water.y-cy, WINDOW_WIDTH + 32, cy, cx-8, obj_water.y);
 	    shader_reset();

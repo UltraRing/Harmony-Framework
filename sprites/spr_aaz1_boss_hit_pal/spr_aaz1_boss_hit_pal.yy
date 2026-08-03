@@ -30,8 +30,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Arboreal Agate",
-    "path":"folders/Sprites/Stage Sprites/Arboreal Agate.yy",
+    "name":"Boss",
+    "path":"folders/Sprites/Stage Sprites/Arboreal Agate/Boss.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

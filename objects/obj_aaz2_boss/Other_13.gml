@@ -1,6 +1,7 @@
 	death_timer++;
-	
 	obj_level.disable_timer = true;
+	
+	audio_stop_sound(sfx_chain);
 	
 	if(FRAME_TIMER mod 4 == 0 && !has_died)
 	{
@@ -31,11 +32,14 @@
 	
 	if(has_died)
 	{
+		
 		if(timer > 80)
 		{
 			x += 2.5;
 			y -= 0.1;
 			facing = 1;
+			
+			animation_play(animator, 0);
 		}
 		else
 		{
@@ -58,5 +62,13 @@
 			music_reset_fade();
 			
 			obj_camera.target_right = obj_capsule.x + (CAMERA_VIEW_W / 2);
+			obj_camera.limit_right = obj_camera.target_right;
+			obj_camera.mode = 1;
+			obj_camera.target_x = obj_camera.camera_x;
+			obj_camera.target_y = obj_camera.camera_y - 16;
 		}
+	}
+	else
+	{
+		animation_play(animator, 3);
 	}
