@@ -19,18 +19,17 @@
 	//Play sound
 	sound_play(sfx_break1);
 
+	//Get breaking positions for wall and floor
+	var breakWallX = dir == 1 ? bbox_right : x;
+	var breakFloorX = x + (sprite_width / 2);
+	var breakWallY = y + (sprite_height / 2);
+	var breakFloorY = bbox_bottom;
+
 	//Get positions
-	var startX	= dir == 1 ? bbox_right : x;
-	var startY	= y + (sprite_height / 2);
+	var startX	= (breakable_type != "Wall") ? breakFloorX : breakWallX;
+	var startY	= (breakable_type != "Wall") ? breakFloorY : breakWallY;
 	var endX	= x + 8;
 	var endY	= y + 8;
-		
-	//Get position only for the breakable floor
-	if(breakable_type != "Wall")
-	{
-		startX	= x + (sprite_width / 2);
-		startY	= bbox_bottom;
-	}
 		
 	var curY = endY - startY;
 	for (var j = 0; j < size_y; j++) 
