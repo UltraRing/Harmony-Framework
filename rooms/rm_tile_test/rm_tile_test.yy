@@ -29,7 +29,11 @@
           ],"layers":[],"name":"CollisionTriggers","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
         {"$GMRTileLayer":"","%Name":"CollisionB","depth":300,"effectEnabled":true,"effectType":"_filter_tintfilter","gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"CollisionB","properties":[
             {"name":"g_TintCol","type":1,"value":"#FFFF0000",},
-          ],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":32,"SerialiseWidth":32,"TileCompressedData":[-598,0,4,268435473,268435468,12,17,-23,0,-9,139,-390,0,],"TileDataFormat":1,},"tilesetId":{"name":"tile_collision_new_2","path":"tilesets/tile_collision_new_2/tile_collision_new_2.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
+          ],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":32,"SerialiseWidth":32,"TileCompressedData":[
+              -505,0,4,1879048311,1879048316,1879048321,1879048326,-116,0,1,119,-5,0,4,1073741958,1073741953,1073741948,
+              1073741943,-3,0,1,805306502,-18,0,1,124,-12,0,1,805306497,-18,0,1,129,-12,0,1,805306492,-18,0,1,134,
+              -12,0,1,805306487,-289,0,
+            ],"TileDataFormat":1,},"tilesetId":{"name":"tile_collision_new_2","path":"tilesets/tile_collision_new_2/tile_collision_new_2.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
         {"$GMRTileLayer":"","%Name":"CollisionA","depth":400,"effectEnabled":true,"effectType":"_filter_tintfilter","gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"CollisionA","properties":[
             {"name":"g_TintCol","type":1,"value":"#FF0000FF",},
           ],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":32,"SerialiseWidth":32,"TileCompressedData":[-617,0,-7,1,-400,0,],"TileDataFormat":1,},"tilesetId":{"name":"tile_collision_new","path":"tilesets/tile_collision_new/tile_collision_new.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},

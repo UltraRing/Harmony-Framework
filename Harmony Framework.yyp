@@ -824,6 +824,7 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
+    {"roomId":{"name":"rm_tile_test","path":"rooms/rm_tile_test/rm_tile_test.yy",},},
     {"roomId":{"name":"rm_splash","path":"rooms/rm_splash/rm_splash.yy",},},
     {"roomId":{"name":"rm_title_screen","path":"rooms/rm_title_screen/rm_title_screen.yy",},},
     {"roomId":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
@@ -831,7 +832,6 @@
     {"roomId":{"name":"rm_techdemo_tower","path":"rooms/rm_techdemo_tower/rm_techdemo_tower.yy",},},
     {"roomId":{"name":"rm_arboreal_agate1","path":"rooms/rm_arboreal_agate1/rm_arboreal_agate1.yy",},},
     {"roomId":{"name":"rm_arboreal_agate2","path":"rooms/rm_arboreal_agate2/rm_arboreal_agate2.yy",},},
-    {"roomId":{"name":"rm_tile_test","path":"rooms/rm_tile_test/rm_tile_test.yy",},},
     {"roomId":{"name":"rm_bonus","path":"rooms/rm_bonus/rm_bonus.yy",},},
     {"roomId":{"name":"rm_blue_spheres","path":"rooms/rm_blue_spheres/rm_blue_spheres.yy",},},
     {"roomId":{"name":"rm_template","path":"rooms/rm_template/rm_template.yy",},},

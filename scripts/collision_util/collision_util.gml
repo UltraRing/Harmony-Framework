@@ -398,6 +398,11 @@ function _tiledata_get_height(tile_id, tile_sprite, xpos, flip = false)
 		// Return collision height if the tile is flipped
 		if(tile_get_flip(tile_id))
 			return -global.tile_top[? tile_sprite][index][xpos];
+			
+		if(tile_get_rotate(tile_id)) {
+			if (tile_get_flip(tile_id)) return -global.tile_left[? tile_sprite][index][xpos];
+			return -global.tile_right[? tile_sprite][index][xpos];
+		}
 		
 		// Otherwise default to the normal one
 		return -global.tile_bottom[? tile_sprite][index][xpos];
@@ -407,6 +412,11 @@ function _tiledata_get_height(tile_id, tile_sprite, xpos, flip = false)
 		// Return collision height if the tile is flipped
 		if(tile_get_flip(tile_id))
 			return global.tile_bottom[? tile_sprite][index][xpos];
+			
+		if(tile_get_rotate(tile_id)) {
+			if (tile_get_flip(tile_id)) return global.tile_right[? tile_sprite][index][xpos];
+			return global.tile_left[? tile_sprite][index][xpos];
+		}
 		
 		// Otherwise default to the normal one
 		return global.tile_top[? tile_sprite][index][xpos];
