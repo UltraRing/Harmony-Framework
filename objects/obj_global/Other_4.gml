@@ -8,3 +8,6 @@
 	// Reset the fade system if needed
 	if(fade.reset)
 		fade_init();
+	
+	game_update_tile_sprites()
+	game_calculate_heights()
