@@ -96,7 +96,7 @@ function _game_calculate_height(collision_index, tile_index, tile_width)
 			pX--;
 		}
 		
-		array_push(global.tile_left[? collision_index][tile_index],pY);
+		array_push(global.tile_left[? collision_index][tile_index],pX);
 		
 		// Right side of the collision
 		pX = 16;
@@ -105,7 +105,7 @@ function _game_calculate_height(collision_index, tile_index, tile_width)
 			pX--;
 		}
 		
-		array_push(global.tile_right[? collision_index][tile_index],pY);
+		array_push(global.tile_right[? collision_index][tile_index],pX);
 		
 	}
 
