@@ -63,6 +63,7 @@ enum BSS_ANIM
 	TAIL   = 4,
 }
 
+// Column-major board: cell (x, y) lives at x * height + y
 function bss_idx(_x, _y) 
 {
 	return (bss_wrap_x(_x) * BSS_H) + bss_wrap_y(_y);
@@ -220,7 +221,8 @@ function bss_build_tables()
 	}
 }
 
-// Blue sphere -> ring enclosure (BSS_Setup_ProcessChain family), masks verbatim
+// Blue sphere -> ring enclosure (BSS_Setup_ProcessChain family), masks verbatim.
+// A chain step is only valid with a blue sphere in the 8 cells around it
 function bss_check_sphere_valid(_x, _y) 
 {
 	var pf = global.bss.pf;
@@ -236,6 +238,8 @@ function bss_check_sphere_valid(_x, _y)
 	return true;
 }
 
+// Walk a chain of reds away from the start sphere, branching sideways as it goes.
+// A tail that never branched gets un-marked when the walk dead-ends
 function bss_scan_up(_x, _y) 
 {
 	if (global.bss.loop) return true;
@@ -336,6 +340,7 @@ function bss_scan_right(_x, _y)
 	return false;
 }
 
+// A blue is enclosed when all four rays hit the chain before empty floor or a red
 function bss_chained_count(_x, _y) 
 {
 	var pf = global.bss.pf, co = global.bss.coll;
@@ -386,6 +391,7 @@ function bss_process_chain()
 	for (var i = 0; i < global.bss.size; i++) { ch[i] = BSS_CELL.NONE; co[i] = BSS_CELL.NONE; }
 
 	var lp = bss_idx(global.bss.lastSX, global.bss.lastSY);
+	//Temporarily red so the scans can walk through the start sphere
 	pf[lp] = BSS_CELL.RED;
 	co[lp] = BSS_CELL.BLUE;
 
@@ -399,6 +405,7 @@ function bss_process_chain()
 
 	if (!global.bss.loop) return 0;
 
+	//Count the blues the loop encloses
 	var collected = 0;
 	for (var gy = 0; gy < BSS_H; gy++)
 	{
@@ -434,6 +441,7 @@ function bss_process_chain()
 	for (var gy = 0; gy < BSS_H; gy++)
 	{
 		for (var gx = 0; gx < BSS_W; gx++) {
+			//Everything still marked becomes a ring
 			if (co[(gx * BSS_H) + gy] != BSS_CELL.NONE) pf[(gx * BSS_H) + gy] = BSS_CELL.RING;
 		}
 	}
@@ -540,9 +548,11 @@ function bss_collect_ring()
 // BSS_Setup_SetupFinishSequence
 function bss_setup_finish()
 {
+	//Clear EVERYTHING!
 	for (var gy = 0; gy < BSS_H; gy++)
 		for (var gx = 0; gx < BSS_W; gx++) global.bss.pf[(gx * BSS_H) + gy] = BSS_CELL.NONE;
 
+	//The reward lands 8 cells ahead of the player
 	var fx = (sin256(angle) >> 5) + player_x;
 	var fy = bss_wrap_y(player_y - (cos256(angle) >> 5));
 	var fp = fy + (BSS_H * bss_wrap_x(fx));
@@ -564,7 +574,7 @@ function bss_stepped_objects()
 	if (globe_timer < 32)  disable_bumpers = false;
 	if (globe_timer > 224) disable_bumpers = false;
 
-	//current cell
+	//Current cell, reacts in the first half of the roll
 	var fp = player_y + (BSS_H * player_x);
 	switch (pf[fp])
 	{
@@ -662,7 +672,7 @@ function bss_stepped_objects()
 				globe_timer = 0;
 				tele_timer = 0;
 				sound_play(sfx_teleport);
-				fade_change(FADE.OUT, 6, FADE_COLOR.WHITE); //Mania FXFade white flash, via the project fade system
+				fade_change(FADE.OUT, 6, FADE_COLOR.WHITE);
 			}
 			break;
 
@@ -676,7 +686,7 @@ function bss_stepped_objects()
 			break;
 	}
 
-	//cell ahead
+	//Cell ahead, reacts in the second half of the roll
 	var posX = bss_wrap_x(player_x + (sin256(angle) >> 8));
 	var posY = bss_wrap_y(player_y - (cos256(angle) >> 8));
 	fp = posY + (BSS_H * posX);
@@ -814,6 +824,7 @@ function bss_update_collected()
 
 		switch (e.ce)
 		{
+			//Sparkle for 16 frames, then free the cell
 			case BSS_COLLECT.RING:
 				e.t++;
 				if (e.t >= 16 && state == BSS_STATE.MOVE)
@@ -834,6 +845,7 @@ function bss_update_collected()
 				}
 				break;
 
+			//Turns red once the player has rolled clear
 			case BSS_COLLECT.BLUE_STOOD:
 				if (state == BSS_STATE.MOVE && globe_timer > 32 && globe_timer < 224)
 				{
@@ -997,7 +1009,8 @@ function bss_special_stage_start()
 	global.bss.spark_phase = 0;
 }
 
-// Taken from the "Frustum 1" and "Frustum 2" tile layers of Sonic Mania Data.rsdk : Stages/SpecialBS/Scene1.bin. Do not hand edit.
+// Mania's BSS_Setup_SetupFrustum converts hand-authored tiles from layers "Frustum 1" and "Frustum 2" into offset values.
+// We'll just use these offset values right away instead.
 function bss_frustum_tables() {
 	global.bss.frustum1X = [
 	-5,5,-4,4,-5,5,-3,3,-4,4,-2,2,-1,1,0,-3,3,-4,4,-2,2,-1,1,0,-3,3,-4,4,-2,2,

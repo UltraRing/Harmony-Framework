@@ -36,11 +36,14 @@ gpu_set_blendmode(bm_normal);
 draw_sprite_ext(spr_bss_player_shadow, 0, center_x, 170, 1, 1, 0, c_white, 1);
 
 //BSS_Setup_HandleCollectableMovement
+
+//Facing angle, its integer sine/cosine and the current cardinal quadrant
 var aa = angle & 255;
 var cs = cos256(aa);
 var sn = sin256(aa);
 var offset_dir = (aa >> 6) & 3;
 
+//Visible cell offsets, the second frustum covers the mid-turn angles
 var use_f2 = ((aa & 0x3F) != 0);
 var fxs = use_f2 ? global.bss.frustum2X : global.bss.frustum1X;
 var fys = use_f2 ? global.bss.frustum2Y : global.bss.frustum1Y;
@@ -48,6 +51,7 @@ var fcount = array_length(fxs);
 
 for (var i = 0; i < fcount; i++)
 {
+	//Rotate the offset into the current quadrant
 	var ox, oy;
 	switch (offset_dir)
 	{
@@ -56,33 +60,47 @@ for (var i = 0; i < fcount; i++)
 		case 2: ox =  fxs[i]; oy = -fys[i]; break; //FLIP_Y
 		case 3: ox =  fys[i]; oy =  fxs[i]; break; //FLIP_XY
 	}
-
+	
+	//Wrap the offset around the board
 	var idx = bss_wrap_y(oy + player_y) + (BSS_H * bss_wrap_x(ox + player_x));
+		
+	//Get the cell index
 	var tile = global.bss.pf[idx];
+		
+	//No object? Skip
 	if (tile == BSS_CELL.NONE) continue;
-
+	
+	//Rotate the cell into view space
 	var sx = ((ox * cs + oy * sn) >> 4);
 	var sy = ((oy * cs - ox * sn) >> 4);
+	
+	//Depth row, blending in the roll scroll
 	var dep = -(sy + palette_line - 16);
+	
+	//Behind the camera or past the horizon? Skip
 	if (dep < 0 || dep >= 112) continue;
-
+	
+	//Scale frame shrinks with depth and toward the screen edges
 	var f = global.bss.frameTable[dep] - (abs(sx) >> 5);
 	if (f < 0) f = 0;
-
+	
+	//Fan the cell out horizontally with perspective correction
 	var fxv  = global.bss.xMultiplierTable[dep] * sx;
 	var dist = (fxv * fxv) div 65536; //1 << 16
 	var worldX = (((fxv <= 0) ? fxv + dist : fxv - dist) >> 4);
-
+	
+	//Screen position, following the globe's curved horizon
 	var dx = worldX + center_x;
 	var dy = global.bss.screenYTable[dep] + (worldX * worldX) div global.bss.divisorTable[dep];
-
+	
 	//Jettisonning
 	if (state == BSS_STATE.JETTISON)
 	{
 		dx = (((256 + spin_timer) * (dx - center_x)) >> 8) + center_x;
 		dy -= spin_timer * 2;
 	}
-
+	
+	//Draw the cell
 	bss_draw_cell(tile, dx, dy, f, ring_spin, floor(medal_spin), global.bss.spark_phase, emerald_index);
 }
 

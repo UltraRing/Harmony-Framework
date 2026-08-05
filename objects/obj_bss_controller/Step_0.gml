@@ -30,6 +30,8 @@ if (on_ground)
 else
 {
 	gravity_strength += velocity_y;
+
+	//Gravity scales with the stage speed
 	var sp = (speedup_level == 0) ? 16 : speedup_level;
 	velocity_y += sp << 12;
 	if (gravity_strength >= 0)
@@ -124,6 +126,7 @@ switch (state)
 	case BSS_STATE.MOVE: //BSS_Setup_State_GlobeMoveZ
 		globe_hidden = false;
 
+		//Stage speeds up every 30 seconds
 		if (speedup_level < 32 && ++speedup_timer >= speedup_interval)
 		{
 			speedup_timer = 0;
@@ -141,6 +144,7 @@ switch (state)
 		{
 			if (globe_timer > 0 && globe_timer < 256)
 			{
+				//Queue a turn for the next cell edge
 				if (kL) spin_state = 1;
 				if (kR) spin_state = 2;
 			}
@@ -157,6 +161,7 @@ switch (state)
 		{
 			if (globe_speed > 0)
 			{
+				//Crossed into the next cell
 				if (globe_timer >= 256)
 				{
 					switch (spin_state)
@@ -171,6 +176,7 @@ switch (state)
 					player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
 				}
 			}
+			//Bounced back into the previous cell
 			else if (globe_timer < 0)
 			{
 				switch (spin_state)
@@ -188,7 +194,7 @@ switch (state)
 			}
 		}
 
-		palette_line = (globe_timer >> 4) & 15;
+		palette_line = (globe_timer >> 4) & 15; //roll frame from the sub-cell position
 		break;
 
 	case BSS_STATE.TURNL: //BSS_Setup_State_GlobeTurnLeft
@@ -197,7 +203,7 @@ switch (state)
 			speedup_timer = 0;
 			speedup_level += 4;
 		}
-		angle = (angle - 4) & 255;
+		angle = (angle - 4) & 255; //16 frames of 4 = a quarter turn
 
 		if (spin_timer == 15)
 		{
@@ -349,8 +355,9 @@ switch (state)
 			player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 			player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
 		}
-		palette_line = (globe_timer >> 4) & 15;
+		palette_line = (globe_timer >> 4) & 15; //roll frame from the sub-cell position
 
+		//Board flies off for 128 frames, then the reward is placed
 		if (++spin_timer == 128)
 		{
 			spin_timer = 0;
@@ -386,7 +393,7 @@ switch (state)
 			player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 			player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
 		}
-		palette_line = (globe_timer >> 4) & 15;
+		palette_line = (globe_timer >> 4) & 15; //roll frame from the sub-cell position
 		break;
 
 	case BSS_STATE.EXIT: //BSS_Setup_State_GlobeExit
@@ -452,6 +459,8 @@ bss_update_collected();
 ring_spin += 0.25;
 if (ring_spin >= sprite_get_number(spr_bss_ring_mania)) ring_spin -= sprite_get_number(spr_bss_ring_mania);
 */
+
+// S3&K ring animation
 if (++ring_spin_timer >= 8)
 {
 	ring_spin_timer = 0;
