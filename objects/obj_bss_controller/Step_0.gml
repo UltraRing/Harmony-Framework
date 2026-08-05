@@ -457,6 +457,11 @@ if (++ring_spin_timer >= 8)
 	ring_spin_timer = 0;
 	global.bss.ring_phase = (global.bss.ring_phase + 1) mod 3;
 }
+if (++spark_spin_timer >= 5)
+{
+	spark_spin_timer = 0;
+	global.bss.spark_phase = (global.bss.spark_phase + 1) mod 4;
+}
 
 //medal spinning
 medal_spin += 0.5;

@@ -671,7 +671,6 @@ function bss_stepped_objects()
 			{
 				array_push(collected, { ce : BSS_COLLECT.RING, cx : player_x, cy : player_y, t : 0 });
 				pf[fp] = BSS_CELL.SPARKLE;
-				global.bss.spark[fp] = 0;
 				bss_collect_ring();
 			}
 			break;
@@ -781,7 +780,6 @@ function bss_stepped_objects()
 			{
 				array_push(collected, { ce : BSS_COLLECT.RING, cx : posX, cy : posY, t : 0 });
 				pf[fp] = BSS_CELL.SPARKLE;
-				global.bss.spark[fp] = 0;
 				bss_collect_ring();
 			}
 			break;
@@ -819,7 +817,6 @@ function bss_update_collected()
 		{
 			case BSS_COLLECT.RING:
 				e.t++;
-				global.bss.spark[fp] = e.t;
 				if (e.t >= 16 && state == BSS_STATE.MOVE)
 				{
 					pf[fp] = BSS_CELL.NONE;
@@ -972,8 +969,6 @@ function bss_special_stage_start()
 	bg_scroll_x       = 0;
 	bg_scroll_y       = 0;
 
-	for (var si = 0; si < global.bss.size; si++) global.bss.spark[si] = 0;
-
 	//player (BSS_Player entity)
 	on_ground        = true;
 	velocity_y       = 0;
@@ -999,7 +994,9 @@ function bss_special_stage_start()
 
 	ring_spin       = 0;
 	ring_spin_timer = 0;
+	spark_spin_timer = 0;
 	global.bss.ring_phase = 0;
+	global.bss.spark_phase = 0;
 }
 
 // Taken from the "Frustum 1" and "Frustum 2" tile layers of Sonic Mania Data.rsdk : Stages/SpecialBS/Scene1.bin. Do not hand edit.

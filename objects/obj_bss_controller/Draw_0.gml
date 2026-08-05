@@ -24,7 +24,7 @@ else
 
 shader_reset();
 
-//Horizon glow blending (Uncomment this if you like Sonic Mania!
+//Horizon glow blending (Uncomment this if you like Sonic Mania!)
 /*
 gpu_set_blendmode(bm_add);
 draw_sprite_ext(spr_bss_horizon,  0, center_x, 240, 1, 1, 0, c_white, 0.5); 
@@ -83,9 +83,7 @@ for (var i = 0; i < fcount; i++)
 		dy -= spin_timer * 2;
 	}
 
-	var spark_n = sprite_get_number(spr_bss_ring_sparkle);
-	var spark_f = (tile == BSS_CELL.SPARKLE) ? min(global.bss.spark[idx] * spark_n div 16, spark_n - 1) : 0;
-	bss_draw_cell(tile, dx, dy, f, ring_spin, floor(medal_spin), spark_f, emerald_index);
+	bss_draw_cell(tile, dx, dy, f, ring_spin, floor(medal_spin), global.bss.spark_phase, emerald_index);
 }
 
 //Draw player
