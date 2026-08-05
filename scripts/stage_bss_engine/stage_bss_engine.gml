@@ -239,17 +239,17 @@ function bss_check_sphere_valid(_x, _y)
 function bss_scan_up(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var px = BSS_H * _x;
 	var cid = 0;
 	while (true)
 	{
 		_y = bss_wrap_y(_y - 1);
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if ((global.bss.chain[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
+		if ((ch[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[_y + (BSS_H * bss_wrap_x(_x + 1))] & 0x7F) == BSS_CELL.RED) found = bss_scan_right(_x, _y) || found;
@@ -257,24 +257,24 @@ function bss_scan_up(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y + 1); global.bss.coll[px + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y + 1); co[px + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
 function bss_scan_down(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var px = BSS_H * _x;
 	var cid = 0;
 	while (true)
 	{
 		_y = bss_wrap_y(_y + 1);
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if (global.bss.chain[px + _y] == BSS_CELL.BLUE) break;
+		if (ch[px + _y] == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[_y + (BSS_H * bss_wrap_x(_x - 1))] & 0x7F) == BSS_CELL.RED) found = bss_scan_left(_x, _y) || found;
@@ -282,24 +282,24 @@ function bss_scan_down(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y - 1); global.bss.coll[px + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y - 1); co[px + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
 function bss_scan_left(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var cid = 0;
 	while (true)
 	{
 		_x = bss_wrap_x(_x - 1);
 		var px = BSS_H * _x;
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if ((global.bss.chain[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
+		if ((ch[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[(BSS_H * _x) + bss_wrap_y(_y - 1)] & 0x7F) == BSS_CELL.RED) found = bss_scan_up(_x, _y) || found;
@@ -307,24 +307,24 @@ function bss_scan_left(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x + 1); global.bss.coll[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x + 1); co[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
 function bss_scan_right(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var cid = 0;
 	while (true)
 	{
 		_x = bss_wrap_x(_x + 1);
 		var px = BSS_H * _x;
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if ((global.bss.chain[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
+		if ((ch[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[(BSS_H * _x) + bss_wrap_y(_y + 1)] & 0x7F) == BSS_CELL.RED) found = bss_scan_down(_x, _y) || found;
@@ -332,19 +332,19 @@ function bss_scan_right(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x - 1); global.bss.coll[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x - 1); co[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
 function bss_chained_count(_x, _y) 
 {
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, co = global.bss.coll;
 	var px = BSS_H * _x;
 
 	var y1 = bss_wrap_y(_y - 1);
 	for (var i = 0; i < BSS_H; i++)
 	{
-		if (global.bss.coll[px + y1] == BSS_CELL.BLUE) break;
+		if (co[px + y1] == BSS_CELL.BLUE) break;
 		var t = pf[px + y1] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		y1 = bss_wrap_y(y1 - 1);
@@ -352,7 +352,7 @@ function bss_chained_count(_x, _y)
 	y1 = bss_wrap_y(_y + 1);
 	for (var i = 0; i < BSS_H; i++)
 	{
-		if (global.bss.coll[px + y1] == BSS_CELL.BLUE) break;
+		if (co[px + y1] == BSS_CELL.BLUE) break;
 		var t = pf[px + y1] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		y1 = bss_wrap_y(y1 + 1);
@@ -360,7 +360,7 @@ function bss_chained_count(_x, _y)
 	var x1 = bss_wrap_x(_x - 1);
 	for (var i = 0; i < BSS_W; i++)
 	{
-		if (global.bss.coll[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
+		if (co[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
 		var t = pf[_y + (BSS_H * x1)] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		x1 = bss_wrap_x(x1 - 1);
@@ -368,13 +368,13 @@ function bss_chained_count(_x, _y)
 	x1 = bss_wrap_x(_x + 1);
 	for (var i = 0; i < BSS_W; i++)
 	{
-		if (global.bss.coll[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
+		if (co[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
 		var t = pf[_y + (BSS_H * x1)] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		x1 = bss_wrap_x(x1 + 1);
 	}
 
-	global.bss.coll[px + _y] = BSS_CELL.BLUE;
+	co[px + _y] = BSS_CELL.BLUE;
 	return true;
 }
 
@@ -382,11 +382,12 @@ function bss_chained_count(_x, _y)
 // Returns spheres converted (caller subtracts from sphere count)
 function bss_process_chain() 
 {
-	for (var i = 0; i < global.bss.size; i++) { global.bss.chain[i] = BSS_CELL.NONE; global.bss.coll[i] = BSS_CELL.NONE; }
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
+	for (var i = 0; i < global.bss.size; i++) { ch[i] = BSS_CELL.NONE; co[i] = BSS_CELL.NONE; }
 
 	var lp = bss_idx(global.bss.lastSX, global.bss.lastSY);
-	global.bss.pf[lp] = BSS_CELL.RED;
-	global.bss.coll[lp] = BSS_CELL.BLUE;
+	pf[lp] = BSS_CELL.RED;
+	co[lp] = BSS_CELL.BLUE;
 
 	global.bss.loop = false;
 	bss_scan_up(global.bss.lastSX, global.bss.lastSY);
@@ -394,7 +395,7 @@ function bss_process_chain()
 	bss_scan_left(global.bss.lastSX, global.bss.lastSY);
 	bss_scan_right(global.bss.lastSX, global.bss.lastSY);
 
-	global.bss.pf[lp] = BSS_CELL.BLUE;
+	pf[lp] = BSS_CELL.BLUE;
 
 	if (!global.bss.loop) return 0;
 
@@ -402,7 +403,7 @@ function bss_process_chain()
 	for (var gy = 0; gy < BSS_H; gy++)
 	{
 		for (var gx = 0; gx < BSS_W; gx++) {
-			if ((global.bss.pf[(gx * BSS_H) + gy] & 0x7F) == BSS_CELL.BLUE) collected += bss_chained_count(gx, gy) ? 1 : 0;
+			if ((pf[(gx * BSS_H) + gy] & 0x7F) == BSS_CELL.BLUE) collected += bss_chained_count(gx, gy) ? 1 : 0;
 		}
 	}
 	if (collected <= 0) { global.bss.loop = false; return 0; }
@@ -417,13 +418,13 @@ function bss_process_chain()
 			var y2 = bss_wrap_y(gy + 1);
 			var x1 = BSS_H * bss_wrap_x(gx - 1);
 			var x2 = BSS_H * bss_wrap_x(gx + 1);
-			if (global.bss.coll[p + gy] == BSS_CELL.BLUE)
+			if (co[p + gy] == BSS_CELL.BLUE)
 			{
-				if ((global.bss.pf[p + y1] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[p + y2] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[x1 + gy] & 0x7F) != BSS_CELL.BLUE)
+				if ((pf[p + y1] & 0x7F) != BSS_CELL.BLUE && (pf[p + y2] & 0x7F) != BSS_CELL.BLUE && (pf[x1 + gy] & 0x7F) != BSS_CELL.BLUE)
 				{
-					if ((global.bss.pf[x2 + gy] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[x1 + y1] & 0x7F) != BSS_CELL.BLUE
-						&& (global.bss.pf[x2 + y1] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[x1 + y2] & 0x7F) != BSS_CELL.BLUE) {
-						if ((global.bss.pf[x2 + y2] & 0x7F) != BSS_CELL.BLUE) global.bss.coll[(gx * BSS_H) + gy] = BSS_CELL.NONE;
+					if ((pf[x2 + gy] & 0x7F) != BSS_CELL.BLUE && (pf[x1 + y1] & 0x7F) != BSS_CELL.BLUE
+						&& (pf[x2 + y1] & 0x7F) != BSS_CELL.BLUE && (pf[x1 + y2] & 0x7F) != BSS_CELL.BLUE) {
+						if ((pf[x2 + y2] & 0x7F) != BSS_CELL.BLUE) co[(gx * BSS_H) + gy] = BSS_CELL.NONE;
 					}
 				}
 			}
@@ -433,7 +434,7 @@ function bss_process_chain()
 	for (var gy = 0; gy < BSS_H; gy++)
 	{
 		for (var gx = 0; gx < BSS_W; gx++) {
-			if (global.bss.coll[(gx * BSS_H) + gy] != BSS_CELL.NONE) global.bss.pf[(gx * BSS_H) + gy] = BSS_CELL.RING;
+			if (co[(gx * BSS_H) + gy] != BSS_CELL.NONE) pf[(gx * BSS_H) + gy] = BSS_CELL.RING;
 		}
 	}
 
@@ -559,12 +560,13 @@ function bss_setup_finish()
 // BSS_Setup_HandleSteppedObjects (runs every grounded frame)
 function bss_stepped_objects()
 {
+	var pf = global.bss.pf;
 	if (globe_timer < 32)  disable_bumpers = false;
 	if (globe_timer > 224) disable_bumpers = false;
 
 	//current cell
 	var fp = player_y + (BSS_H * player_x);
-	switch (global.bss.pf[fp])
+	switch (pf[fp])
 	{
 		case BSS_CELL.BLUE:
 			if (globe_timer < 128)
@@ -576,7 +578,7 @@ function bss_stepped_objects()
 				if (!global.bss.loop)
 				{
 					array_push(collected, { ce : BSS_COLLECT.BLUE, cx : player_x, cy : player_y, t : 0 });
-					global.bss.pf[fp] = BSS_CELL.BLUE_STOOD;
+					pf[fp] = BSS_CELL.BLUE_STOOD;
 				}
 				if (sphere_count <= 0)
 				{
@@ -647,7 +649,7 @@ function bss_stepped_objects()
 			if (globe_timer > 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.GREEN, cx : player_x, cy : player_y, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.GREEN_STOOD;
+				pf[fp] = BSS_CELL.GREEN_STOOD;
 				sound_play(sfx_blue_sphere);
 			}
 			break;
@@ -668,7 +670,7 @@ function bss_stepped_objects()
 			if (globe_timer < 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.RING, cx : player_x, cy : player_y, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.SPARKLE;
+				pf[fp] = BSS_CELL.SPARKLE;
 				global.bss.spark[fp] = 0;
 				bss_collect_ring();
 			}
@@ -680,7 +682,7 @@ function bss_stepped_objects()
 	var posY = bss_wrap_y(player_y - (cos256(angle) >> 8));
 	fp = posY + (BSS_H * posX);
 
-	switch (global.bss.pf[fp])
+	switch (pf[fp])
 	{
 		case BSS_CELL.BLUE:
 			if (globe_timer > 128)
@@ -692,7 +694,7 @@ function bss_stepped_objects()
 				if (!global.bss.loop)
 				{
 					array_push(collected, { ce : BSS_COLLECT.BLUE, cx : posX, cy : posY, t : 0 });
-					global.bss.pf[fp] = BSS_CELL.BLUE_STOOD;
+					pf[fp] = BSS_CELL.BLUE_STOOD;
 				}
 				if (sphere_count <= 0)
 				{
@@ -769,7 +771,7 @@ function bss_stepped_objects()
 			if (globe_timer > 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.GREEN, cx : posX, cy : posY, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.GREEN_STOOD;
+				pf[fp] = BSS_CELL.GREEN_STOOD;
 				sound_play(sfx_blue_sphere);
 			}
 			break;
@@ -778,7 +780,7 @@ function bss_stepped_objects()
 			if (globe_timer > 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.RING, cx : posX, cy : posY, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.SPARKLE;
+				pf[fp] = BSS_CELL.SPARKLE;
 				global.bss.spark[fp] = 0;
 				bss_collect_ring();
 			}
@@ -790,7 +792,7 @@ function bss_stepped_objects()
 		case BSS_CELL.MEDAL_GOLD:
 			if (globe_timer > 240)
 			{
-				exit_result = (global.bss.pf[fp] == BSS_CELL.MEDAL_GOLD) ? "gold" : "silver";
+				exit_result = (pf[fp] == BSS_CELL.MEDAL_GOLD) ? "gold" : "silver";
 				palette_page ^= 1;
 				state = BSS_STATE.EXIT;
 				spin_timer = 0;
@@ -806,6 +808,7 @@ function bss_stepped_objects()
 // BSS_Collected_Update
 function bss_update_collected()
 {
+	var pf = global.bss.pf;
 	for (var i = array_length(collected) - 1; i >= 0; i--)
 	{
 		var e = collected[i];
@@ -819,7 +822,7 @@ function bss_update_collected()
 				global.bss.spark[fp] = e.t;
 				if (e.t >= 16 && state == BSS_STATE.MOVE)
 				{
-					global.bss.pf[fp] = BSS_CELL.NONE;
+					pf[fp] = BSS_CELL.NONE;
 					remove = true;
 				}
 				break;
@@ -827,7 +830,7 @@ function bss_update_collected()
 			case BSS_COLLECT.BLUE:
 				if (sphere_count <= 0)
 				{
-					if (global.bss.pf[fp] == BSS_CELL.BLUE_STOOD) global.bss.pf[fp] = BSS_CELL.RED;
+					if (pf[fp] == BSS_CELL.BLUE_STOOD) pf[fp] = BSS_CELL.RED;
 					remove = true;
 				}
 				else if (globe_timer < 32 || globe_timer > 224) {
@@ -838,7 +841,7 @@ function bss_update_collected()
 			case BSS_COLLECT.BLUE_STOOD:
 				if (state == BSS_STATE.MOVE && globe_timer > 32 && globe_timer < 224)
 				{
-					if (global.bss.pf[fp] == BSS_CELL.BLUE_STOOD) global.bss.pf[fp] = BSS_CELL.RED;
+					if (pf[fp] == BSS_CELL.BLUE_STOOD) pf[fp] = BSS_CELL.RED;
 					remove = true;
 				}
 				break;
@@ -857,7 +860,7 @@ function bss_update_collected()
 					e.t--;
 					if (e.t <= 0)
 					{
-						if (global.bss.pf[fp] == BSS_CELL.GREEN_STOOD) global.bss.pf[fp] = BSS_CELL.BLUE;
+						if (pf[fp] == BSS_CELL.GREEN_STOOD) pf[fp] = BSS_CELL.BLUE;
 						remove = true;
 					}
 				}
@@ -868,7 +871,7 @@ function bss_update_collected()
 				{
 					if (player_x != e.cx || player_y != e.cy)
 					{
-						if (global.bss.pf[fp] == BSS_CELL.PINK_STOOD) global.bss.pf[fp] = BSS_CELL.PINK;
+						if (pf[fp] == BSS_CELL.PINK_STOOD) pf[fp] = BSS_CELL.PINK;
 						remove = true;
 					}
 				}
