@@ -95,7 +95,6 @@ else if (msg_phase == 1)
 			globe_speed     = 16;
 			globe_speed_inc = 2;
 			if (on_ground) animation_play(animator, BSS_ANIM.WALK);
-			msg_phase = 2;
 		}
 		if (globe_timer == 0 && state == BSS_STATE.MOVE)
 		{
@@ -103,13 +102,18 @@ else if (msg_phase == 1)
 			if (kR) { state = BSS_STATE.TURNR; spin_timer = 0; }
 		}
 	}
-	if (msg_phase == 1 && ++msg_wait_timer >= 180)
+
+	//Timer, then start the movement!
+	if (++msg_wait_timer >= 180)
 	{
-		msg_wait_timer  = 0;
-		speedup_level   = 16;
-		globe_speed     = 16;
-		globe_speed_inc = 2;
-		if (on_ground) animation_play(animator, BSS_ANIM.WALK);
+		msg_wait_timer = 0;
+		if (speedup_level == 0)
+		{
+			speedup_level   = 16;
+			globe_speed     = 16;
+			globe_speed_inc = 2;
+			if (on_ground) animation_play(animator, BSS_ANIM.WALK);
+		}
 		msg_phase = 2;
 	}
 }
