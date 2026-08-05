@@ -82,7 +82,7 @@ function bss_wrap_y(_v)
 }
 
 // BSS_Message two-part message
-function draw_bss_message(_spr, _cx, _cy, _offset) 
+function bss_draw_message(_spr, _cx, _cy, _offset) 
 {
 	var fw = sprite_get_width(_spr);
 	var fh = sprite_get_height(_spr);
@@ -91,7 +91,7 @@ function draw_bss_message(_spr, _cx, _cy, _offset)
 }
 
 // BSS_HUD_DrawNumbers
-function draw_bss_number(_value, _right_x, _y) 
+function bss_draw_number(_value, _right_x, _y) 
 {
 	var s = string(_value mod 1000);
 	s = string_repeat("0", max(0, 3 - string_length(s))) + s;
@@ -443,7 +443,7 @@ function bss_process_chain()
 }
 
 // Draw one projected cell at screen (_x,_y), scale frame _f (0..31, 31 = closest).
-function draw_bss_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
+function bss_draw_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 {
 	// Lift the sphere so it sits on the globe's surface
 	var ly = _y - global.bss.sphereLift[_f div 2];

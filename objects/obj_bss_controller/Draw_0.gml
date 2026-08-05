@@ -85,7 +85,7 @@ for (var i = 0; i < fcount; i++)
 
 	var spark_n = sprite_get_number(spr_bss_ring_sparkle);
 	var spark_f = (tile == BSS_CELL.SPARKLE) ? min(global.bss.spark[idx] * spark_n div 16, spark_n - 1) : 0;
-	draw_bss_cell(tile, dx, dy, f, ring_spin, floor(medal_spin), spark_f, emerald_index);
+	bss_draw_cell(tile, dx, dy, f, ring_spin, floor(medal_spin), spark_f, emerald_index);
 }
 
 //Draw player
@@ -97,12 +97,12 @@ if (has_tail) draw_animator(tail_animator, center_x, py, 1, 1, 0, c_white, 1);
 draw_set_color(c_white);
 draw_sprite(spr_hud_bss_spheres, 0, center_x-141, 13);
 draw_sprite(spr_hud_bss_rings, 0, center_x+64, 13);
-draw_bss_number(sphere_count, center_x - 104 + 16, 17);
-draw_bss_number(ring_count, center_x + 120 + 16, 17);
+bss_draw_number(sphere_count, center_x - 104 + 16, 17);
+bss_draw_number(ring_count, center_x + 120 + 16, 17);
 
 //Messages
 if (msg_phase <= 2)
-	draw_bss_message(spr_hud_bss_get_blue_spheres, center_x, 104, (msg_phase < 2) ? 0 : intro_offset);
+	bss_draw_message(spr_hud_bss_get_blue_spheres, center_x, 104, (msg_phase < 2) ? 0 : intro_offset);
 
 if (perfect_active)
-	draw_bss_message(spr_hud_bss_perfect, center_x, 104, perfect_offset); //slides in/out
+	bss_draw_message(spr_hud_bss_perfect, center_x, 104, perfect_offset); //slides in/out
