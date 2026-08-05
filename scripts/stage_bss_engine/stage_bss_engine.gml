@@ -1,4 +1,4 @@
-// Blue Spheres engine, accurate port of Sonic Mania's BSS_Setup / BSS_Player / BSS_Collectable / BSS_Collected.
+// Blue Spheres engine, accurate port of Sonic Mania's code.
 
 #macro BSS_W global.bss.w
 #macro BSS_H global.bss.h
@@ -195,7 +195,10 @@ function bss_build_tables()
 	global.bss.globeDirTableL  = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
 	global.bss.globeDirTableR  = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0];
 
-	// BSS_Collectable ring/medal scale tables + the BSS_Collectable_StageLoad transform
+	// Per-frame pixel lift so spheres sit on the surface
+	global.bss.sphereLift = [1, 2, 3, 4, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6];
+
+	// BSS_Collectable Mania ring/medal scale tables + the BSS_Collectable_StageLoad transform
 	global.bss.ringScaleX = [2, 4, 4, 4, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 32, 32, 32];
 	global.bss.ringScaleY = [2, 4, 4, 4, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 11, 12, 13, 14, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 21, 22, 23, 24];
 	global.bss.medalScale = [4, 4, 5, 5, 6, 6, 7, 7, 8, 10, 12, 14, 16, 18, 20, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 32, 32, 32, 32, 32, 32, 32];
@@ -440,17 +443,20 @@ function bss_process_chain()
 }
 
 // Draw one projected cell at screen (_x,_y), scale frame _f (0..31, 31 = closest).
-// Sphere/bumper/emerald subimages are pre-scaled, rings/medals scale a full-size sprite
 function draw_bss_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 {
+	// Lift the sphere so it sits on the globe's surface
+	var ly = _y - global.bss.sphereLift[_f div 2];
+	
+	// Draw the cells here
 	switch (_t)
 	{
-		case BSS_CELL.BLUE:   draw_sprite(spr_bss_sphere_blue,   _f div 2, _x, _y); break;
-		case BSS_CELL.RED:    draw_sprite(spr_bss_sphere_red,    _f div 2, _x, _y); break;
-		case BSS_CELL.BUMPER: draw_sprite(spr_bss_bumper,        _f div 2, _x, _y); break;
-		case BSS_CELL.YELLOW: draw_sprite(spr_bss_sphere_yellow, _f div 2, _x, _y); break;
-		case BSS_CELL.GREEN:  draw_sprite(spr_bss_sphere_green,  _f div 2, _x, _y); break;
-		case BSS_CELL.PINK:   draw_sprite(spr_bss_sphere_pink,   _f div 2, _x, _y); break;
+		case BSS_CELL.BLUE:   draw_sprite(spr_bss_sphere_blue,   _f div 2, _x, ly); break;
+		case BSS_CELL.RED:    draw_sprite(spr_bss_sphere_red,    _f div 2, _x, ly); break;
+		case BSS_CELL.BUMPER: draw_sprite(spr_bss_bumper,        _f div 2, _x, ly); break;
+		case BSS_CELL.YELLOW: draw_sprite(spr_bss_sphere_yellow, _f div 2, _x, ly); break;
+		case BSS_CELL.GREEN:  draw_sprite(spr_bss_sphere_green,  _f div 2, _x, ly); break;
+		case BSS_CELL.PINK:   draw_sprite(spr_bss_sphere_pink,   _f div 2, _x, ly); break;
 
 		case BSS_CELL.RING:
 			//Uncomment this for Mania's method of drawing rings!
@@ -477,9 +483,9 @@ function draw_bss_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 			shader_reset();
 			break;
 
-		case BSS_CELL.BLUE_STOOD:  draw_sprite_ext(spr_bss_sphere_blue,  _f div 2, _x, _y, 1, 1, 0, c_white, 0.5); break;
-		case BSS_CELL.GREEN_STOOD: draw_sprite_ext(spr_bss_sphere_green, _f div 2, _x, _y, 1, 1, 0, c_white, 0.5); break;
-		case BSS_CELL.PINK_STOOD:  draw_sprite_ext(spr_bss_sphere_pink,  _f div 2, _x, _y, 1, 1, 0, c_white, 0.5); break;
+		case BSS_CELL.BLUE_STOOD:  draw_sprite_ext(spr_bss_sphere_blue,  _f div 2, _x, ly, 1, 1, 0, c_white, 0.5); break;
+		case BSS_CELL.GREEN_STOOD: draw_sprite_ext(spr_bss_sphere_green, _f div 2, _x, ly, 1, 1, 0, c_white, 0.5); break;
+		case BSS_CELL.PINK_STOOD:  draw_sprite_ext(spr_bss_sphere_pink,  _f div 2, _x, ly, 1, 1, 0, c_white, 0.5); break;
 
 		case BSS_CELL.SPARKLE: draw_sprite(spr_bss_ring_sparkle, _spark, _x, _y); break;
 		default: break;

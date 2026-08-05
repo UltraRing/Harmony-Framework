@@ -342,7 +342,7 @@
     {"id":{"name":"player_water","path":"scripts/player_water/player_water.yy",},},
     {"id":{"name":"render_util","path":"scripts/render_util/render_util.yy",},},
     {"id":{"name":"sound_util","path":"scripts/sound_util/sound_util.yy",},},
-    {"id":{"name":"stage_bss_util","path":"scripts/stage_bss_util/stage_bss_util.yy",},},
+    {"id":{"name":"stage_bss_engine","path":"scripts/stage_bss_engine/stage_bss_engine.yy",},},
     {"id":{"name":"stage_script_aaz","path":"scripts/stage_script_aaz/stage_script_aaz.yy",},},
     {"id":{"name":"shd_alpha_dither","path":"shaders/shd_alpha_dither/shd_alpha_dither.yy",},},
     {"id":{"name":"shd_color_grading","path":"shaders/shd_color_grading/shd_color_grading.yy",},},
