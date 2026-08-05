@@ -70,7 +70,7 @@ for (var i = 0; i < fcount; i++)
 	if (f < 0) f = 0;
 
 	var fxv  = global.bss.xMultiplierTable[dep] * sx;
-	var dist = (fxv * fxv) div 65536;
+	var dist = (fxv * fxv) div 65536; //1 << 16
 	var worldX = (((fxv <= 0) ? fxv + dist : fxv - dist) >> 4);
 
 	var dx = worldX + center_x;
@@ -87,7 +87,7 @@ for (var i = 0; i < fcount; i++)
 }
 
 //Draw player
-var py = 170 + ((gravity_strength >> 1) - (gravity_strength >> 4)) / 65536;
+var py = 170 + ((gravity_strength >> 1) - (gravity_strength >> 4)) / 65536; //1 << 16
 draw_animator(animator, center_x, py, 1, 1, 0, c_white, 1);
 if (has_tail) draw_animator(tail_animator, center_x, py, 1, 1, 0, c_white, 1);
 

@@ -357,11 +357,7 @@ switch (state)
 			speedup_level = 8;
 			globe_speed = 8;
 			bss_setup_finish();
-			if (reward_is_emerald)
-			{
-				emerald_was_new = !global.emeralds[emerald_index]; //new, or a replay of one we own?
-				global.emeralds[emerald_index] = true;             //award it
-			}
+			if (reward_is_emerald) global.emeralds[emerald_index] = true;
 			input_active = false;
 			state = BSS_STATE.EMERALD;
 		}
@@ -425,19 +421,17 @@ switch (state)
 			{
 				//Create special stage clear object
 				var _clear = instance_create_depth(0, 0, 0, obj_special_stage_clear);
-				if (reward_is_emerald)
-				{
-					if (emerald_was_new && game_has_all_emeralds()) _clear.heading = "gotall";
-					else if (emerald_was_new)  _clear.heading = "gotone";
-					else _clear.heading = "chaos";
-					_clear.perfect = (ring_count <= 0);
-				}
-				else //bailed out on a red sphere
-				{
-					_clear.heading = "chaos";
-					_clear.perfect = false;
-				}
+				
+				//Result status
+				_clear.result = reward_is_emerald ? SS_RESULT.GOT_EMERALD : SS_RESULT.FAILED;
+				
+				//Ring bonus
 				_clear.rings = rings_collected;
+				
+				//Perfect bonus
+				_clear.perfect = reward_is_emerald && (ring_count <= 0);
+				
+				//Bye!
 				instance_destroy();
 			}
 			else

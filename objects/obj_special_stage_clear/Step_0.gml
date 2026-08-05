@@ -8,6 +8,7 @@
 	{
 		ring_bonus = rings * 100;
 		perfect_bonus = perfect ? 50000 : 0;
+		got_all = (result == SS_RESULT.GOT_EMERALD) && game_has_all_emeralds();
 	}
 
 	//Play act clear music
@@ -62,7 +63,7 @@
 		{
 			sound_play(sfx_scoretally);
 			timer = 0;
-			if (heading == "gotall") super_shown = true;
+			if (got_all) super_shown = true;
 			state = 1;
 		}
 		

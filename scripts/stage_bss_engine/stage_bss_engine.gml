@@ -464,7 +464,7 @@ function bss_draw_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 			/*
 			var spin = floor(_spin) mod sprite_get_number(spr_bss_ring_mania);
 			draw_sprite_ext(spr_bss_ring_mania, spin,
-				_x, _y - (global.bss.ringScreenY[_f] / 65536),
+				_x, _y - (global.bss.ringScreenY[_f] / 65536), //1 << 16
 				global.bss.ringScaleX[_f] / 512, global.bss.ringScaleY[_f] / 512, 0, c_white, 1);
 			*/
 			draw_sprite(spr_bss_ring, (global.bss.ring_phase * 16) + (_f div 2), _x, _y);
@@ -475,7 +475,7 @@ function bss_draw_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 			var ms = global.bss.medalScale[_f] / 512;
 			var mspr = (_t == BSS_CELL.MEDAL_GOLD) ? spr_bss_medal_gold : spr_bss_medal_silver;
 			draw_sprite_ext(mspr, _medal mod sprite_get_number(mspr),
-				_x, _y - (global.bss.ringScreenY[_f] / 65536), ms, ms, 0, c_white, 1);
+				_x, _y - (global.bss.ringScreenY[_f] / 65536), ms, ms, 0, c_white, 1); //1 << 16
 			break;
 
 		case BSS_CELL.EMERALD_CHAOS:
@@ -756,7 +756,7 @@ function bss_stepped_objects()
 		case BSS_CELL.YELLOW:
 			if (globe_timer > 128)
 			{
-				velocity_y = -1572864;
+				velocity_y = -1572864; //-TO_FIXED(24)
 				on_ground = false;
 				animation_play(animator, BSS_ANIM.SPRING);
 				globe_speed *= 2;
@@ -963,7 +963,6 @@ function bss_special_stage_start()
 	exit_timer        = 0;
 	medal_spin        = 0;
 	reward_is_emerald = false;
-	emerald_was_new   = false;
 	emerald_index     = 0;
 	exit_result       = "";
 	bg_scroll_x       = 0;
