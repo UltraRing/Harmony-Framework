@@ -357,9 +357,11 @@ switch (state)
 			speedup_level = 8;
 			globe_speed = 8;
 			bss_setup_finish();
-			if (reward_is_emerald) global.emeralds[emerald_index] = true;
 			input_active = false;
 			state = BSS_STATE.EMERALD;
+			
+			//Award the Chaos Emerald!
+			if (reward_is_emerald) global.emeralds[emerald_index] = true;
 		}
 		break;
 
@@ -409,7 +411,7 @@ switch (state)
 		spin_timer += 2;
 
 		//The clear plays after an emerald or a red-sphere bail-out. A medal just leaves
-		var _show_clear = reward_is_emerald || (exit_result == "fail");
+		var _show_clear = reward_is_emerald || stage_failed;
 
 		//Fade out while spinning
 		fade_change(FADE.OUT, 3, _show_clear ? FADE_COLOR.WHITE : FADE_COLOR.BLACK);

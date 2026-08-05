@@ -599,7 +599,7 @@ function bss_stepped_objects()
 				state = BSS_STATE.EXIT;
 				spin_timer = 0;
 				globe_timer = 0;
-				exit_result = "fail";
+				stage_failed = true;
 				sound_play(sfx_warp_exit);
 				music_set_fade(FADE.OUT, 1);
 			}
@@ -717,7 +717,7 @@ function bss_stepped_objects()
 				globe_timer = 0;
 				player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 				player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
-				exit_result = "fail";
+				stage_failed = true;
 				sound_play(sfx_warp_exit);
 				music_set_fade(FADE.OUT, 1);
 			}
@@ -790,7 +790,6 @@ function bss_stepped_objects()
 		case BSS_CELL.MEDAL_GOLD:
 			if (globe_timer > 240)
 			{
-				exit_result = (pf[fp] == BSS_CELL.MEDAL_GOLD) ? "gold" : "silver";
 				palette_page ^= 1;
 				state = BSS_STATE.EXIT;
 				spin_timer = 0;
@@ -964,7 +963,7 @@ function bss_special_stage_start()
 	medal_spin        = 0;
 	reward_is_emerald = false;
 	emerald_index     = 0;
-	exit_result       = "";
+	stage_failed      = false;
 	bg_scroll_x       = 0;
 	bg_scroll_y       = 0;
 
