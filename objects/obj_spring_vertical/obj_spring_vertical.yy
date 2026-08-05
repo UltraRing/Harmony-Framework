@@ -33,6 +33,7 @@
         "\"Red\"",
       ],"multiselect":false,"name":"spring_type","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"\"Yellow\"","varType":6,},
     {"$GMObjectProperty":"v2","%Name":"detach_sides","filters":[],"listItems":[],"multiselect":false,"name":"detach_sides","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
+    {"$GMObjectProperty":"v2","%Name":"semi_solid","filters":[],"listItems":[],"multiselect":false,"name":"semi_solid","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

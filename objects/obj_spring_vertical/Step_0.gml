@@ -2,11 +2,12 @@
 	//Update the animator
 	animator_update(animator);
 	
-	var c = player_act_solid();
+	var c = semi_solid ? player_act_semi_solid() : player_act_solid();
 	var player = player_find(0);
 	var m = detach_sides ? 0 : player.mode;
 	
-	if(c == COLLISION.TOP && sign(image_yscale) == 1)
+	if(c == COLLISION.TOP && sign(image_yscale) == 1 && !semi_solid || c 
+	&& sign(image_yscale) == 1 && semi_solid)
 	{
 		animator.animation_finished = false;
 		triggered = true;
@@ -29,7 +30,7 @@
 		sound_play(sfx_spring);
 	}
 	
-	if(c == COLLISION.BOTTOM && sign(image_yscale) == -1)
+	if(c == COLLISION.BOTTOM && sign(image_yscale) == -1 && !semi_solid)
 	{
 		animator.animation_finished = false;
 		triggered = true;
