@@ -3,6 +3,8 @@ function game_macros()
 	// Developer mode macro
 	#macro DEVMODE (os_get_config() == "Dev")
 	
+	#macro COMPILETILES (os_get_config() == "CompileTiles")
+	
 	// Easy to access global variable macros
 	#macro WINDOW_WIDTH global.window_width
 	#macro WINDOW_HEIGHT global.window_height
