@@ -378,7 +378,7 @@ function _tile_get_width(xpos, ypos, l = "CollisionMain", flip = false)
 function _tiledata_get_height(tile_id, tile_sprite, xpos, flip = false)
 {
 	// Turn X position into an offset
-	if(!tile_get_mirror(tile_id))
+	if((!tile_get_mirror(tile_id) && !tile_get_rotate(tile_id))|| (tile_get_rotate(tile_id) && tile_get_flip(tile_id)))
 		xpos %= 16;
 	else
 		xpos = 15 - xpos % 16;
@@ -395,28 +395,35 @@ function _tiledata_get_height(tile_id, tile_sprite, xpos, flip = false)
 	// Up direction collision height
 	if(flip)
 	{
+		if(tile_get_rotate(tile_id)) {
+			if (tile_get_mirror(tile_id)) {
+				return -global.tile_left[? tile_sprite][index][xpos];
+			} else {
+				return -global.tile_right[? tile_sprite][index][xpos];
+			}
+		}
+		
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_flip(tile_id))
 			return -global.tile_top[? tile_sprite][index][xpos];
-			
-		if(tile_get_rotate(tile_id)) {
-			if (tile_get_flip(tile_id)) return -global.tile_left[? tile_sprite][index][xpos];
-			return -global.tile_right[? tile_sprite][index][xpos];
-		}
 		
 		// Otherwise default to the normal one
 		return -global.tile_bottom[? tile_sprite][index][xpos];
 	}
 	else	// Down direction
 	{
+		if(tile_get_rotate(tile_id)) {
+			if (tile_get_mirror(tile_id)) {
+				return global.tile_right[? tile_sprite][index][xpos];
+			} else {
+				return global.tile_left[? tile_sprite][index][xpos];
+			}
+		}
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_flip(tile_id))
 			return global.tile_bottom[? tile_sprite][index][xpos];
-			
-		if(tile_get_rotate(tile_id)) {
-			if (tile_get_flip(tile_id)) return global.tile_right[? tile_sprite][index][xpos];
-			return global.tile_left[? tile_sprite][index][xpos];
-		}
 		
 		// Otherwise default to the normal one
 		return global.tile_top[? tile_sprite][index][xpos];
@@ -433,7 +440,7 @@ function _tiledata_get_height(tile_id, tile_sprite, xpos, flip = false)
 function _tiledata_get_width(tile_id, tile_sprite, ypos, flip = false)
 {
 	// Turn X position into an offset
-	if(!tile_get_flip(tile_id))
+	if((!tile_get_flip(tile_id) && !tile_get_rotate(tile_id))|| (!tile_get_mirror(tile_id) && tile_get_rotate(tile_id)))
 		ypos %= 16;
 	else
 		ypos = 15 - ypos % 16;
@@ -450,6 +457,14 @@ function _tiledata_get_width(tile_id, tile_sprite, ypos, flip = false)
 	// Up direction collision height
 	if(flip)
 	{
+		if(tile_get_rotate(tile_id)) {
+			if(tile_get_flip(tile_id)){
+				return -global.tile_bottom[? tile_sprite][index][ypos];
+			}
+			return -global.tile_top[? tile_sprite][index][ypos];
+		}
+		
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_mirror(tile_id))
 			return -global.tile_left[? tile_sprite][index][ypos];	
@@ -459,6 +474,13 @@ function _tiledata_get_width(tile_id, tile_sprite, ypos, flip = false)
 	}
 	else
 	{
+		if(tile_get_rotate(tile_id)) {
+			if(tile_get_flip(tile_id)){
+				return global.tile_top[? tile_sprite][index][ypos];
+			}
+			return global.tile_bottom[? tile_sprite][index][ypos];
+		}
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_mirror(tile_id))
 			return global.tile_right[? tile_sprite][index][ypos];
