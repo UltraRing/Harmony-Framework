@@ -6,6 +6,9 @@ function game_init_collision()
 	global.tile_left = ds_map_create();
 	global.tile_right = ds_map_create();
 	
+	var tiles_to_compile = [spr_tile_collision_new]
+	game_calculate_heights(tiles_to_compile)
+	
 }
 
 function game_calculate_heights(array){
@@ -48,6 +51,7 @@ function game_calculate_heights(array){
 }
 
 function game_update_tile_sprites(){
+	//UNUSED
 	if !layer_exists(global.col_tile[0]){
 		return	
 	}
@@ -60,7 +64,9 @@ function game_update_tile_sprites(){
 	game_calculate_heights(global.col_tile_sprite)
 }
 
+/*
 function game_tile_file_save(){
+	//UNUSED
 	show_debug_message("STARTING FILE SAVE...")
 	
 	var map_len = ds_map_size(global.tile_top)	
@@ -89,6 +95,7 @@ function game_tile_file_save(){
 }
 
 function game_tile_file_load(){
+	//UNUSED
 	show_debug_message("STARTING FILE LOAD...")
 	//top
 	var _file_name = file_find_first("*.tilet", fa_none);
@@ -183,7 +190,7 @@ function game_tile_file_load(){
 	}
 	file_find_close();
 }
-
+*/
 function _game_calculate_height(collision_index, tile_index, tile_width)
 {
 	var tileX = 16 * (tile_index % tile_width);

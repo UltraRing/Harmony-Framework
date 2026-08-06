@@ -7,7 +7,6 @@
   "configs":{
     "children":[
       {"children":[],"name":"Dev",},
-      {"children":[],"name":"CompileTiles",},
     ],
     "name":"Default",
   },
