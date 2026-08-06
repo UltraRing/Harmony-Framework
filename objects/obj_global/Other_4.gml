@@ -8,3 +8,4 @@
 	// Reset the fade system if needed
 	if(fade.reset)
 		fade_init();
+	

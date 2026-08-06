@@ -187,7 +187,8 @@ function _tile_get_height2(xpos, ypos, l = "CollisionMain", flip = false)
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
-	var height = _tiledata_get_height(tile_id, xpos, flip);
+	var tile_sprite = layer_tilemap_get_colmask(layer_id)
+	var height = _tiledata_get_height(tile_id, tile_sprite, xpos, flip);
 	
 	// Flip height
 	if(flip)
@@ -229,7 +230,8 @@ function _tile_get_height(xpos, ypos, l = "CollisionMain", flip = false)
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
-	var height = _tiledata_get_height(tile_id, xpos, flip);
+	var tile_sprite = layer_tilemap_get_colmask(layer_id)
+	var height = _tiledata_get_height(tile_id, tile_sprite, xpos, flip);
 	
 	// Second pass offset
 	var a = 16;
@@ -283,7 +285,8 @@ function _tile_get_width2(xpos, ypos, l = "CollisionMain", flip = false)
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
-	var height = _tiledata_get_width(tile_id, ypos, flip);
+	var tile_sprite = layer_tilemap_get_colmask(layer_id)
+	var height = _tiledata_get_width(tile_id, tile_sprite, ypos, flip);
 	
 	// Second pass offset
 	var a = 16;
@@ -328,7 +331,8 @@ function _tile_get_width(xpos, ypos, l = "CollisionMain", flip = false)
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
-	var height = _tiledata_get_width(tile_id, ypos, flip);
+	var tile_sprite = layer_tilemap_get_colmask(layer_id)
+	var height = _tiledata_get_width(tile_id, tile_sprite, ypos, flip);
 	
 	// Second pass offset
 	var a = 16;
@@ -367,13 +371,14 @@ function _tile_get_width(xpos, ypos, l = "CollisionMain", flip = false)
 /// @self						
 /// @description							An internal function used for getting a height map data.
 /// @param {Real} tile_id					Which tile data is being used
+/// @param {Asset.GMSprite} tile_sprite		Which tilemap sprite is being refrence
 /// @param {Real} xpos						The horizontal height map offset
 /// @param {Real} [flip]					Is the collision side flipped? (By default it is not)				
 /// @return {Real}
-function _tiledata_get_height(tile_id, xpos, flip = false)
+function _tiledata_get_height(tile_id, tile_sprite, xpos, flip = false)
 {
 	// Turn X position into an offset
-	if(!tile_get_mirror(tile_id))
+	if((!tile_get_mirror(tile_id) && !tile_get_rotate(tile_id))|| (tile_get_rotate(tile_id) && tile_get_flip(tile_id)))
 		xpos %= 16;
 	else
 		xpos = 15 - xpos % 16;
@@ -382,7 +387,7 @@ function _tiledata_get_height(tile_id, xpos, flip = false)
 	var index = tile_get_index(tile_id);
 	
 	// Return blank height if the tile is invalid
-	if(index <= 0 || index > array_length(global.tile_top[global.collision_index]))
+	if(index <= 0 || index > array_length(global.tile_top[? tile_sprite]))
 	{
 		return 0;
 	}
@@ -390,34 +395,52 @@ function _tiledata_get_height(tile_id, xpos, flip = false)
 	// Up direction collision height
 	if(flip)
 	{
+		if(tile_get_rotate(tile_id)) {
+			if (tile_get_mirror(tile_id)) {
+				return -global.tile_left[? tile_sprite][index][xpos];
+			} else {
+				return -global.tile_right[? tile_sprite][index][xpos];
+			}
+		}
+		
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_flip(tile_id))
-			return -global.tile_top[global.collision_index][index][xpos];
+			return -global.tile_top[? tile_sprite][index][xpos];
 		
 		// Otherwise default to the normal one
-		return -global.tile_bottom[global.collision_index][index][xpos];
+		return -global.tile_bottom[? tile_sprite][index][xpos];
 	}
 	else	// Down direction
 	{
+		if(tile_get_rotate(tile_id)) {
+			if (tile_get_mirror(tile_id)) {
+				return global.tile_right[? tile_sprite][index][xpos];
+			} else {
+				return global.tile_left[? tile_sprite][index][xpos];
+			}
+		}
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_flip(tile_id))
-			return global.tile_bottom[global.collision_index][index][xpos];
+			return global.tile_bottom[? tile_sprite][index][xpos];
 		
 		// Otherwise default to the normal one
-		return global.tile_top[global.collision_index][index][xpos];
+		return global.tile_top[? tile_sprite][index][xpos];
 	}
 }
 
 /// @self						
 /// @description							An internal function used for getting a height map data.
 /// @param {Real} tile_id					Which tile data is being used
+/// @param {Asset.GMSprite} tile_sprite		Which tilemap sprite is being refrence
 /// @param {Real} ypos						The horizontal height map offset
 /// @param {Real} [flip]					Is the collision side flipped? (By default it is not)				
 /// @return {Real}
-function _tiledata_get_width(tile_id, ypos, flip = false)
+function _tiledata_get_width(tile_id, tile_sprite, ypos, flip = false)
 {
 	// Turn X position into an offset
-	if(!tile_get_flip(tile_id))
+	if((!tile_get_flip(tile_id) && !tile_get_rotate(tile_id))|| (!tile_get_mirror(tile_id) && tile_get_rotate(tile_id)))
 		ypos %= 16;
 	else
 		ypos = 15 - ypos % 16;
@@ -426,7 +449,7 @@ function _tiledata_get_width(tile_id, ypos, flip = false)
 	var index = tile_get_index(tile_id);
 	
 	// Return blank height if the tile is invalid
-	if(index <= 0 || index > array_length(global.tile_top[global.collision_index]))
+	if(index <= 0 || index > array_length(global.tile_top[? tile_sprite]))
 	{
 		return 0;
 	}
@@ -434,20 +457,35 @@ function _tiledata_get_width(tile_id, ypos, flip = false)
 	// Up direction collision height
 	if(flip)
 	{
+		if(tile_get_rotate(tile_id)) {
+			if(tile_get_flip(tile_id)){
+				return -global.tile_bottom[? tile_sprite][index][ypos];
+			}
+			return -global.tile_top[? tile_sprite][index][ypos];
+		}
+		
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_mirror(tile_id))
-			return -global.tile_left[global.collision_index][index][ypos];	
+			return -global.tile_left[? tile_sprite][index][ypos];	
 			
 		// Otherwise default to the normal one
-		return -global.tile_right[global.collision_index][index][ypos];
+		return -global.tile_right[? tile_sprite][index][ypos];
 	}
 	else
 	{
+		if(tile_get_rotate(tile_id)) {
+			if(tile_get_flip(tile_id)){
+				return global.tile_top[? tile_sprite][index][ypos];
+			}
+			return global.tile_bottom[? tile_sprite][index][ypos];
+		}
+		
 		// Return collision height if the tile is flipped
 		if(tile_get_mirror(tile_id))
-			return global.tile_right[global.collision_index][index][ypos];
+			return global.tile_right[? tile_sprite][index][ypos];
 			
 		// Otherwise default to the normal one
-		return global.tile_left[global.collision_index][index][ypos];	
+		return global.tile_left[? tile_sprite][index][ypos];	
 	}
 }
