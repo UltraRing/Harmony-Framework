@@ -48,6 +48,7 @@ function game_init_global_variables()
 	global.title_card = true;				//Flag that allows title card to be triggered, used in dev
 	global.emeralds = [false, false, false, false, false, false, false];				//List of active emeralds
 	global.col_tile = ["CollisionMain", "CollisionSemi", "CollisionA", "CollisionB"];	//List of collision layers
+	global.col_tile_sprite = ["","","",""];
 	global.collision_index = 0;
 	global.extra_life_jingle = true;		//flag that plays a jingle that cuts out the music when true, plays a sound effect if false
 	
