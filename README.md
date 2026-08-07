@@ -1,6 +1,6 @@
 # Harmony Framework
 <p align="center">
-  <img src="https://raw.githubusercontent.com/UltraRing/Harmony-Framework/refs/heads/dev/.res/harmony1.png" alt="description" />
+  <img src="https://raw.githubusercontent.com/UltraRing/UltraRing.github.io/refs/heads/main/Harmony/harmony1.png?token=GHSAT0AAAAAAEALAJYRSSVR636WSE6PE7XQ2TV7ROA" alt="description" />
 </p>
 
 # About
@@ -16,11 +16,11 @@ Harmony comes with two separate branches:
   - A developer branch. This is where new features will be incorporated and tested first.
   
 # Documentation
-The documentation of basic examples and function list is still being worked on
+The documentation of basic examples and function list is still being worked on, As of now the utility scripts have been documented in the framework itself via GameMaker's Feather feature
 
 # Community and Support
 <a href="https://discord.gg/FH4pHSEv3n">
-  <img src="https://raw.githubusercontent.com/UltraRing/Harmony-Framework/refs/heads/dev/.res/harmony%20button1.png" alt="description"/>
+  <img src="https://raw.githubusercontent.com/UltraRing/UltraRing.github.io/refs/heads/main/Harmony/harmony%20button1.png?token=GHSAT0AAAAAAEALAJYQ6H6COYSCJSCW255M2TV7SOA" alt="description"/>
 </a>
 <br>
 A database of every fangame that uses Harmony Framework is currently work in progress
