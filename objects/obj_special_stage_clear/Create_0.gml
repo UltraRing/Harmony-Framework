@@ -3,7 +3,8 @@
 	state = 0;
 
 	//Results
-	heading = "chaos";  //"gotall" | "gotone" | "chaos"
+	result = SS_RESULT.FAILED;
+	got_all = false;
 	perfect = false;
 	rings = 0;
 
