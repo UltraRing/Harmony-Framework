@@ -1,6 +1,6 @@
 # Harmony Framework
 <p align="center">
-  <img src="https://raw.githubusercontent.com/UltraRing/UltraRing.github.io/refs/heads/main/Harmony/harmony1.png?token=GHSAT0AAAAAAEALAJYRSSVR636WSE6PE7XQ2TV7ROA" alt="description" />
+  <img src="https://raw.githubusercontent.com/UltraRing/UltraRing.github.io/refs/heads/main/Harmony/harmony1.png?token=GHSAT0AAAAAAEALAJYRRO7UO562M674ZHKI2TV722A" alt="description" />
 </p>
 
 # About
@@ -20,7 +20,7 @@ The documentation of basic examples and function list is still being worked on, 
 
 # Community and Support
 <a href="https://discord.gg/FH4pHSEv3n">
-  <img src="https://raw.githubusercontent.com/UltraRing/UltraRing.github.io/refs/heads/main/Harmony/harmony%20button1.png?token=GHSAT0AAAAAAEALAJYQ6H6COYSCJSCW255M2TV7SOA" alt="description"/>
+  <img src="https://raw.githubusercontent.com/UltraRing/UltraRing.github.io/refs/heads/main/Harmony/harmony%20button1.png?token=GHSAT0AAAAAAEALAJYQ644MNHSVU2BUHO3I2TV72YA" alt="description"/>
 </a>
 <br>
 A database of every fangame that uses Harmony Framework is currently work in progress
