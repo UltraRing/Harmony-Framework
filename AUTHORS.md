@@ -73,4 +73,5 @@ Twilight ~ Asylum for Techdemo Tower/Template Zone
 Naofumi Hataya ~ Forest Replay (Sega Rally Championship) for Bonus Stage
 Purple Motion ~ Aquaphobia for Super Sonic
 Zaril Krion ~ Space Station Aroon for Mini Boss
+Travolta ~ Condom Corruption for Major Boss
 ```
