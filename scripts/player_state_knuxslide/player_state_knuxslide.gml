@@ -2,6 +2,7 @@ function player_state_knuxslide(){
 	//Change flags
 	direction_allow = false;
 	movement_allow = false;
+	attacking = true;
 	
 	// Change the direction depending on ground speed
 	if(sign(ground_speed) != 0)
