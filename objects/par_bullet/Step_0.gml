@@ -12,7 +12,7 @@
 	{
 		var fly_angle = 90 - point_direction(obj_player.x, obj_player.y,x,y) 
 		var fly_cond = (obj_player.state == player_state_tailsfly && abs(fly_angle) < 45)
-		if(obj_player.shield == S_NONE && !fly_cond)
+		if(obj_player.shield == SHIELD.NONE && !fly_cond)
 		{
 			player_hurt();
 		}
