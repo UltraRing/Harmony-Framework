@@ -5,5 +5,5 @@ event_inherited();
 
 // Randomized bridge segment example
 for (var i = 0; i < bridge_size; ++i) {
-	frame[i] = irandom(sprite_get_number(sprite_index));
+	log_frames[i] = irandom(sprite_get_number(sprite_index));
 }

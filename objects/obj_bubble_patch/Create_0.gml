@@ -14,7 +14,7 @@
 	
 	animator = new animator_create();
 	
-	animation_play_no_list(animator, spr_bubble_patch, 4, true, 0, true);
+	animation_play_no_list(animator, spr_bubble_patch, 6, true, 0, true);
 	
 	instance_register_culling();
 	
