@@ -107,3 +107,10 @@
 		GLOBAL,
 		END,
 	}
+
+	// Special stage results
+	enum SS_RESULT
+	{
+		FAILED,
+		GOT_EMERALD,
+	}

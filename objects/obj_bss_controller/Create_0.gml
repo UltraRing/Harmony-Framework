@@ -1,10 +1,9 @@
 /// @description Blue Spheres controller
 
-bss_load_playfield(); //32x32 playfield from the room's "Playfield" tilemap
+bss_load_playfield(); //scalable playfield from the room's "Playfield" tilemap
 
 global.bss.chain = array_create(global.bss.size, BSS_CELL.NONE);
 global.bss.coll  = array_create(global.bss.size, BSS_CELL.NONE);
-global.bss.spark = array_create(global.bss.size, 0);
 global.bss.lastSX = 0;
 global.bss.lastSY = 0;
 global.bss.loop = false;

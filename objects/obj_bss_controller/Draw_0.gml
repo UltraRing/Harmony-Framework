@@ -24,7 +24,7 @@ else
 
 shader_reset();
 
-//Horizon glow blending (Uncomment this if you like Sonic Mania!
+//Horizon glow blending (Uncomment this if you like Sonic Mania!)
 /*
 gpu_set_blendmode(bm_add);
 draw_sprite_ext(spr_bss_horizon,  0, center_x, 240, 1, 1, 0, c_white, 0.5); 
@@ -36,11 +36,14 @@ gpu_set_blendmode(bm_normal);
 draw_sprite_ext(spr_bss_player_shadow, 0, center_x, 170, 1, 1, 0, c_white, 1);
 
 //BSS_Setup_HandleCollectableMovement
+
+//Facing angle, its integer sine/cosine and the current cardinal quadrant
 var aa = angle & 255;
 var cs = cos256(aa);
 var sn = sin256(aa);
 var offset_dir = (aa >> 6) & 3;
 
+//Visible cell offsets, the second frustum covers the mid-turn angles
 var use_f2 = ((aa & 0x3F) != 0);
 var fxs = use_f2 ? global.bss.frustum2X : global.bss.frustum1X;
 var fys = use_f2 ? global.bss.frustum2Y : global.bss.frustum1Y;
@@ -48,6 +51,7 @@ var fcount = array_length(fxs);
 
 for (var i = 0; i < fcount; i++)
 {
+	//Rotate the offset into the current quadrant
 	var ox, oy;
 	switch (offset_dir)
 	{
@@ -56,40 +60,52 @@ for (var i = 0; i < fcount; i++)
 		case 2: ox =  fxs[i]; oy = -fys[i]; break; //FLIP_Y
 		case 3: ox =  fys[i]; oy =  fxs[i]; break; //FLIP_XY
 	}
-
+	
+	//Wrap the offset around the board
 	var idx = bss_wrap_y(oy + player_y) + (BSS_H * bss_wrap_x(ox + player_x));
+		
+	//Get the cell index
 	var tile = global.bss.pf[idx];
+		
+	//No object? Skip
 	if (tile == BSS_CELL.NONE) continue;
-
+	
+	//Rotate the cell into view space
 	var sx = ((ox * cs + oy * sn) >> 4);
 	var sy = ((oy * cs - ox * sn) >> 4);
+	
+	//Depth row, blending in the roll scroll
 	var dep = -(sy + palette_line - 16);
+	
+	//Behind the camera or past the horizon? Skip
 	if (dep < 0 || dep >= 112) continue;
-
+	
+	//Scale frame shrinks with depth and toward the screen edges
 	var f = global.bss.frameTable[dep] - (abs(sx) >> 5);
 	if (f < 0) f = 0;
-
+	
+	//Fan the cell out horizontally with perspective correction
 	var fxv  = global.bss.xMultiplierTable[dep] * sx;
-	var dist = (fxv * fxv) div 65536;
+	var dist = (fxv * fxv) div 65536; //1 << 16
 	var worldX = (((fxv <= 0) ? fxv + dist : fxv - dist) >> 4);
-
+	
+	//Screen position, following the globe's curved horizon
 	var dx = worldX + center_x;
 	var dy = global.bss.screenYTable[dep] + (worldX * worldX) div global.bss.divisorTable[dep];
-
+	
 	//Jettisonning
 	if (state == BSS_STATE.JETTISON)
 	{
 		dx = (((256 + spin_timer) * (dx - center_x)) >> 8) + center_x;
 		dy -= spin_timer * 2;
 	}
-
-	var spark_n = sprite_get_number(spr_bss_ring_sparkle);
-	var spark_f = (tile == BSS_CELL.SPARKLE) ? min(global.bss.spark[idx] * spark_n div 16, spark_n - 1) : 0;
-	draw_bss_cell(tile, dx, dy, f, ring_spin, floor(medal_spin), spark_f, emerald_index);
+	
+	//Draw the cell
+	bss_draw_cell(tile, dx, dy, f, ring_spin, floor(medal_spin), global.bss.spark_phase, emerald_index);
 }
 
 //Draw player
-var py = 170 + ((gravity_strength >> 1) - (gravity_strength >> 4)) / 65536;
+var py = 170 + ((gravity_strength >> 1) - (gravity_strength >> 4)) / 65536; //1 << 16
 draw_animator(animator, center_x, py, 1, 1, 0, c_white, 1);
 if (has_tail) draw_animator(tail_animator, center_x, py, 1, 1, 0, c_white, 1);
 
@@ -97,12 +113,12 @@ if (has_tail) draw_animator(tail_animator, center_x, py, 1, 1, 0, c_white, 1);
 draw_set_color(c_white);
 draw_sprite(spr_hud_bss_spheres, 0, center_x-141, 13);
 draw_sprite(spr_hud_bss_rings, 0, center_x+64, 13);
-draw_bss_number(sphere_count, center_x - 104 + 16, 17);
-draw_bss_number(ring_count, center_x + 120 + 16, 17);
+bss_draw_number(sphere_count, center_x - 104 + 16, 17);
+bss_draw_number(ring_count, center_x + 120 + 16, 17);
 
 //Messages
 if (msg_phase <= 2)
-	draw_bss_message(spr_hud_bss_get_blue_spheres, center_x, 104, (msg_phase < 2) ? 0 : intro_offset);
+	bss_draw_message(spr_hud_bss_get_blue_spheres, center_x, 104, (msg_phase < 2) ? 0 : intro_offset);
 
 if (perfect_active)
-	draw_bss_message(spr_hud_bss_perfect, center_x, 104, perfect_offset); //slides in/out
+	bss_draw_message(spr_hud_bss_perfect, center_x, 104, perfect_offset); //slides in/out

@@ -11,16 +11,16 @@
 
 	//Draw the end card text
 	var hy = 64;
-	if (heading == "gotall" && super_shown)
+	if (got_all && super_shown)
 	{
 		//NOW CHARACTER CAN BE SUPER
 		draw_sprite(spr_hud_ssclear_got_them_all, 0, cx + heading_off, hy);
 		draw_sprite(spr_hud_ssclear_now_character, global.character, cx + super_off, hy - 9);
 		draw_sprite(spr_hud_ssclear_character_super, global.character, cx + super_off, hy + 9);
 	}
-	else if (heading == "gotall")
+	else if (got_all)
 		draw_sprite(spr_hud_ssclear_got_them_all, 0, cx + offset_x[0], hy);
-	else if (heading == "gotone")
+	else if (result == SS_RESULT.GOT_EMERALD)
 	{
 		//CHARACTER GOT A CHAOS EMERALD
 		draw_sprite(spr_hud_actclear_character, global.character, cx + offset_x[0], hy - 9);

@@ -1,4 +1,4 @@
-// Blue Spheres engine, accurate port of Sonic Mania's BSS_Setup / BSS_Player / BSS_Collectable / BSS_Collected.
+// Blue Spheres engine, accurate port of Sonic Mania's code.
 
 #macro BSS_W global.bss.w
 #macro BSS_H global.bss.h
@@ -63,6 +63,7 @@ enum BSS_ANIM
 	TAIL   = 4,
 }
 
+// Column-major board: cell (x, y) lives at x * height + y
 function bss_idx(_x, _y) 
 {
 	return (bss_wrap_x(_x) * BSS_H) + bss_wrap_y(_y);
@@ -82,7 +83,7 @@ function bss_wrap_y(_v)
 }
 
 // BSS_Message two-part message
-function draw_bss_message(_spr, _cx, _cy, _offset) 
+function bss_draw_message(_spr, _cx, _cy, _offset) 
 {
 	var fw = sprite_get_width(_spr);
 	var fh = sprite_get_height(_spr);
@@ -91,7 +92,7 @@ function draw_bss_message(_spr, _cx, _cy, _offset)
 }
 
 // BSS_HUD_DrawNumbers
-function draw_bss_number(_value, _right_x, _y) 
+function bss_draw_number(_value, _right_x, _y) 
 {
 	var s = string(_value mod 1000);
 	s = string_repeat("0", max(0, 3 - string_length(s))) + s;
@@ -195,7 +196,10 @@ function bss_build_tables()
 	global.bss.globeDirTableL  = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
 	global.bss.globeDirTableR  = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0];
 
-	// BSS_Collectable ring/medal scale tables + the BSS_Collectable_StageLoad transform
+	// Per-frame pixel lift so spheres sit on the surface
+	global.bss.sphereLift = [1, 2, 3, 4, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6];
+
+	// BSS_Collectable Mania ring/medal scale tables + the BSS_Collectable_StageLoad transform
 	global.bss.ringScaleX = [2, 4, 4, 4, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 32, 32, 32];
 	global.bss.ringScaleY = [2, 4, 4, 4, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 11, 12, 13, 14, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 21, 22, 23, 24];
 	global.bss.medalScale = [4, 4, 5, 5, 6, 6, 7, 7, 8, 10, 12, 14, 16, 18, 20, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 32, 32, 32, 32, 32, 32, 32];
@@ -217,7 +221,8 @@ function bss_build_tables()
 	}
 }
 
-// Blue sphere -> ring enclosure (BSS_Setup_ProcessChain family), masks verbatim
+// Blue sphere -> ring enclosure (BSS_Setup_ProcessChain family), masks verbatim.
+// A chain step is only valid with a blue sphere in the 8 cells around it
 function bss_check_sphere_valid(_x, _y) 
 {
 	var pf = global.bss.pf;
@@ -233,20 +238,22 @@ function bss_check_sphere_valid(_x, _y)
 	return true;
 }
 
+// Walk a chain of reds away from the start sphere, branching sideways as it goes.
+// A tail that never branched gets un-marked when the walk dead-ends
 function bss_scan_up(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var px = BSS_H * _x;
 	var cid = 0;
 	while (true)
 	{
 		_y = bss_wrap_y(_y - 1);
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if ((global.bss.chain[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
+		if ((ch[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[_y + (BSS_H * bss_wrap_x(_x + 1))] & 0x7F) == BSS_CELL.RED) found = bss_scan_right(_x, _y) || found;
@@ -254,24 +261,24 @@ function bss_scan_up(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y + 1); global.bss.coll[px + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y + 1); co[px + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
 function bss_scan_down(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var px = BSS_H * _x;
 	var cid = 0;
 	while (true)
 	{
 		_y = bss_wrap_y(_y + 1);
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if (global.bss.chain[px + _y] == BSS_CELL.BLUE) break;
+		if (ch[px + _y] == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[_y + (BSS_H * bss_wrap_x(_x - 1))] & 0x7F) == BSS_CELL.RED) found = bss_scan_left(_x, _y) || found;
@@ -279,24 +286,24 @@ function bss_scan_down(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y - 1); global.bss.coll[px + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _y = bss_wrap_y(_y - 1); co[px + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
 function bss_scan_left(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var cid = 0;
 	while (true)
 	{
 		_x = bss_wrap_x(_x - 1);
 		var px = BSS_H * _x;
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if ((global.bss.chain[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
+		if ((ch[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[(BSS_H * _x) + bss_wrap_y(_y - 1)] & 0x7F) == BSS_CELL.RED) found = bss_scan_up(_x, _y) || found;
@@ -304,24 +311,24 @@ function bss_scan_left(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x + 1); global.bss.coll[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x + 1); co[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
 function bss_scan_right(_x, _y) 
 {
 	if (global.bss.loop) return true;
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
 	var cid = 0;
 	while (true)
 	{
 		_x = bss_wrap_x(_x + 1);
 		var px = BSS_H * _x;
 		if ((pf[px + _y] & 0x7F) != BSS_CELL.RED) break;
-		if ((global.bss.chain[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
+		if ((ch[px + _y] & 0x7F) == BSS_CELL.BLUE) break;
 		if (!bss_check_sphere_valid(_x, _y)) break;
-		global.bss.chain[_y + px] = BSS_CELL.BLUE;
-		global.bss.coll[_y + px] = BSS_CELL.BLUE;
+		ch[_y + px] = BSS_CELL.BLUE;
+		co[_y + px] = BSS_CELL.BLUE;
 		if (_x == global.bss.lastSX && _y == global.bss.lastSY) { global.bss.loop = true; return true; }
 		var found = false;
 		if ((pf[(BSS_H * _x) + bss_wrap_y(_y + 1)] & 0x7F) == BSS_CELL.RED) found = bss_scan_down(_x, _y) || found;
@@ -329,19 +336,20 @@ function bss_scan_right(_x, _y)
 		if (!found) cid++; else cid = 0;
 		if (global.bss.loop) return true;
 	}
-	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x - 1); global.bss.coll[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
+	for (var i = cid; i > 0; i--) { _x = bss_wrap_x(_x - 1); co[(BSS_H * _x) + _y] = BSS_CELL.NONE; }
 	return false;
 }
 
+// A blue is enclosed when all four rays hit the chain before empty floor or a red
 function bss_chained_count(_x, _y) 
 {
-	var pf = global.bss.pf;
+	var pf = global.bss.pf, co = global.bss.coll;
 	var px = BSS_H * _x;
 
 	var y1 = bss_wrap_y(_y - 1);
 	for (var i = 0; i < BSS_H; i++)
 	{
-		if (global.bss.coll[px + y1] == BSS_CELL.BLUE) break;
+		if (co[px + y1] == BSS_CELL.BLUE) break;
 		var t = pf[px + y1] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		y1 = bss_wrap_y(y1 - 1);
@@ -349,7 +357,7 @@ function bss_chained_count(_x, _y)
 	y1 = bss_wrap_y(_y + 1);
 	for (var i = 0; i < BSS_H; i++)
 	{
-		if (global.bss.coll[px + y1] == BSS_CELL.BLUE) break;
+		if (co[px + y1] == BSS_CELL.BLUE) break;
 		var t = pf[px + y1] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		y1 = bss_wrap_y(y1 + 1);
@@ -357,7 +365,7 @@ function bss_chained_count(_x, _y)
 	var x1 = bss_wrap_x(_x - 1);
 	for (var i = 0; i < BSS_W; i++)
 	{
-		if (global.bss.coll[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
+		if (co[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
 		var t = pf[_y + (BSS_H * x1)] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		x1 = bss_wrap_x(x1 - 1);
@@ -365,13 +373,13 @@ function bss_chained_count(_x, _y)
 	x1 = bss_wrap_x(_x + 1);
 	for (var i = 0; i < BSS_W; i++)
 	{
-		if (global.bss.coll[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
+		if (co[_y + (BSS_H * x1)] == BSS_CELL.BLUE) break;
 		var t = pf[_y + (BSS_H * x1)] & 0x7F;
 		if (t == BSS_CELL.NONE || t == BSS_CELL.RED) return false;
 		x1 = bss_wrap_x(x1 + 1);
 	}
 
-	global.bss.coll[px + _y] = BSS_CELL.BLUE;
+	co[px + _y] = BSS_CELL.BLUE;
 	return true;
 }
 
@@ -379,11 +387,13 @@ function bss_chained_count(_x, _y)
 // Returns spheres converted (caller subtracts from sphere count)
 function bss_process_chain() 
 {
-	for (var i = 0; i < global.bss.size; i++) { global.bss.chain[i] = BSS_CELL.NONE; global.bss.coll[i] = BSS_CELL.NONE; }
+	var pf = global.bss.pf, ch = global.bss.chain, co = global.bss.coll;
+	for (var i = 0; i < global.bss.size; i++) { ch[i] = BSS_CELL.NONE; co[i] = BSS_CELL.NONE; }
 
 	var lp = bss_idx(global.bss.lastSX, global.bss.lastSY);
-	global.bss.pf[lp] = BSS_CELL.RED;
-	global.bss.coll[lp] = BSS_CELL.BLUE;
+	//Temporarily red so the scans can walk through the start sphere
+	pf[lp] = BSS_CELL.RED;
+	co[lp] = BSS_CELL.BLUE;
 
 	global.bss.loop = false;
 	bss_scan_up(global.bss.lastSX, global.bss.lastSY);
@@ -391,15 +401,16 @@ function bss_process_chain()
 	bss_scan_left(global.bss.lastSX, global.bss.lastSY);
 	bss_scan_right(global.bss.lastSX, global.bss.lastSY);
 
-	global.bss.pf[lp] = BSS_CELL.BLUE;
+	pf[lp] = BSS_CELL.BLUE;
 
 	if (!global.bss.loop) return 0;
 
+	//Count the blues the loop encloses
 	var collected = 0;
 	for (var gy = 0; gy < BSS_H; gy++)
 	{
 		for (var gx = 0; gx < BSS_W; gx++) {
-			if ((global.bss.pf[(gx * BSS_H) + gy] & 0x7F) == BSS_CELL.BLUE) collected += bss_chained_count(gx, gy) ? 1 : 0;
+			if ((pf[(gx * BSS_H) + gy] & 0x7F) == BSS_CELL.BLUE) collected += bss_chained_count(gx, gy) ? 1 : 0;
 		}
 	}
 	if (collected <= 0) { global.bss.loop = false; return 0; }
@@ -414,13 +425,13 @@ function bss_process_chain()
 			var y2 = bss_wrap_y(gy + 1);
 			var x1 = BSS_H * bss_wrap_x(gx - 1);
 			var x2 = BSS_H * bss_wrap_x(gx + 1);
-			if (global.bss.coll[p + gy] == BSS_CELL.BLUE)
+			if (co[p + gy] == BSS_CELL.BLUE)
 			{
-				if ((global.bss.pf[p + y1] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[p + y2] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[x1 + gy] & 0x7F) != BSS_CELL.BLUE)
+				if ((pf[p + y1] & 0x7F) != BSS_CELL.BLUE && (pf[p + y2] & 0x7F) != BSS_CELL.BLUE && (pf[x1 + gy] & 0x7F) != BSS_CELL.BLUE)
 				{
-					if ((global.bss.pf[x2 + gy] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[x1 + y1] & 0x7F) != BSS_CELL.BLUE
-						&& (global.bss.pf[x2 + y1] & 0x7F) != BSS_CELL.BLUE && (global.bss.pf[x1 + y2] & 0x7F) != BSS_CELL.BLUE) {
-						if ((global.bss.pf[x2 + y2] & 0x7F) != BSS_CELL.BLUE) global.bss.coll[(gx * BSS_H) + gy] = BSS_CELL.NONE;
+					if ((pf[x2 + gy] & 0x7F) != BSS_CELL.BLUE && (pf[x1 + y1] & 0x7F) != BSS_CELL.BLUE
+						&& (pf[x2 + y1] & 0x7F) != BSS_CELL.BLUE && (pf[x1 + y2] & 0x7F) != BSS_CELL.BLUE) {
+						if ((pf[x2 + y2] & 0x7F) != BSS_CELL.BLUE) co[(gx * BSS_H) + gy] = BSS_CELL.NONE;
 					}
 				}
 			}
@@ -430,7 +441,8 @@ function bss_process_chain()
 	for (var gy = 0; gy < BSS_H; gy++)
 	{
 		for (var gx = 0; gx < BSS_W; gx++) {
-			if (global.bss.coll[(gx * BSS_H) + gy] != BSS_CELL.NONE) global.bss.pf[(gx * BSS_H) + gy] = BSS_CELL.RING;
+			//Everything still marked becomes a ring
+			if (co[(gx * BSS_H) + gy] != BSS_CELL.NONE) pf[(gx * BSS_H) + gy] = BSS_CELL.RING;
 		}
 	}
 
@@ -440,24 +452,27 @@ function bss_process_chain()
 }
 
 // Draw one projected cell at screen (_x,_y), scale frame _f (0..31, 31 = closest).
-// Sphere/bumper/emerald subimages are pre-scaled, rings/medals scale a full-size sprite
-function draw_bss_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
+function bss_draw_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 {
+	// Lift the sphere so it sits on the globe's surface
+	var ly = _y - global.bss.sphereLift[_f div 2];
+	
+	// Draw the cells here
 	switch (_t)
 	{
-		case BSS_CELL.BLUE:   draw_sprite(spr_bss_sphere_blue,   _f div 2, _x, _y); break;
-		case BSS_CELL.RED:    draw_sprite(spr_bss_sphere_red,    _f div 2, _x, _y); break;
-		case BSS_CELL.BUMPER: draw_sprite(spr_bss_bumper,        _f div 2, _x, _y); break;
-		case BSS_CELL.YELLOW: draw_sprite(spr_bss_sphere_yellow, _f div 2, _x, _y); break;
-		case BSS_CELL.GREEN:  draw_sprite(spr_bss_sphere_green,  _f div 2, _x, _y); break;
-		case BSS_CELL.PINK:   draw_sprite(spr_bss_sphere_pink,   _f div 2, _x, _y); break;
+		case BSS_CELL.BLUE:   draw_sprite(spr_bss_sphere_blue,   _f div 2, _x, ly); break;
+		case BSS_CELL.RED:    draw_sprite(spr_bss_sphere_red,    _f div 2, _x, ly); break;
+		case BSS_CELL.BUMPER: draw_sprite(spr_bss_bumper,        _f div 2, _x, ly); break;
+		case BSS_CELL.YELLOW: draw_sprite(spr_bss_sphere_yellow, _f div 2, _x, ly); break;
+		case BSS_CELL.GREEN:  draw_sprite(spr_bss_sphere_green,  _f div 2, _x, ly); break;
+		case BSS_CELL.PINK:   draw_sprite(spr_bss_sphere_pink,   _f div 2, _x, ly); break;
 
 		case BSS_CELL.RING:
 			//Uncomment this for Mania's method of drawing rings!
 			/*
 			var spin = floor(_spin) mod sprite_get_number(spr_bss_ring_mania);
 			draw_sprite_ext(spr_bss_ring_mania, spin,
-				_x, _y - (global.bss.ringScreenY[_f] / 65536),
+				_x, _y - (global.bss.ringScreenY[_f] / 65536), //1 << 16
 				global.bss.ringScaleX[_f] / 512, global.bss.ringScaleY[_f] / 512, 0, c_white, 1);
 			*/
 			draw_sprite(spr_bss_ring, (global.bss.ring_phase * 16) + (_f div 2), _x, _y);
@@ -468,7 +483,7 @@ function draw_bss_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 			var ms = global.bss.medalScale[_f] / 512;
 			var mspr = (_t == BSS_CELL.MEDAL_GOLD) ? spr_bss_medal_gold : spr_bss_medal_silver;
 			draw_sprite_ext(mspr, _medal mod sprite_get_number(mspr),
-				_x, _y - (global.bss.ringScreenY[_f] / 65536), ms, ms, 0, c_white, 1);
+				_x, _y - (global.bss.ringScreenY[_f] / 65536), ms, ms, 0, c_white, 1); //1 << 16
 			break;
 
 		case BSS_CELL.EMERALD_CHAOS:
@@ -477,9 +492,9 @@ function draw_bss_cell(_t, _x, _y, _f, _spin, _medal, _spark, _epal)
 			shader_reset();
 			break;
 
-		case BSS_CELL.BLUE_STOOD:  draw_sprite_ext(spr_bss_sphere_blue,  _f div 2, _x, _y, 1, 1, 0, c_white, 0.5); break;
-		case BSS_CELL.GREEN_STOOD: draw_sprite_ext(spr_bss_sphere_green, _f div 2, _x, _y, 1, 1, 0, c_white, 0.5); break;
-		case BSS_CELL.PINK_STOOD:  draw_sprite_ext(spr_bss_sphere_pink,  _f div 2, _x, _y, 1, 1, 0, c_white, 0.5); break;
+		case BSS_CELL.BLUE_STOOD:  draw_sprite_ext(spr_bss_sphere_blue,  _f div 2, _x, ly, 1, 1, 0, c_white, 0.5); break;
+		case BSS_CELL.GREEN_STOOD: draw_sprite_ext(spr_bss_sphere_green, _f div 2, _x, ly, 1, 1, 0, c_white, 0.5); break;
+		case BSS_CELL.PINK_STOOD:  draw_sprite_ext(spr_bss_sphere_pink,  _f div 2, _x, ly, 1, 1, 0, c_white, 0.5); break;
 
 		case BSS_CELL.SPARKLE: draw_sprite(spr_bss_ring_sparkle, _spark, _x, _y); break;
 		default: break;
@@ -533,9 +548,11 @@ function bss_collect_ring()
 // BSS_Setup_SetupFinishSequence
 function bss_setup_finish()
 {
+	//Clear EVERYTHING!
 	for (var gy = 0; gy < BSS_H; gy++)
 		for (var gx = 0; gx < BSS_W; gx++) global.bss.pf[(gx * BSS_H) + gy] = BSS_CELL.NONE;
 
+	//The reward lands 8 cells ahead of the player
 	var fx = (sin256(angle) >> 5) + player_x;
 	var fy = bss_wrap_y(player_y - (cos256(angle) >> 5));
 	var fp = fy + (BSS_H * bss_wrap_x(fx));
@@ -553,12 +570,13 @@ function bss_setup_finish()
 // BSS_Setup_HandleSteppedObjects (runs every grounded frame)
 function bss_stepped_objects()
 {
+	var pf = global.bss.pf;
 	if (globe_timer < 32)  disable_bumpers = false;
 	if (globe_timer > 224) disable_bumpers = false;
 
-	//current cell
+	//Current cell, reacts in the first half of the roll
 	var fp = player_y + (BSS_H * player_x);
-	switch (global.bss.pf[fp])
+	switch (pf[fp])
 	{
 		case BSS_CELL.BLUE:
 			if (globe_timer < 128)
@@ -570,7 +588,7 @@ function bss_stepped_objects()
 				if (!global.bss.loop)
 				{
 					array_push(collected, { ce : BSS_COLLECT.BLUE, cx : player_x, cy : player_y, t : 0 });
-					global.bss.pf[fp] = BSS_CELL.BLUE_STOOD;
+					pf[fp] = BSS_CELL.BLUE_STOOD;
 				}
 				if (sphere_count <= 0)
 				{
@@ -591,7 +609,7 @@ function bss_stepped_objects()
 				state = BSS_STATE.EXIT;
 				spin_timer = 0;
 				globe_timer = 0;
-				exit_result = "fail";
+				stage_failed = true;
 				sound_play(sfx_warp_exit);
 				music_set_fade(FADE.OUT, 1);
 			}
@@ -641,7 +659,7 @@ function bss_stepped_objects()
 			if (globe_timer > 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.GREEN, cx : player_x, cy : player_y, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.GREEN_STOOD;
+				pf[fp] = BSS_CELL.GREEN_STOOD;
 				sound_play(sfx_blue_sphere);
 			}
 			break;
@@ -654,7 +672,7 @@ function bss_stepped_objects()
 				globe_timer = 0;
 				tele_timer = 0;
 				sound_play(sfx_teleport);
-				fade_change(FADE.OUT, 6, FADE_COLOR.WHITE); //Mania FXFade white flash, via the project fade system
+				fade_change(FADE.OUT, 6, FADE_COLOR.WHITE);
 			}
 			break;
 
@@ -662,19 +680,18 @@ function bss_stepped_objects()
 			if (globe_timer < 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.RING, cx : player_x, cy : player_y, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.SPARKLE;
-				global.bss.spark[fp] = 0;
+				pf[fp] = BSS_CELL.SPARKLE;
 				bss_collect_ring();
 			}
 			break;
 	}
 
-	//cell ahead
+	//Cell ahead, reacts in the second half of the roll
 	var posX = bss_wrap_x(player_x + (sin256(angle) >> 8));
 	var posY = bss_wrap_y(player_y - (cos256(angle) >> 8));
 	fp = posY + (BSS_H * posX);
 
-	switch (global.bss.pf[fp])
+	switch (pf[fp])
 	{
 		case BSS_CELL.BLUE:
 			if (globe_timer > 128)
@@ -686,7 +703,7 @@ function bss_stepped_objects()
 				if (!global.bss.loop)
 				{
 					array_push(collected, { ce : BSS_COLLECT.BLUE, cx : posX, cy : posY, t : 0 });
-					global.bss.pf[fp] = BSS_CELL.BLUE_STOOD;
+					pf[fp] = BSS_CELL.BLUE_STOOD;
 				}
 				if (sphere_count <= 0)
 				{
@@ -710,7 +727,7 @@ function bss_stepped_objects()
 				globe_timer = 0;
 				player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 				player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
-				exit_result = "fail";
+				stage_failed = true;
 				sound_play(sfx_warp_exit);
 				music_set_fade(FADE.OUT, 1);
 			}
@@ -749,7 +766,7 @@ function bss_stepped_objects()
 		case BSS_CELL.YELLOW:
 			if (globe_timer > 128)
 			{
-				velocity_y = -1572864;
+				velocity_y = -1572864; //-TO_FIXED(24)
 				on_ground = false;
 				animation_play(animator, BSS_ANIM.SPRING);
 				globe_speed *= 2;
@@ -763,7 +780,7 @@ function bss_stepped_objects()
 			if (globe_timer > 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.GREEN, cx : posX, cy : posY, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.GREEN_STOOD;
+				pf[fp] = BSS_CELL.GREEN_STOOD;
 				sound_play(sfx_blue_sphere);
 			}
 			break;
@@ -772,8 +789,7 @@ function bss_stepped_objects()
 			if (globe_timer > 128)
 			{
 				array_push(collected, { ce : BSS_COLLECT.RING, cx : posX, cy : posY, t : 0 });
-				global.bss.pf[fp] = BSS_CELL.SPARKLE;
-				global.bss.spark[fp] = 0;
+				pf[fp] = BSS_CELL.SPARKLE;
 				bss_collect_ring();
 			}
 			break;
@@ -784,7 +800,6 @@ function bss_stepped_objects()
 		case BSS_CELL.MEDAL_GOLD:
 			if (globe_timer > 240)
 			{
-				exit_result = (global.bss.pf[fp] == BSS_CELL.MEDAL_GOLD) ? "gold" : "silver";
 				palette_page ^= 1;
 				state = BSS_STATE.EXIT;
 				spin_timer = 0;
@@ -800,6 +815,7 @@ function bss_stepped_objects()
 // BSS_Collected_Update
 function bss_update_collected()
 {
+	var pf = global.bss.pf;
 	for (var i = array_length(collected) - 1; i >= 0; i--)
 	{
 		var e = collected[i];
@@ -808,12 +824,12 @@ function bss_update_collected()
 
 		switch (e.ce)
 		{
+			//Sparkle for 16 frames, then free the cell
 			case BSS_COLLECT.RING:
 				e.t++;
-				global.bss.spark[fp] = e.t;
 				if (e.t >= 16 && state == BSS_STATE.MOVE)
 				{
-					global.bss.pf[fp] = BSS_CELL.NONE;
+					pf[fp] = BSS_CELL.NONE;
 					remove = true;
 				}
 				break;
@@ -821,7 +837,7 @@ function bss_update_collected()
 			case BSS_COLLECT.BLUE:
 				if (sphere_count <= 0)
 				{
-					if (global.bss.pf[fp] == BSS_CELL.BLUE_STOOD) global.bss.pf[fp] = BSS_CELL.RED;
+					if (pf[fp] == BSS_CELL.BLUE_STOOD) pf[fp] = BSS_CELL.RED;
 					remove = true;
 				}
 				else if (globe_timer < 32 || globe_timer > 224) {
@@ -829,10 +845,11 @@ function bss_update_collected()
 				}
 				break;
 
+			//Turns red once the player has rolled clear
 			case BSS_COLLECT.BLUE_STOOD:
 				if (state == BSS_STATE.MOVE && globe_timer > 32 && globe_timer < 224)
 				{
-					if (global.bss.pf[fp] == BSS_CELL.BLUE_STOOD) global.bss.pf[fp] = BSS_CELL.RED;
+					if (pf[fp] == BSS_CELL.BLUE_STOOD) pf[fp] = BSS_CELL.RED;
 					remove = true;
 				}
 				break;
@@ -851,7 +868,7 @@ function bss_update_collected()
 					e.t--;
 					if (e.t <= 0)
 					{
-						if (global.bss.pf[fp] == BSS_CELL.GREEN_STOOD) global.bss.pf[fp] = BSS_CELL.BLUE;
+						if (pf[fp] == BSS_CELL.GREEN_STOOD) pf[fp] = BSS_CELL.BLUE;
 						remove = true;
 					}
 				}
@@ -862,7 +879,7 @@ function bss_update_collected()
 				{
 					if (player_x != e.cx || player_y != e.cy)
 					{
-						if (global.bss.pf[fp] == BSS_CELL.PINK_STOOD) global.bss.pf[fp] = BSS_CELL.PINK;
+						if (pf[fp] == BSS_CELL.PINK_STOOD) pf[fp] = BSS_CELL.PINK;
 						remove = true;
 					}
 				}
@@ -957,13 +974,10 @@ function bss_special_stage_start()
 	exit_timer        = 0;
 	medal_spin        = 0;
 	reward_is_emerald = false;
-	emerald_was_new   = false;
 	emerald_index     = 0;
-	exit_result       = "";
+	stage_failed      = false;
 	bg_scroll_x       = 0;
 	bg_scroll_y       = 0;
-
-	for (var si = 0; si < global.bss.size; si++) global.bss.spark[si] = 0;
 
 	//player (BSS_Player entity)
 	on_ground        = true;
@@ -990,10 +1004,13 @@ function bss_special_stage_start()
 
 	ring_spin       = 0;
 	ring_spin_timer = 0;
+	spark_spin_timer = 0;
 	global.bss.ring_phase = 0;
+	global.bss.spark_phase = 0;
 }
 
-// Taken from the "Frustum 1" and "Frustum 2" tile layers of Sonic Mania Data.rsdk : Stages/SpecialBS/Scene1.bin. Do not hand edit.
+// Mania's BSS_Setup_SetupFrustum converts hand-authored tiles from layers "Frustum 1" and "Frustum 2" into offset values.
+// We'll just use these offset values right away instead.
 function bss_frustum_tables() {
 	global.bss.frustum1X = [
 	-5,5,-4,4,-5,5,-3,3,-4,4,-2,2,-1,1,0,-3,3,-4,4,-2,2,-1,1,0,-3,3,-4,4,-2,2,

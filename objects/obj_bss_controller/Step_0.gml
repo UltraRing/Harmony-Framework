@@ -30,6 +30,8 @@ if (on_ground)
 else
 {
 	gravity_strength += velocity_y;
+
+	//Gravity scales with the stage speed
 	var sp = (speedup_level == 0) ? 16 : speedup_level;
 	velocity_y += sp << 12;
 	if (gravity_strength >= 0)
@@ -95,7 +97,6 @@ else if (msg_phase == 1)
 			globe_speed     = 16;
 			globe_speed_inc = 2;
 			if (on_ground) animation_play(animator, BSS_ANIM.WALK);
-			msg_phase = 2;
 		}
 		if (globe_timer == 0 && state == BSS_STATE.MOVE)
 		{
@@ -103,13 +104,18 @@ else if (msg_phase == 1)
 			if (kR) { state = BSS_STATE.TURNR; spin_timer = 0; }
 		}
 	}
-	if (msg_phase == 1 && ++msg_wait_timer >= 180)
+
+	//Timer, then start the movement!
+	if (++msg_wait_timer >= 180)
 	{
-		msg_wait_timer  = 0;
-		speedup_level   = 16;
-		globe_speed     = 16;
-		globe_speed_inc = 2;
-		if (on_ground) animation_play(animator, BSS_ANIM.WALK);
+		msg_wait_timer = 0;
+		if (speedup_level == 0)
+		{
+			speedup_level   = 16;
+			globe_speed     = 16;
+			globe_speed_inc = 2;
+			if (on_ground) animation_play(animator, BSS_ANIM.WALK);
+		}
 		msg_phase = 2;
 	}
 }
@@ -120,6 +126,7 @@ switch (state)
 	case BSS_STATE.MOVE: //BSS_Setup_State_GlobeMoveZ
 		globe_hidden = false;
 
+		//Stage speeds up every 30 seconds
 		if (speedup_level < 32 && ++speedup_timer >= speedup_interval)
 		{
 			speedup_timer = 0;
@@ -137,6 +144,7 @@ switch (state)
 		{
 			if (globe_timer > 0 && globe_timer < 256)
 			{
+				//Queue a turn for the next cell edge
 				if (kL) spin_state = 1;
 				if (kR) spin_state = 2;
 			}
@@ -153,6 +161,7 @@ switch (state)
 		{
 			if (globe_speed > 0)
 			{
+				//Crossed into the next cell
 				if (globe_timer >= 256)
 				{
 					switch (spin_state)
@@ -167,6 +176,7 @@ switch (state)
 					player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
 				}
 			}
+			//Bounced back into the previous cell
 			else if (globe_timer < 0)
 			{
 				switch (spin_state)
@@ -184,7 +194,7 @@ switch (state)
 			}
 		}
 
-		palette_line = (globe_timer >> 4) & 15;
+		palette_line = (globe_timer >> 4) & 15; //roll frame from the sub-cell position
 		break;
 
 	case BSS_STATE.TURNL: //BSS_Setup_State_GlobeTurnLeft
@@ -193,7 +203,7 @@ switch (state)
 			speedup_timer = 0;
 			speedup_level += 4;
 		}
-		angle = (angle - 4) & 255;
+		angle = (angle - 4) & 255; //16 frames of 4 = a quarter turn
 
 		if (spin_timer == 15)
 		{
@@ -345,21 +355,20 @@ switch (state)
 			player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 			player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
 		}
-		palette_line = (globe_timer >> 4) & 15;
+		palette_line = (globe_timer >> 4) & 15; //roll frame from the sub-cell position
 
+		//Board flies off for 128 frames, then the reward is placed
 		if (++spin_timer == 128)
 		{
 			spin_timer = 0;
 			speedup_level = 8;
 			globe_speed = 8;
 			bss_setup_finish();
-			if (reward_is_emerald)
-			{
-				emerald_was_new = !global.emeralds[emerald_index]; //new, or a replay of one we own?
-				global.emeralds[emerald_index] = true;             //award it
-			}
 			input_active = false;
 			state = BSS_STATE.EMERALD;
+			
+			//Award the Chaos Emerald!
+			if (reward_is_emerald) global.emeralds[emerald_index] = true;
 		}
 		break;
 
@@ -384,7 +393,7 @@ switch (state)
 			player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 			player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
 		}
-		palette_line = (globe_timer >> 4) & 15;
+		palette_line = (globe_timer >> 4) & 15; //roll frame from the sub-cell position
 		break;
 
 	case BSS_STATE.EXIT: //BSS_Setup_State_GlobeExit
@@ -409,7 +418,7 @@ switch (state)
 		spin_timer += 2;
 
 		//The clear plays after an emerald or a red-sphere bail-out. A medal just leaves
-		var _show_clear = reward_is_emerald || (exit_result == "fail");
+		var _show_clear = reward_is_emerald || stage_failed;
 
 		//Fade out while spinning
 		fade_change(FADE.OUT, 3, _show_clear ? FADE_COLOR.WHITE : FADE_COLOR.BLACK);
@@ -421,19 +430,17 @@ switch (state)
 			{
 				//Create special stage clear object
 				var _clear = instance_create_depth(0, 0, 0, obj_special_stage_clear);
-				if (reward_is_emerald)
-				{
-					if (emerald_was_new && game_has_all_emeralds()) _clear.heading = "gotall";
-					else if (emerald_was_new)  _clear.heading = "gotone";
-					else _clear.heading = "chaos";
-					_clear.perfect = (ring_count <= 0);
-				}
-				else //bailed out on a red sphere
-				{
-					_clear.heading = "chaos";
-					_clear.perfect = false;
-				}
+				
+				//Result status
+				_clear.result = reward_is_emerald ? SS_RESULT.GOT_EMERALD : SS_RESULT.FAILED;
+				
+				//Ring bonus
 				_clear.rings = rings_collected;
+				
+				//Perfect bonus
+				_clear.perfect = reward_is_emerald && (ring_count <= 0);
+				
+				//Bye!
 				instance_destroy();
 			}
 			else
@@ -452,10 +459,17 @@ bss_update_collected();
 ring_spin += 0.25;
 if (ring_spin >= sprite_get_number(spr_bss_ring_mania)) ring_spin -= sprite_get_number(spr_bss_ring_mania);
 */
+
+// S3&K ring animation
 if (++ring_spin_timer >= 8)
 {
 	ring_spin_timer = 0;
 	global.bss.ring_phase = (global.bss.ring_phase + 1) mod 3;
+}
+if (++spark_spin_timer >= 5)
+{
+	spark_spin_timer = 0;
+	global.bss.spark_phase = (global.bss.spark_phase + 1) mod 4;
 }
 
 //medal spinning
