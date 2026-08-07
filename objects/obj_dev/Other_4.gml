@@ -1,0 +1,1 @@
+	teleport_id = 0;
