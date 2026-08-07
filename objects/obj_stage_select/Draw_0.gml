@@ -34,7 +34,7 @@
 		{
 			effect_set_palette(tex_pal_textselect1, 1);
 		}
-		var i_offset = i-(zone_sel-min(zone_sel, 8))+(zone_sel == zone_arr)
+		var i_offset = i-(zone_sel-min(zone_sel, 8))
 		//Draw zones
 		if(i_offset >= 0 && i_offset <= 8) {
 	    draw_text((global.window_width / 2)-128, ((global.window_height/2) - 64)+14*i_offset, zone_list[i][0]);
