@@ -14,10 +14,6 @@ Harmony comes with two separate branches:
   - A main branch for general usage. It is recommended to use the main branch, as it is the most stable of the two. 
   
   - A developer branch. This is where new features will be incorporated and tested first.
-
-# Version Information
-Main Branch Version: 0.99 - Stable <br>
-Dev Branch Version: 1.0 - Work In Progress [Unstable]
   
 # Documentation
 The documentation of basic examples and function list is still being worked on
