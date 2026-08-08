@@ -1,5 +1,17 @@
-	var pool = instance_place(x, y, obj_water_pool);
-    var top_y = (y < obj_water.y && pool)? pool.pos_y : obj_water.y;
+	var pool, water, top_y;
+    pool = instance_place(x, y, obj_water_pool);
+    water = instance_exists(obj_water);
+    
+    if ((water && y < obj_water.y || !water) && pool) {
+        top_y = pool.pos_y;
+    }
+    else if (water) {
+        top_y = obj_water.y;
+    }
+    else {
+        visible = false;
+        exit;
+    }
     
     // Hide above water horizon & Outside of pools
 	if(bbox_top < top_y)
@@ -11,9 +23,9 @@
 	{
 		visible = true;
 	}
-
+    
 	animator_update(animator);
-
+    
 	var emitting_type = 2
 	switch(emit_big)
 	{
