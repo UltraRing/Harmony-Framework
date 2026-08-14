@@ -21,9 +21,19 @@ function player_water()
     var is_pool = water && water.object_index = obj_water_pool;
 	
 	//Stop executing if theres no water
-	if(!water || !collision_allow) 
-		exit;
+	if(!water || !collision_allow){
+		if (underwater){
+			underwater = false	
+		}
+	} else {
+		_player_water_check(water,is_pool)	
+	}
 	
+	_player_underwater_process(water)
+	
+}
+
+function _player_water_check(water, is_pool){
 	// Constants 
 	var waterY = (is_pool)? water.pos_y : water.y;
 	var waterRange = 8;
@@ -83,8 +93,11 @@ function player_water()
                     splash.par = water;
                 }
                 
-                //Play sound
-                sound_play(sfx_water_splash);
+				//Play sound if on screen
+				var cy = camera_get_view_y(view_camera[view_current]);
+				var sh = global.window_height;
+				if (cy < water.pos_y && cy + sh > water.pos_y)
+					sound_play(sfx_water_splash);
             }
 		      
             //Trigger the flag
@@ -116,73 +129,84 @@ function player_water()
                 splash.par = water;
             }
             
-            //Play sound
-            sound_play(sfx_water_splash);
+            //Play sound if on screen
+			var cy = camera_get_view_y(view_camera[view_current]);
+			var sh = global.window_height;
+			if (cy < water.pos_y && cy + sh > water.pos_y)
+				sound_play(sfx_water_splash);
         }
         
         //Trigger the flag
         underwater = false;
     }
-	
-	//Aquaphobia
-	if(underwater)
+}
+
+function _player_underwater_process(water){
+	// Reset if there's air
+	if(air < 20 * 60) 
 	{
-		if(shield == SHIELD.ELECTRIC || shield == SHIELD.FIRE)
+		bubble_number = 5;
+		audio_stop_sound(j_drowning);
+	}
+	
+	if(!underwater || !water){
+		air = 0;
+		exit;
+	}
+	
+	
+	if(shield == SHIELD.ELECTRIC || shield == SHIELD.FIRE)
+	{
+		if(shield == SHIELD.ELECTRIC)
 		{
-			if(shield == SHIELD.ELECTRIC)
-			{
-				sound_play(sfx_electric_shield_lose);
-				water.flash_hold_timer = 4;
-			}
+			sound_play(sfx_electric_shield_lose);
+			water.flash_hold_timer = 4;
+		}
 			
-			shield = SHIELD.NONE;
+		shield = SHIELD.NONE;
+	}
+		
+	if (shield != SHIELD.BUBBLE) 
+	{
+		//bubbles
+		if (bubble_delay > 0 && (air % bubble_delay == 0))
+		{
+			bubble_delay = 0
+			var bubble = instance_create_depth(x + 6 * facing, y, depth - 1, obj_bubble);
+            bubble.par = water;
+			bubble.type = 0;	
+			bubble.angle = facing == -1 ? 180 : 0;
 		}
 		
-		if (shield != SHIELD.BUBBLE) 
+		if(air % 60 == 0)
 		{
-			//bubbles
-			if (bubble_delay > 0 && (air % bubble_delay == 0))
+			var rand = irandom(1);
+
+			if (rand == 0)
+				bubble_delay = irandom_range(6,16) * 2;
+				
+			if (air < 20*60) 
 			{
-				bubble_delay = 0
-				var bubble = instance_create_depth(x + 6 * facing, y, depth - 1, obj_bubble);
+				var bubble = instance_create_depth(x+6*facing, y-4, depth-1, obj_bubble);
                 bubble.par = water;
 				bubble.type = 0;	
 				bubble.angle = facing == -1 ? 180 : 0;
 			}
-		
-			if(air % 60 == 0)
-			{
-				var rand = irandom(1);
-
-				if (rand == 0)
-					bubble_delay = irandom_range(6,16) * 2;
-				
-				if (air < 20*60) 
-				{
-					var bubble = instance_create_depth(x+6*facing, y-4, depth-1, obj_bubble);
-                    bubble.par = water;
-					bubble.type = 0;	
-					bubble.angle = facing == -1 ? 180 : 0;
-				}
-			}
-		
-			//Add air timer
-			air++;
 		}
-		else
-		{
-			air = 0;
-		}
-			
-		//Uh oh drowning music
-		if(!audio_is_playing(j_drowning) && air == 20 * 60)
-			audio_play_sound(j_drowning, 0, false, global.bgm_volume);
 		
+		//Add air timer
+		air++;
 	}
 	else
 	{
 		air = 0;
 	}
+			
+	//Uh oh drowning music
+	if(!audio_is_playing(j_drowning) && air == 20 * 60)
+		audio_play_sound(j_drowning, 0, false, global.bgm_volume);
+		
+	
 	
 	switch(air)
 	{
@@ -218,12 +242,5 @@ function player_water()
 			x_speed = 0;
 			y_speed = 0;
 		break;
-	}
-	
-	// Reset if there's air
-	if(air < 20 * 60) 
-	{
-		bubble_number = 5;
-		audio_stop_sound(j_drowning);
 	}
 }
