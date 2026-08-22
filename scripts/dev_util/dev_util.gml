@@ -57,3 +57,17 @@ function dev_menu_add_option_flag(name, variable)
 	option_flag[option_id] = true;
 	option_id++;
 }
+
+/// @self								obj_dev_menu
+/// @description						Function used for showing dev messages in-game
+/// @param {Real} variable			Variable data
+/// @param {Real} dev_id			Specific row to change(-1 for automatic | Max 31)
+function show_dev_message(variable, dev_id = -1) {
+	if(dev_id == -1) { 
+		array_push(obj_dev.dev_messages, string(variable));
+		obj_dev.dev_messages_length = max(obj_dev.dev_messages_length+1, 32);
+	}
+	else{
+		obj_dev.dev_messages[dev_id] = variable;
+	}
+}
