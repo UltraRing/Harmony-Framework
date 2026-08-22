@@ -344,9 +344,9 @@ function draw_col_line_wall(radius_x, radius_y, true_mode = mode){
 
     var X1, X2, Y1, Y2;
     switch(true_mode){
-        case 3: X1 = radius_x Y1 = 0 X2 = radius_x Y2= radius_y break;
+        case 3: X1 = radius_x Y1 = 0 X2 = radius_x Y2= radius_y+1 break;
         case 0: X1 = 0 Y1 = -radius_x X2 = radius_y Y2= -radius_x break;
-        case 1: X1 = radius_x Y1 = 0 X2 = radius_x Y2= -radius_y+1 break;
+        case 1: X1 = radius_x Y1 = 0 X2 = radius_x Y2= -radius_y break;
         case 2: X1 = 0 Y1 = radius_x X2 = -radius_y-1 Y2= radius_x break;
     }
     draw_line(floor(x)+X1,floor(y)+Y1,floor(x)+X2,floor(y)+Y2);
@@ -381,9 +381,9 @@ function draw_col_point_wall(radius_x, radius_y, true_mode = mode) {
     if(!collision_allow) exit;
     var X1, X2, Y1, Y2;
     switch(true_mode){
-        case 3: X2 = radius_x-1 Y2= radius_y+1 break;
+        case 3: X2 = radius_x-1 Y2= radius_y+2 break;
         case 0: X2 = radius_y Y2= -radius_x+1 break;
-        case 1: X2 = radius_x-1 Y2= -radius_y+1 break;
+        case 1: X2 = radius_x-1 Y2= -radius_y break;
         case 2: X2 = -radius_y-1 Y2= radius_x+1 break;
     }
 	draw_sprite(spr_debug_dot,0,floor(x)+X2,floor(y)+Y2)

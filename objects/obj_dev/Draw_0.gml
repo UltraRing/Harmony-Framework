@@ -128,7 +128,7 @@
             draw_col_line_wall(-wall_h, wall_w)
 			if(y_speed >= 0 || ground) {
 	            draw_set_color(#38ffa2);
-	            draw_col_line(-hitbox_w, hitbox_h);
+	            draw_col_line(-hitbox_w+1, hitbox_h);
 	            draw_set_color(#00f000);
 	            draw_col_line(hitbox_w, hitbox_h);
 			}
@@ -136,7 +136,7 @@
             draw_col_line(0, hitbox_h);
 			if(y_speed <= 0 && !ground) {
 	            draw_set_color(#00aeef);
-	            draw_col_line(-hitbox_w, -hitbox_h);
+	            draw_col_line(-hitbox_w+1, -hitbox_h);
 	            draw_set_color(#fff238);
 	            draw_col_line(hitbox_w, -hitbox_h);
 			}
@@ -146,12 +146,12 @@
             draw_col_point_wall(-wall_h, -wall_w-1)
             draw_col_point_wall(-wall_h, wall_w)
 			if(y_speed >= 0 || ground) {
-	            draw_col_point(-hitbox_w, hitbox_h);
+	            draw_col_point(-hitbox_w+1, hitbox_h);
 	            draw_col_point(hitbox_w, hitbox_h);
 			}
             draw_col_point(0, hitbox_h);
 			if(y_speed <= 0 && !ground) {
-	            draw_col_point(-hitbox_w, -hitbox_h-1);
+	            draw_col_point(-hitbox_w+1, -hitbox_h-1);
 	            draw_col_point(hitbox_w, -hitbox_h-1);
 			}
             draw_sprite(spr_point,0,floor(x)-1,floor(y))
