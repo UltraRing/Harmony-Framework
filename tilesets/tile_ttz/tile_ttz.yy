@@ -4,7 +4,7 @@
   "autoTileSets":[],
   "ConfigValues":{
     "Dev":{
-      "textureGroupId":"{ \"name\":\"ArborealAgate\", \"path\":\"texturegroups/ArborealAgate\" }",
+      "textureGroupId":"{ \"name\":\"BridgeZone\", \"path\":\"texturegroups/BridgeZone\" }",
     },
   },
   "macroPageTiles":{
@@ -13,23 +13,23 @@
     "TileSerialiseData":[],
   },
   "name":"tile_ttz",
-  "out_columns":51,
+  "out_columns":23,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
-    "name":"Arboreal Agate",
-    "path":"folders/Tile Sets/Arboreal Agate.yy",
+    "name":"Techdemo Tower",
+    "path":"folders/Tile Sets/Techdemo Tower.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"tex_teststage_tile",
-    "path":"sprites/tex_teststage_tile/tex_teststage_tile.yy",
+    "name":"tex_tile_ttz",
+    "path":"sprites/tex_tile_ttz/tex_tile_ttz.yy",
   },
   "spriteNoExport":true,
   "textureGroupId":{
-    "name":"ArborealAgate",
-    "path":"texturegroups/ArborealAgate",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "tileAnimationFrames":[],
   "tileAnimationSpeed":15.0,
@@ -39,5 +39,5 @@
   "tileWidth":16,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":2560,
+  "tile_count":512,
 }

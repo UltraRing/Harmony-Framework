@@ -35,7 +35,7 @@
           -2,3,-3,-2147483648,-2,1,-2,-2147483648,-4,1,-2,-2147483648,-4,2,-2,-2147483648,-4,1,-16,-2147483648,
           -4,1,-2,-2147483648,-4,2,-13,-2147483648,-2,3,-13,-2147483648,-4,2,-13,-2147483648,-2,3,-13,-2147483648,
           -66,2,
-        ],"TileDataFormat":1,},"tilesetId":{"name":"tile_bss_playfield","path":"tilesets/tile_bss_playfield/tile_bss_playfield.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
+        ],"TileDataFormat":1,},"tilesetId":{"name":"tile_bss_editor","path":"tilesets/tile_bss_editor/tile_bss_editor.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
   "name":"rm_blue_spheres",

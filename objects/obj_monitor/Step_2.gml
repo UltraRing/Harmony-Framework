@@ -72,7 +72,7 @@
 			ground = false;
 			y_speed = -2 * sign(image_yscale);
 			player.y_speed = max(abs(player.y_speed), 4) * -sign(image_yscale);
-			instance_create_particle(x, y, spr_effect_explosion01, 0.3);
+			instance_create_particle(x, y, spr_effect_explosion_gray, 0.3);
 			sound_play(sfx_destroy);
 			
 			if(!instance_exists(obj_bonus_cont)) 

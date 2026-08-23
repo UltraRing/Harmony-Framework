@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_score",
-    "path":"sprites/spr_score/spr_score.yy",
+    "name":"spr_effect_score",
+    "path":"sprites/spr_effect_score/spr_effect_score.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -25,16 +25,13 @@
 				def_timer_end = 32;
 			}
 			
-			dust[w][h] = [def_timer, def_timer_end, w, h, def_xspd, def_yspd];
+			dust[w][h] = {
+				timer : def_timer, 
+				timer_end : def_timer_end, 
+				x : w, 
+				y : h,
+				x_speed : def_xspd, 
+				y_speed : def_yspd
+			};
 		}
-	}
-	
-	enum DUST 
-	{
-		TIMER,
-		TIMER_END,
-		X,
-		Y,
-		XSPD,
-		YSPD
 	}

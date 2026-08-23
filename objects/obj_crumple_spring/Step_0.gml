@@ -40,7 +40,7 @@
 		{
 			triggered = false;
 			crumple = true
-			sound_play(sfx_break1)
+			sound_play(sfx_break)
 		}
 	}
 	
