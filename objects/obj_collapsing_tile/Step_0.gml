@@ -1,6 +1,6 @@
-/// @description Collaps it
+/// @description Collapse it
 
-	if(obj_player.ground && player_collide_object(noone, COLLISION.BOTTOM) && !triggered)
+	if(obj_player.ground && player_collide_object(noone, COLLISION.BOTTOM) && !triggered && obj_player.y < bbox_top)
 	{
 		triggered = true
 		event_user(1) //generates tile data to be saved
