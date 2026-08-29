@@ -23,8 +23,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"tex_bonus_tile",
-    "path":"sprites/tex_bonus_tile/tex_bonus_tile.yy",
+    "name":"tex_tile_bonus",
+    "path":"sprites/tex_tile_bonus/tex_tile_bonus.yy",
   },
   "spriteNoExport":true,
   "textureGroupId":{

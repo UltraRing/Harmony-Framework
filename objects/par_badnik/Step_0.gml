@@ -8,8 +8,12 @@
 		
 		if(obj_player.attacking || obj_player.invincible || fly_cond)
 		{
-			//Create animal buddies instead
-			instance_create_depth(x, y, depth, obj_animal);
+			if(global.use_battery_rings)
+				//Create a battery ring
+				instance_create_depth(x, y, depth, obj_battery_ring);
+			else
+				//Create animal buddies instead
+				instance_create_depth(x, y, depth, obj_animal);
 		
 			//Player bounce
 			obj_player.y_speed = -abs(obj_player.y_speed);
@@ -19,7 +23,7 @@
 			instance_create_score();
 		
 			//Create explosion effect
-			instance_create_particle(x, y, spr_effect_explosion01, 0.3);
+			instance_create_particle(x, y, spr_effect_explosion_gray, 0.3);
 		
 			//Play destroying sound
 			sound_play(sfx_destroy);

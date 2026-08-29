@@ -6,7 +6,7 @@ function game_init_collision()
 	global.tile_left = ds_map_create();
 	global.tile_right = ds_map_create();
 	
-	var tiles_to_compile = [spr_tile_collision_new]
+	var tiles_to_compile = [tex_tile_collision]
 	game_calculate_heights(tiles_to_compile)
 	
 }

@@ -83,12 +83,12 @@ function player_inv_speed()
 		if (transform_timer < 25) {
 			if (abs(ground_speed) >= 6) {
 				if (FRAME_TIMER mod 15 == 0){
-					instance_create_particle(x,y,spr_super_sparkle_2,0.25,depth)	
+					instance_create_particle(x,y,spr_effect_super_sparkle_2,0.25,depth)	
 				}
 			}
 		
 			if (FRAME_TIMER mod 10 == 0){
-				instance_create_particle(x + random_range(-16,16),y + random_range(-16,16),spr_super_sparkle_1,0.5,depth -1,0,-1)	
+				instance_create_particle(x + random_range(-16,16),y + random_range(-16,16),spr_effect_super_sparkle_1,0.5,depth -1,0,-1)	
 			}
 		}
 		

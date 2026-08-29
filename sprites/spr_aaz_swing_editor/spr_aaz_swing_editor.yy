@@ -49,8 +49,8 @@
   },
   "origin":1,
   "parent":{
-    "name":"Base Stage",
-    "path":"folders/Sprites/Stage Sprites/Base Stage.yy",
+    "name":"Arboreal Agate",
+    "path":"folders/Sprites/Stage Sprites/Arboreal Agate.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

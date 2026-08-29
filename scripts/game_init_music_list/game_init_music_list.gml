@@ -7,7 +7,7 @@ function game_init_music_list()
 	music_add(MUSIC.MAIN_MENU, bgm_main_menu);
 	
 	// Stage background music:
-	music_add(MUSIC.TECHDEMO_TOWER, bgm_test_stage, 0.000);
+	music_add(MUSIC.TECHDEMO_TOWER, bgm_techdemo_tower, 0.000);
 	music_add(MUSIC.ARBOREAL_AGATE1, bgm_arboreal_agate1);
 	music_add(MUSIC.ARBOREAL_AGATE2, bgm_arboreal_agate2, 15.239);
 	music_add(MUSIC.BONUS, bgm_bonus, 16.657, 92.33, true);

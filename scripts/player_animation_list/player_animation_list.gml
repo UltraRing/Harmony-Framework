@@ -81,8 +81,8 @@ function player_animation_list()
 		animation_add(ANIM.DIE, spr_sonic_death, 0.3, 0, false, false);
 		animation_add(ANIM.DROWN, spr_sonic_drown, 0.3, 0, false, false);
 		animation_add(ANIM.BREATHE, spr_sonic_breathe, 16, 0, false, true);
-		animation_add(ANIM.LEDGE1, spr_sonic_ledge1, 0.1, 0, true, false);
-		animation_add(ANIM.LEDGE2, spr_sonic_ledge2, 0.1, 0, true, false);
+		animation_add(ANIM.LEDGE1, spr_sonic_ledge_left, 0.1, 0, true, false);
+		animation_add(ANIM.LEDGE2, spr_sonic_ledge_right, 0.1, 0, true, false);
 		animation_add(ANIM.VICTORY, spr_sonic_victory, 0.1, 1, true, false);
 		animation_add(ANIM.TRANSFORM, spr_sonic_transform, 0.4, 3, true, false);
 		animation_add(ANIM.CORKSCREW, spr_sonic_corkscrew, 0.2, 0, true, false);
@@ -111,8 +111,8 @@ function player_animation_list()
 		animation_add(ANIM.DROWN, spr_tails_drown, 0.3, 0, false, false);
 		animation_add(ANIM.BREATHE, spr_tails_breathe, 16, 0, false, true);
 		animation_add(ANIM.PUSH, spr_tails_push, 0.1, 0, true, false);
-		animation_add(ANIM.LEDGE1, spr_tails_ledge1, 0.1, 0, true, false);
-		animation_add(ANIM.LEDGE2, spr_tails_ledge2, 0.1, 0, true, false);
+		animation_add(ANIM.LEDGE1, spr_tails_ledge_left, 0.1, 0, true, false);
+		animation_add(ANIM.LEDGE2, spr_tails_ledge_right, 0.1, 0, true, false);
 		animation_add(ANIM.VICTORY, spr_tails_victory, 0.1, 0, false, false);
 		animation_add(ANIM.TRANSFORM, spr_tails_transform, 0.4, 0, false, false);
 		animation_add(ANIM.CORKSCREW, spr_tails_corkscrew, 0.2, 0, true, false);
@@ -150,8 +150,8 @@ function player_animation_list()
 		animation_add(ANIM.DROWN, spr_knuckles_drown, 0.3, 0, false, false);
 		animation_add(ANIM.BREATHE, spr_knuckles_breathe, 16, 0, false, true);
 		animation_add(ANIM.PUSH, spr_knuckles_push, 0.1, 0, true, false);
-		animation_add(ANIM.LEDGE1, spr_knuckles_ledge1, 0.1, 0, true, false);
-		animation_add(ANIM.LEDGE2, spr_knuckles_ledge2, 0.1, 0, true, false);
+		animation_add(ANIM.LEDGE1, spr_knuckles_ledge_left, 0.1, 0, true, false);
+		animation_add(ANIM.LEDGE2, spr_knuckles_ledge_right, 0.1, 0, true, false);
 		animation_add(ANIM.VICTORY, spr_knuckles_victory, 0.1, 0, false, false);
 		animation_add(ANIM.TRANSFORM, spr_knuckles_transform, 0.4, 0, false, false);
 		animation_add(ANIM.CORKSCREW, spr_knuckles_corkscrew, 0.2, 0, true, false);

@@ -17,7 +17,7 @@
 	dir = sign(obj_player.ground_speed);
 	
 	//Play sound
-	sound_play(sfx_break1);
+	sound_play(sfx_break);
 
 	//Get breaking positions for wall and floor
 	var breakWallX = dir == 1 ? bbox_right : x;
