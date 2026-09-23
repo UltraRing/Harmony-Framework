@@ -254,7 +254,8 @@ function effect_set_palette(texture, index)
 /// @description						Function that applies the LUT color grading shader
 /// @param {Asset.GMSprite} texture		The sprite texture of the LUT (Note: the texture MUST be on the separate texture page)
 /// @param {Real} size					The height of the LUT texture
-function effect_set_color_grading(texture, size)
+/// @param {Real} subimage					The subimage of the LUT texture
+function effect_set_color_grading(texture, size, subimage = 0)
 {
 	//Get the shader that will be used
 	var shader = shd_color_grading
@@ -264,7 +265,7 @@ function effect_set_color_grading(texture, size)
 	var u_size = shader_get_uniform(shader, "size");
 	
 	//Get LUT texture
-	var lut_tex	= sprite_get_texture(texture, 0);
+	var lut_tex	= sprite_get_texture(texture, subimage);
 	
 	//Set the shader
 	shader_set(shader);
@@ -311,4 +312,79 @@ function effect_surface_deform(width, height, deform_data, offset, mode = 0, dir
 	shader_set_uniform_f(m, mode);
 	shader_set_uniform_f(d, dir);
 	shader_set_uniform_f(array_size, array_length(deform_data));
+}
+
+/// @self									
+/// @description						Draws collision line to ground
+/// @param {Real} radius_x					X radius for the collision
+/// @param {Real} radius_y					Y radius for the collision
+/// @param {Real} true_mod					The mode of the line to draw
+function draw_col_line(radius_x, radius_y, true_mode = mode){
+    //Disable collision
+    if(!collision_allow) exit;
+
+    var X1, X2, Y1, Y2;
+    switch(true_mode){
+        case 0: X1 = radius_x Y1 = 0 X2 = radius_x Y2= radius_y break;
+        case 1: X1 = 0 Y1 = -radius_x X2 = radius_y Y2= -radius_x break;
+        case 2: X1 = radius_x Y1 = 0 X2 = radius_x Y2= -radius_y-1 break;
+        case 3: X1 = 0 Y1 = radius_x X2 = -radius_y-1 Y2= radius_x break;
+    }
+   draw_line(floor(x)+X1,floor(y)+Y1,floor(x)+X2,floor(y)+Y2);
+}
+
+/// @self									
+/// @description						Draws collision line to wall
+/// @param {Real} radius_x					X radius for the collision
+/// @param {Real} radius_y					Y radius for the collision
+/// @param {Real} true_mod					The mode of the line to draw
+function draw_col_line_wall(radius_x, radius_y, true_mode = mode){
+    //Disable collision
+    if(!collision_allow) exit;
+
+    var X1, X2, Y1, Y2;
+    switch(true_mode){
+        case 3: X1 = radius_x Y1 = 0 X2 = radius_x Y2= radius_y+1 break;
+        case 0: X1 = 0 Y1 = -radius_x X2 = radius_y Y2= -radius_x break;
+        case 1: X1 = radius_x Y1 = 0 X2 = radius_x Y2= -radius_y break;
+        case 2: X1 = 0 Y1 = radius_x X2 = -radius_y-1 Y2= radius_x break;
+    }
+    draw_line(floor(x)+X1,floor(y)+Y1,floor(x)+X2,floor(y)+Y2);
+}
+
+/// @self									
+/// @description						Draws collision point to ground
+/// @param {Real} radius_x					X radius for the collision
+/// @param {Real} radius_y					Y radius for the collision
+/// @param {Real} true_mod					The mode of the line to draw
+function draw_col_point(radius_x, radius_y, true_mode = mode) {
+	//Disable collision
+    if(!collision_allow) exit;
+
+    var X1, X2, Y1, Y2;
+    switch(true_mode){
+        case 0: X2 = radius_x-1 Y2= radius_y+1 break;
+        case 1: X2 = radius_y Y2= -radius_x+1 break;
+        case 2: X2 = radius_x-1 Y2= -radius_y break;
+        case 3: X2 = -radius_y-1 Y2= radius_x+1 break;
+    }
+	draw_sprite(spr_debug_dot,0,floor(x)+X2,floor(y)+Y2)
+}
+
+/// @self									
+/// @description						Draws collision point to wall
+/// @param {Real} radius_x					X radius for the collision
+/// @param {Real} radius_y					Y radius for the collision
+/// @param {Real} true_mod					The mode of the line to draw
+function draw_col_point_wall(radius_x, radius_y, true_mode = mode) {
+    //Disable collision
+    if(!collision_allow) exit;
+    var X1, X2, Y1, Y2;
+    switch(true_mode){
+        case 3: X2 = radius_x-1 Y2= radius_y+2 break;
+        case 0: X2 = radius_y Y2= -radius_x+1 break;
+        case 1: X2 = radius_x-1 Y2= -radius_y break;
+        case 2: X2 = -radius_y-1 Y2= radius_x+1 break;
+    }
+	draw_sprite(spr_debug_dot,0,floor(x)+X2,floor(y)+Y2)
 }
