@@ -121,14 +121,22 @@ function _player_water_check(water, is_pool){
         if(underwater)
         {
             //Speed up the player
-            y_speed *= 1.25;
-            
-            //Create effects
+            if (obj_player.y_speed >= -4)
+			{
+				obj_player.y_speed *= 2;
+				
+				if (obj_player.y_speed < -16)
+					{
+						obj_player.y_speed = 16;
+					}
+			}
+			
+           //Create effects
             if (!pool_leave_h) {
                 var splash = instance_create_depth(obj_player.x, waterY, water.depth - 1, obj_water_splash);
                 splash.par = water;
             }
-            
+
             //Play sound if on screen
 			var cy = camera_get_view_y(view_camera[view_current]);
 			var sh = global.window_height;
