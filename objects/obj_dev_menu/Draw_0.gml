@@ -17,7 +17,7 @@
 	
 	//Draw rectangle for the background
 	draw_set_color(bg_color);
-	draw_rectangle(center_x - 153, center_y - 28 - 44, center_x + 152, center_y + 27 - 44, false);
+	draw_rectangle(center_x - 153, center_y - 28 - 44, center_x + 152, center_y + 34 - 44, false);
 	draw_rectangle(center_x - 153, center_y - 28 + 28, center_x + 152, center_y + 27 + 44, false);
 	draw_set_color(text_color);
 	
@@ -30,7 +30,7 @@
 	draw_set_color(unselected_text_color);
 	draw_text(center_x, center_y - 48, window_get_caption());
 	draw_text(center_x, center_y - 40, GM_version);
-	draw_text(center_x, center_y - 32, game_os_get_string() + " - Runtime: " + GM_runtime_version /*+ " | Build Time: " + date_time_string(GM_build_date)*/);
+	draw_text(center_x, center_y - 32, game_os_get_string() + " - Runtime: " + GM_runtime_version + "\nBuild Time: " + date_date_string(GM_build_date) + " " + date_time_string(GM_build_date));
 	draw_set_color(text_color);
 	
 	//Draw dev menu's text
