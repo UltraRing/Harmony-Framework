@@ -184,6 +184,8 @@ function _tile_get_height2(xpos, ypos, l = "CollisionMain", flip = false)
 	
 	var cellX = floor(xpos / 16);
 	var cellY = floor(ypos / 16);
+	if(instance_exists(obj_dev))
+	if(obj_dev.show_hitbox && instance_exists(obj_dev)) array_push(obj_dev.tiles_detected,[cellX,cellY])
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
@@ -227,6 +229,8 @@ function _tile_get_height(xpos, ypos, l = "CollisionMain", flip = false)
 	// Get cell's position
 	var cellX = floor(xpos / 16);
 	var cellY = floor(ypos / 16);
+	if(instance_exists(obj_dev))
+	if(obj_dev.show_hitbox && instance_exists(obj_dev)) array_push(obj_dev.tiles_detected,[cellX,cellY])
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
@@ -282,6 +286,8 @@ function _tile_get_width2(xpos, ypos, l = "CollisionMain", flip = false)
 	// Get cell's position
 	var cellX = floor(xpos / 16);
 	var cellY = floor(ypos / 16);
+	if(instance_exists(obj_dev))
+	if(obj_dev.show_hitbox && instance_exists(obj_dev)) array_push(obj_dev.tiles_detected,[cellX,cellY])
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
@@ -328,6 +334,8 @@ function _tile_get_width(xpos, ypos, l = "CollisionMain", flip = false)
 	// Get cell's position
 	var cellX = floor(xpos / 16);
 	var cellY = floor(ypos / 16);
+	if(instance_exists(obj_dev))
+	if(obj_dev.show_hitbox && instance_exists(obj_dev)) array_push(obj_dev.tiles_detected,[cellX,cellY])
 	
 	// Get the height from active tile ID
 	var tile_id = tilemap_get(layer_id, cellX, cellY);
