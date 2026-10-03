@@ -11,7 +11,6 @@
 	show_player = false;
 	show_fps = false;
 	show_culling = false;
-	
 	shell_open = false;
 	store_truefps = fps_real;
 	alarm[0] = 10;
@@ -21,6 +20,7 @@
 	cursor_x = WINDOW_WIDTH / 2;
 	cursor_y = WINDOW_HEIGHT / 2;
 	debug_use_analog = true;
+	room_exclusion = [rm_init, rm_splash, rm_title_screen, rm_main_menu, rm_stage_select]
 	
 	depth = -1000;
 

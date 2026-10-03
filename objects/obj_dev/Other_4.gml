@@ -1,8 +1,12 @@
 	teleport_id = 0;
+	var in_excluded_room = false
+	for(var i = 0; i < array_length(room_exclusion); ++i) {
+		in_excluded_room |= room&room_exclusion[i] > 0;
+	}
 	
 	
 	// Grab metadata for objects
-	if(array_length(object_list_metadata) < object_list_length && room != rm_init && room != rm_splash && room != rm_main_menu && room != rm_title_screen && room != rm_stage_select) {
+	if(array_length(object_list_metadata) < object_list_length && !in_excluded_room) {
 		for(var i = 0; i < object_list_length; ++i) {
 			object_list_metadata[i] = {};
 			var obj = instance_create_depth(0,0,0,object_list[i])
