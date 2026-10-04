@@ -8,7 +8,7 @@
 	shader_reset();
 	
 	//Set the font to use
-	draw_set_font(global.text_random);
+	draw_set_font(global.font_text);
 	
 	//Wave text!
 	var DevText = string_upper(quotes[quote_index]);

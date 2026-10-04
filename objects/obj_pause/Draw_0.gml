@@ -25,7 +25,7 @@
 	
 	draw_set_alpha(pause_alpha);
 	
-	draw_set_font(global.text_random);
+	draw_set_font(global.font_text);
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);
 	
