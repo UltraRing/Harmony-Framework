@@ -97,6 +97,7 @@
 		{
 			obj_player.invincible = true;
 			obj_player.invincible_timer = 1200;
+			music_play(MUSIC.INVINCIBLE, Jingle);
 		}
 		
 		//Give the player speed shoes
@@ -104,6 +105,7 @@
 		{
 			obj_player.speed_shoes_flag = true;
 			obj_player.speed_shoes = 1200;
+			music_play(MUSIC.SPEEDSHOES, Jingle);
 		}
 		
 		//Combine Rings
