@@ -27,5 +27,5 @@ A database of every fangame that uses Harmony Framework is currently work in pro
 
 # Terms of Use
 For fangames: non-profit. <br>
-For original games: [MIT License.](https://github.com/UltraRing/Harmony-Framework/blob/main/LICENSE.md) <br>
+For original games: [MIT License.](https://github.com/UltraRing/Harmony-Framework/blob/release-1.0/LICENSE.md) <br>
 Credit Ultra Ring Community
