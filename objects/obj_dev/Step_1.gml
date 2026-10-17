@@ -193,7 +193,7 @@
 			// Checks to make sure that the object is not part of the debug list
 			if(!array_contains(object_list,instance_near_mouse) && instance_mouse_ind != obj_effect && instance_mouse_ind != obj_dust_effect && instance_mouse_ind != obj_monitor_icon && instance_mouse_ind != obj_debris && instance_mouse_ind != obj_player) {
 				// Play grabbed sound
-				sound_play(sfx_warp_ring)
+				sound_play(sfx_scoretally)
 				
 				// Pushes the object into the array, THIS is the actual object being added
 				array_push(object_list,instance_mouse_ind)
