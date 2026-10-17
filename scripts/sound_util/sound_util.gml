@@ -16,3 +16,20 @@ function sound_play(sound, loop = false, gain = 1.0, interrupt = true, emitter =
 	//Play the sound
 	return audio_play_sound_on(emitter, sound, 0, loop, global.sfx_volume * gain);
 }
+
+function sound_ring_pan_play(gain = 1.0){	  
+	global.ring_pan *= -1;
+	if global.ring_pan > 0 {
+		if audio_is_playing(global.audio_ring_right){
+			audio_stop_sound(global.audio_ring_right);
+		}
+		global.audio_ring_right = audio_play_sound_at(sfx_ring,100 * global.ring_pan,0,0,100,300,1,false,0,global.sfx_volume * gain);
+		return global.audio_ring_right;
+	} else {
+		if audio_is_playing(global.audio_ring_left){
+			audio_stop_sound(global.audio_ring_left);
+		}
+		global.audio_ring_left = audio_play_sound_at(sfx_ring,100 * global.ring_pan,0,0,100,300,1,false,0,global.sfx_volume * gain);
+		return global.audio_ring_left;
+	}
+}

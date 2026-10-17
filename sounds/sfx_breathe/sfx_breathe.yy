@@ -6,11 +6,11 @@
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "channelFormat":0,
+  "channelFormat":1,
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.346281,
+  "duration":0.36136055,
   "exportDir":"",
   "name":"sfx_breathe",
   "parent":{

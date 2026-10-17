@@ -9,8 +9,8 @@
   "name":"obj_aaz_button",
   "overriddenProperties":[],
   "parent":{
-    "name":"Arboreal Agate",
-    "path":"folders/Objects/Stage Objects/Arboreal Agate.yy",
+    "name":"Objects",
+    "path":"folders/Objects/Stage Objects/Arboreal Agate/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

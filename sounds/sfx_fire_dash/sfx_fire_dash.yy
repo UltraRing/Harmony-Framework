@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.830363,
+  "duration":0.8303628,
   "exportDir":"",
   "name":"sfx_fire_dash",
   "parent":{

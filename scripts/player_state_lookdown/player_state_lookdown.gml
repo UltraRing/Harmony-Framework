@@ -27,7 +27,7 @@ function player_state_lookdown(){
 	if(press_action && global.use_spindash)
 	{
 		//Reset the spindash pitch
-		audio_sound_pitch(sfx_spindash, 1);
+		audio_sound_pitch(sfx_charge, 1);
 		
 		//Change animation
 		animation_play(animator, ANIM.SPINDASH);
@@ -39,7 +39,7 @@ function player_state_lookdown(){
 		
 		//Update the state
 		state = player_state_spindash;
-		sound_play(sfx_spindash);
+		sound_play(sfx_charge);
 		exit;
 	}
 	

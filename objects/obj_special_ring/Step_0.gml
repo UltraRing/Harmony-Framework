@@ -8,7 +8,7 @@
 		if(game_has_all_emeralds())
 		{
 			global.rings += 50;
-			sound_play(sfx_special_ring);
+			sound_play(sfx_specialring);
 			instance_create_particle(x, y, spr_special_ring_effect, 0.5);
 			global.special_ring_store[| id] = true;
 			instance_destroy();
@@ -35,7 +35,7 @@
 		visible = false;
 		
 		instance_create_particle(x, y, spr_special_ring_effect, 0.5);
-		sound_play(sfx_special_ring);
+		sound_play(sfx_specialring);
 	}
 	
 	// Enter events
@@ -75,6 +75,6 @@
 			fade_to_room(_bss_room, 2, FADE_COLOR.WHITE, 30);
 			music_set_fade(FADE.OUT, 2);
 			
-			sound_play(sfx_warp_into);
+			sound_play(sfx_specialring_warp);
 		}
 	}

@@ -35,7 +35,7 @@
 		// Toggle FPS visibility
 		if(keyboard_check_pressed(vk_f3)) show_fps = !show_fps;
 		// Toggle mute music
-		if(keyboard_check_pressed(ord("N"))) global.bgm_volume = (global.bgm_volume + 1) mod 2;
+		if(keyboard_check_pressed(ord("N"))) global.bgm_volume = (global.bgm_volume * -1) mod 2;
 		// Toggle entity debug menu
 		if(keyboard_check_pressed(vk_f7)) show_player = !show_player;
 		// Toggle culling visibility
@@ -115,6 +115,7 @@
 		{
 			obj_player.invincible = true;
 			obj_player.invincible_timer = 1200;
+			music_play(MUSIC.INVINCIBLE, Jingle);
 		}
 		
 		//Give the player speed shoes
@@ -122,6 +123,7 @@
 		{
 			obj_player.speed_shoes_flag = true;
 			obj_player.speed_shoes = 1200;
+			music_play(MUSIC.SPEEDSHOES, Jingle);
 		}
 		
 		//Combine Rings

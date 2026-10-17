@@ -6,21 +6,21 @@
 		for(var h = 0; h < array_length(dust[w]); h++)
 		{
 			//If the info array is empty, continue to the next loop
-			if(array_length(dust[w][h]) == 0) continue;
+			if(!is_struct(dust[w][h])) continue;
 			
 			//Add speeds
-			if(dust[w][h][DUST.TIMER] > array_length(dust[w]) - h && type == 1 || type == 0)
+			if(dust[w][h].timer > array_length(dust[w]) - h && type == 1 || type == 0)
 			{
-				dust[w][h][DUST.X] += dust[w][h][DUST.XSPD];
-				dust[w][h][DUST.Y] += dust[w][h][DUST.YSPD];
+				dust[w][h].x += dust[w][h].x_speed;
+				dust[w][h].y += dust[w][h].y_speed;
 			}
 			
 			//Timer
-			dust[w][h][DUST.TIMER]++;
+			dust[w][h].timer++;
 			
 			//Destroy dust info
-			if(dust[w][h][DUST.TIMER] > dust[w][h][DUST.TIMER_END] + 4)
-				dust[w][h] = [];
+			if(dust[w][h].timer > dust[w][h].timer_end + 4)
+				dust[w][h] = -1;
 		}
 	}
 	
@@ -29,7 +29,7 @@
 	function(element, index)
 	{
 		//Checks if the info array is empty
-		return (array_length(element) != 0);
+		return (!is_struct(element));
 	});
 	
 	//Destroy the effect if there's no more dust

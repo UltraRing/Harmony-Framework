@@ -4,7 +4,7 @@
 		var in = input_press(INPUT.RIGHT) - input_press(INPUT.LEFT);
 	
 		// Change the character
-		if(in != 0)
+		if(in != 0 && !leave)
 		{
 			select = math_wrap(select + in, 0, 2);	
 			sound_play(sfx_beep);

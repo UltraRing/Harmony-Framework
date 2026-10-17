@@ -161,7 +161,7 @@ function player_state_normal()
 			{
 				if(global.chaotix_dust_effect)
 				{
-					instance_create_particle(x - hitbox_w * -facing, y + hitbox_h, spr_dust_effect, 0.4, depth-1, irandom_range(0.4, 1.2) * facing, -2, 0, 0.15);
+					instance_create_particle(x - hitbox_w * -facing, y + hitbox_h, spr_effect_dust, 0.4, depth-1, irandom_range(0.4, 1.2) * facing, -2, 0, 0.15);
 				}
 				else
 				{

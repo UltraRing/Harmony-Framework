@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":2.037891,
+  "duration":2.0378911,
   "exportDir":"",
   "name":"sfx_peelout_charge",
   "parent":{

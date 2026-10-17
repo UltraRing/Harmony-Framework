@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_inv_sparkle",
-    "path":"sprites/spr_inv_sparkle/spr_inv_sparkle.yy",
+    "name":"spr_effect_inv_sparkle",
+    "path":"sprites/spr_effect_inv_sparkle/spr_effect_inv_sparkle.yy",
   },
   "spriteMaskId":null,
   "visible":true,

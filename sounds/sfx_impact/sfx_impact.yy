@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"sfx_impact",
   "parent":{
-    "name":"Objects",
-    "path":"folders/Sounds/Sound Effects/Objects.yy",
+    "name":"Stage",
+    "path":"folders/Sounds/Sound Effects/Stage.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

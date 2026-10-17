@@ -1,0 +1,43 @@
+{
+  "$GMTileSet":"v1",
+  "%Name":"tile_bss_editor",
+  "autoTileSets":[],
+  "ConfigValues":{
+    "Dev":{
+      "textureGroupId":"{ \"name\":\"BlueSpheres\", \"path\":\"texturegroups/BlueSpheres\" }",
+    },
+  },
+  "macroPageTiles":{
+    "SerialiseHeight":1,
+    "SerialiseWidth":11,
+    "TileSerialiseData":[1,2,3,4,5,6,7,8,9,10,11,],
+  },
+  "name":"tile_bss_editor",
+  "out_columns":3,
+  "out_tilehborder":2,
+  "out_tilevborder":2,
+  "parent":{
+    "name":"Blue Spheres",
+    "path":"folders/Tile Sets/Blue Spheres.yy",
+  },
+  "resourceType":"GMTileSet",
+  "resourceVersion":"2.0",
+  "spriteId":{
+    "name":"tex_tile_bss_editor",
+    "path":"sprites/tex_tile_bss_editor/tex_tile_bss_editor.yy",
+  },
+  "spriteNoExport":false,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
+  "tileAnimationFrames":[],
+  "tileAnimationSpeed":15.0,
+  "tileHeight":16,
+  "tilehsep":0,
+  "tilevsep":0,
+  "tileWidth":16,
+  "tilexoff":0,
+  "tileyoff":0,
+  "tile_count":12,
+}

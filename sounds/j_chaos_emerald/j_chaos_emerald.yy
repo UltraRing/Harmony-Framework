@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":4.6382084,
+  "duration":2.815873,
   "exportDir":"",
   "name":"j_chaos_emerald",
   "parent":{
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"j_chaos_emerald.mp3",
+  "soundFile":"j_chaos_emerald.wav",
   "volume":1.0,
 }

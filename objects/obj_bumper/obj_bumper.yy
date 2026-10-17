@@ -10,8 +10,8 @@
   "name":"obj_bumper",
   "overriddenProperties":[],
   "parent":{
-    "name":"Base Stage",
-    "path":"folders/Objects/Stage Objects/Base Stage.yy",
+    "name":"Misc",
+    "path":"folders/Objects/Stage Objects/Common Objects/Misc.yy",
   },
   "parentObjectId":null,
   "persistent":false,

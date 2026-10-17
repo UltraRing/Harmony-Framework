@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_water_splash",
-    "path":"sprites/spr_water_splash/spr_water_splash.yy",
+    "name":"spr_effect_water_splash",
+    "path":"sprites/spr_effect_water_splash/spr_effect_water_splash.yy",
   },
   "spriteMaskId":null,
   "visible":true,

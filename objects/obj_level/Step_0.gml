@@ -7,11 +7,11 @@
 	global.stage_timer = min(global.stage_timer, 599999);
 	
 	//Hide collision layer
-	layer_set_visible("CollisionTriggers", false);
-	layer_set_visible(global.col_tile[0], false);
-	layer_set_visible(global.col_tile[1], false);
-	layer_set_visible(global.col_tile[2], false);
-	layer_set_visible(global.col_tile[3], false);
+	if(layer_exists("CollisionTriggers")) layer_set_visible("CollisionTriggers", false);
+	if(layer_exists(global.col_tile[0])) layer_set_visible(global.col_tile[0], false);
+	if(layer_exists(global.col_tile[1])) layer_set_visible(global.col_tile[1], false);
+	if(layer_exists(global.col_tile[2])) layer_set_visible(global.col_tile[2], false);
+	if(layer_exists(global.col_tile[3])) layer_set_visible(global.col_tile[3], false);
 	
 	//Reset act transition flag
 	global.act_transition = false;

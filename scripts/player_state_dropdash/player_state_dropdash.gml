@@ -59,7 +59,7 @@ function player_state_dropdash(){
 		{
 			for (var i = 0; i < 8; ++i) 
 			{
-			     instance_create_particle(x - hitbox_w * facing, y + hitbox_h, spr_dust_effect, 0.4, depth-1, (2.5 * facing) * dcos(random_range(180, 270)), 2.5 * dsin(random_range(180, 270)));
+			     instance_create_particle(x - hitbox_w * facing, y + hitbox_h, spr_effect_dust, 0.4, depth-1, (2.5 * facing) * dcos(random_range(180, 270)), 2.5 * dsin(random_range(180, 270)));
 			}
 		}
 		else

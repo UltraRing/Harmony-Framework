@@ -20,5 +20,5 @@
 			frames = table[(FRAME_TIMER + 5) mod array_length(table)];
 		
 		// Draw sparkles
-		draw_sprite(spr_inv_sparkle, frames, floor(px), floor(py));
+		draw_sprite(spr_effect_inv_sparkle, frames, floor(px), floor(py));
 	}

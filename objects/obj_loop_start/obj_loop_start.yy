@@ -6,8 +6,8 @@
   "name":"obj_loop_start",
   "overriddenProperties":[],
   "parent":{
-    "name":"UNFINISHED TESTS",
-    "path":"folders/Objects/UNFINISHED TESTS.yy",
+    "name":"Editor",
+    "path":"folders/Objects/Stage Objects/Common Objects/Editor.yy",
   },
   "parentObjectId":null,
   "persistent":false,

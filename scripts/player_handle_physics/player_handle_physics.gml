@@ -48,7 +48,7 @@ function player_handle_physics()
 		y_accel = physics_table.grav[character];
 		
 		//Underwater gravity
-		if(underwater)
+		if(underwater || state == player_state_drown)
 		{
 			y_accel = 0.0625;	
 		}
