@@ -1,4 +1,5 @@
 /// @description Values
+	//Results screen for any special stage, shown with game_special_stage_finish. It returns to global.previous_room
 	timer = 0;
 	state = 0;
 
