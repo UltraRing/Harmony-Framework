@@ -236,7 +236,11 @@ function music_play_priority(music_id, channel = 0)
 /// @param {Real} [channel]				Which channel will get paused(The default is the first channel)
 function music_pause(channel = 0)
 {
-	with(obj_global) if (music.playing[channel] != noone) audio_pause_sound(music.playing[channel]);
+	with(obj_global) 
+	{
+		if (music.playing[channel] != noone && audio_is_playing(music.playing[channel])) 
+			audio_pause_sound(music.playing[channel]);
+	}
 }
 
 /// @self								
@@ -244,7 +248,11 @@ function music_pause(channel = 0)
 /// @param {Real} [channel]				Which channel will be resumed(The default is the first channel)
 function music_resume(channel = 0)
 {
-	with(obj_global) if (music.playing[channel] != noone) audio_resume_sound(music.playing[channel]);
+	with(obj_global) 
+	{
+		if (music.playing[channel] != noone && audio_is_paused(music.playing[channel])) 
+			audio_resume_sound(music.playing[channel]);
+	}
 }
 
 /// @self								
