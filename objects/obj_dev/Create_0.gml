@@ -4,6 +4,9 @@
 	object_list_length = array_length(object_list);
 	object_list_length_start = object_list_length;
 	object_list_metadata = []
+	for(var i = 0; i < object_list_length; ++i) {
+		object_list_metadata[i] = {};
+	}
 	object_select = 0;
 	debug = false;
 	show_collision = false;
