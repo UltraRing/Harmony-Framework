@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.533968,
+  "duration":0.53396827,
   "exportDir":"",
   "name":"sfx_bubble_jump",
   "parent":{

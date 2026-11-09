@@ -30,8 +30,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Bridge Zone",
-    "path":"folders/Sprites/Stage Sprites/Bridge Zone.yy",
+    "name":"Objects",
+    "path":"folders/Sprites/Stage Sprites/Arboreal Agate/Objects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

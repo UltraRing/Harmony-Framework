@@ -6,7 +6,7 @@
 	if(FRAME_TIMER mod 4 == 0 && !has_died)
 	{
 		sound_play(sfx_explosion);
-		instance_create_particle(x + random_range(-32, 32), y + random_range(-16, 16), spr_effect_explosion02, 0.3);
+		instance_create_particle(x + random_range(-32, 32), y + random_range(-16, 16), spr_effect_explosion_red, 0.3);
 	}
 	
 	if(death_timer == 120)
@@ -50,7 +50,7 @@
 			obj_camera.target_bottom = room_height;
 			obj_camera.shake_x = 32;
 			
-			sound_play(sfx_break1);
+			sound_play(sfx_break);
 			instance_destroy(p);	
 		}
 	}

@@ -3,7 +3,7 @@
 	{
 		case MONITOR.RINGS:
 			global.rings += 10;
-			sound_play(sfx_superring);
+			sound_play(sfx_ring10);
 		break;
 		
 		case MONITOR.SHIELD:

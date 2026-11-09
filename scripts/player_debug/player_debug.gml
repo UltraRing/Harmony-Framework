@@ -10,6 +10,7 @@ function player_debug()
 	collision_allow = false;
 	hitbox_allow = false;
     underwater = false;
+	air = 0;
 	ground = false;
 	
 	//Default movement speed

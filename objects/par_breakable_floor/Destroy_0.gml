@@ -13,7 +13,7 @@
 	angle_point = (bbox_right - bbox_left) / 2;
 	
 	//Play sound
-	sound_play(sfx_break1);
+	sound_play(sfx_break);
 	
 	var left = bbox_left;
 	var top = bbox_top;

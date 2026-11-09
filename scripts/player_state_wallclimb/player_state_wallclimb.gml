@@ -96,7 +96,7 @@ function player_state_wallclimb()
 	{
 		facing *= -1;
 		x_speed = 4 * facing;
-		y_speed = -4;
+		y_speed = -jump_release;
 		state = player_state_jump;
 		animation_play(animator, ANIM.ROLL);
 		sound_play(sfx_jump);

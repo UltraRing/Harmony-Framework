@@ -21,6 +21,15 @@
 	// Lerp fix
 	if(!standing && standing_multi < 0.1 || currentLog > bridge_size - 1.5)
 		standing_multi = 0;
+		
+	//Get max dipping
+	if(currentLog <= (bridge_size) / 2)
+	{
+		max_dip = currentLog * dip_multiplier;
+	}else
+	{
+		max_dip = ((bridge_size)-currentLog) * dip_multiplier;
+	}	
 	
 	// Logic for individual bridge logs
 	var t;

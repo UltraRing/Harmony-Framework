@@ -8,8 +8,8 @@
   "name":"obj_badnik_test",
   "overriddenProperties":[],
   "parent":{
-    "name":"Base Stage",
-    "path":"folders/Objects/Stage Objects/Base Stage.yy",
+    "name":"Techdemo Tower",
+    "path":"folders/Objects/Stage Objects/Techdemo Tower.yy",
   },
   "parentObjectId":{
     "name":"par_badnik",

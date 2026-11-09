@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"sfx_specialring_warp",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":1,
+  "compression":1,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":1.6749433,
+  "exportDir":"",
+  "name":"sfx_specialring_warp",
+  "parent":{
+    "name":"Global",
+    "path":"folders/Sounds/Sound Effects/Global.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sfx_specialring_warp.wav",
+  "volume":1.0,
+}

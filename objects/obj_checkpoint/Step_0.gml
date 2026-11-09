@@ -63,7 +63,7 @@
 		{
 			obj_player.input_disable = true;
 			
-			sound_play(sfx_warp_into);
+			sound_play(sfx_specialring_warp);
 			fade_to_room(rm_bonus, 2, FADE_COLOR.WHITE, 30);
 			music_fade_channel(BGM, FADE.OUT, 3);
 			

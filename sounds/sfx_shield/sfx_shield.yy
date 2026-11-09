@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.720249,
+  "duration":0.7202494,
   "exportDir":"",
   "name":"sfx_shield",
   "parent":{

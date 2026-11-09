@@ -595,7 +595,7 @@ function bss_stepped_objects()
 					sphere_count = 0;
 					state = BSS_STATE.JETTISON;
 					spin_timer = 0;
-					sound_play(sfx_jettison);
+					sound_play(sfx_ss_jettison);
 					music_set_fade(FADE.OUT, 1);
 				} else {
 					sound_play(sfx_blue_sphere);
@@ -610,7 +610,7 @@ function bss_stepped_objects()
 				spin_timer = 0;
 				globe_timer = 0;
 				stage_failed = true;
-				sound_play(sfx_warp_exit);
+				sound_play(sfx_ss_exit);
 				music_set_fade(FADE.OUT, 1);
 			}
 			break;
@@ -710,7 +710,7 @@ function bss_stepped_objects()
 					sphere_count = 0;
 					state = BSS_STATE.JETTISON;
 					spin_timer = 0;
-					sound_play(sfx_jettison);
+					sound_play(sfx_ss_jettison);
 					music_set_fade(FADE.OUT, 1);
 				} else {
 					sound_play(sfx_blue_sphere);
@@ -728,7 +728,7 @@ function bss_stepped_objects()
 				player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 				player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
 				stage_failed = true;
-				sound_play(sfx_warp_exit);
+				sound_play(sfx_ss_exit);
 				music_set_fade(FADE.OUT, 1);
 			}
 			break;
@@ -806,7 +806,7 @@ function bss_stepped_objects()
 				globe_timer = 0;
 				player_x = bss_wrap_x(player_x + (sin256(angle) >> 8));
 				player_y = bss_wrap_y(player_y - (cos256(angle) >> 8));
-				sound_play(sfx_warp_exit);
+				sound_play(sfx_ss_exit);
 			}
 			break;
 	}

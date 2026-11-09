@@ -3,7 +3,7 @@ function player_state_spindash(){
 	//Create dust effect
 	if(FRAME_TIMER mod 4 == 0 && global.chaotix_dust_effect) 
 	{
-		instance_create_particle(x - hitbox_w * facing, y + hitbox_h, spr_dust_effect, 0.4, depth-1, (2.5 * facing) * dcos(random_range(180, 270)), 2.5 * dsin(random_range(180, 270)));
+		instance_create_particle(x - hitbox_w * facing, y + hitbox_h, spr_effect_dust, 0.4, depth-1, (2.5 * facing) * dcos(random_range(180, 270)), 2.5 * dsin(random_range(180, 270)));
 	}
 	
 	//Animate spindash dust effect
@@ -29,7 +29,7 @@ function player_state_spindash(){
 	if(press_action)
 	{
 		//Play spindash sound
-		sound_play(sfx_spindash);
+		sound_play(sfx_charge);
 		
 		//Reset the spindash frame
 		if(animation_is_playing(animator, ANIM.SPINDASH))
@@ -44,7 +44,7 @@ function player_state_spindash(){
 		//Change the spindash sound pitch
 		if(spindash_pitch != 1) 
 		{
-			audio_sound_pitch(sfx_spindash, 1 + spindash_pitch / 13);
+			audio_sound_pitch(sfx_charge, 1 + spindash_pitch / 13);
 		}
 	}
 	
@@ -52,7 +52,7 @@ function player_state_spindash(){
 	if(!hold_down)
 	{
 		//Stop the spindash sound
-		audio_stop_sound(sfx_spindash);
+		audio_stop_sound(sfx_charge);
 		
 		//Play the release sound
 		sound_play(sfx_release);

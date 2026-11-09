@@ -10,8 +10,8 @@
   "name":"obj_aaz2_water_effect",
   "overriddenProperties":[],
   "parent":{
-    "name":"Arboreal Agate",
-    "path":"folders/Objects/Stage Objects/Arboreal Agate.yy",
+    "name":"Background",
+    "path":"folders/Objects/Stage Objects/Arboreal Agate/Background.yy",
   },
   "parentObjectId":null,
   "persistent":false,

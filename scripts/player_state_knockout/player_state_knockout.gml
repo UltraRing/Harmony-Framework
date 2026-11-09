@@ -20,10 +20,10 @@ function player_state_death()
 	//Remove underwater physics
 	underwater = false;
 	
-	// Correct the facing
+	//Correct the facing
 	facing = 1;
 	
-	// Change the object's depth to be in front of everything
+	//Change the object's depth to be in front of everything
 	depth = layer_get_depth("Utilities");
 	
 	//Change animation
@@ -33,6 +33,9 @@ function player_state_death()
 	collision_allow = false;
 	x_speed = 0;
 	ground_speed = 0;
+	
+	//Stop the stage timer
+	obj_level.disable_timer = true;
 			
 	//Add death timer
 	death_timer++;

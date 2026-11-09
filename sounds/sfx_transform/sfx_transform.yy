@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "channelFormat":0,
-  "compression":0,
+  "compression":1,
   "compressionQuality":4,
   "ConfigValues":{
     "Dev":{

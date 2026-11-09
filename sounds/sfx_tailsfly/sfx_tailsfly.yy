@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.195578,
+  "duration":0.19557823,
   "exportDir":"",
   "name":"sfx_tailsfly",
   "parent":{

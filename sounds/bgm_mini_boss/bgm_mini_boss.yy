@@ -10,7 +10,7 @@
   "compression":1,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.0,
+  "duration":83.7,
   "exportDir":"",
   "name":"bgm_mini_boss",
   "parent":{

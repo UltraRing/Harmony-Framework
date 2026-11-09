@@ -9,8 +9,8 @@
   "name":"obj_aaz_bg_inside",
   "overriddenProperties":[],
   "parent":{
-    "name":"Arboreal Agate",
-    "path":"folders/Objects/Stage Objects/Arboreal Agate.yy",
+    "name":"Background",
+    "path":"folders/Objects/Stage Objects/Arboreal Agate/Background.yy",
   },
   "parentObjectId":{
     "name":"par_background",

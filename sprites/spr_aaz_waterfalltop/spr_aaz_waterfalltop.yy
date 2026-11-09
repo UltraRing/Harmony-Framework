@@ -51,8 +51,8 @@
   },
   "origin":0,
   "parent":{
-    "name":"Arboreal Agate",
-    "path":"folders/Sprites/Stage Sprites/Arboreal Agate.yy",
+    "name":"Scenery",
+    "path":"folders/Sprites/Stage Sprites/Arboreal Agate/Scenery.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
