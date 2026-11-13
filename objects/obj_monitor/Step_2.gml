@@ -6,10 +6,6 @@
 	var player = player_find(0);
 	var col = noone;
 	
-	//Disable flag when attacking
-
-
-	
 	//When monitor isn't destroyed
 	if(!destroyed)
 	{

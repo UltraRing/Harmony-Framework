@@ -28,6 +28,7 @@ function music_init()
 	music.fade_type = array_create(MUSIC_CHANNEL_SIZE, 1);
 	music.loop_start = array_create(MUSIC_CHANNEL_SIZE, 0.00);
 	music.loop_end = array_create(MUSIC_CHANNEL_SIZE, 0.00);
+	music.pause = array_create(MUSIC_CHANNEL_SIZE, false);
 }
 
 /// @self								obj_global
@@ -65,13 +66,11 @@ function music_update()
 			music.fade_multiplier[i] = clamp(music.fade_multiplier[i], 0, 1);
 			
 			//Resume the channels
-			if(!instance_exists(obj_pause)) 
-			{
+			if(!music.pause[i]) 
 				audio_resume_sound(music.playing[i]);
-			}
 		
 			//Pause BGM when jingle is playing
-			if(music.playing[Jingle] != noone)
+			if(music.playing[Jingle] != noone || music.pause[i])
 				audio_pause_sound(music.playing[BGM]);
 				
 			if(instance_exists(obj_player))
@@ -236,7 +235,8 @@ function music_play_priority(music_id, channel = 0)
 /// @param {Real} [channel]				Which channel will get paused(The default is the first channel)
 function music_pause(channel = 0)
 {
-	with(obj_global) if (music.playing[channel] != noone) audio_pause_sound(music.playing[channel]);
+	with(obj_global)
+		music.pause[channel] = true;
 }
 
 /// @self								
@@ -244,7 +244,8 @@ function music_pause(channel = 0)
 /// @param {Real} [channel]				Which channel will be resumed(The default is the first channel)
 function music_resume(channel = 0)
 {
-	with(obj_global) if (music.playing[channel] != noone) audio_resume_sound(music.playing[channel]);
+	with(obj_global)
+		music.pause[channel] = false;
 }
 
 /// @self								
