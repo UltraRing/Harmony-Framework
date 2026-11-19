@@ -14,36 +14,8 @@
 	cool_down = max(cool_down - 1, 0);
 	
 	//Horizontal inputs
-	var input_h = input_press(INPUT.RIGHT) - input_press(INPUT.LEFT);
-	var input_hold_h = input_hold(INPUT.RIGHT) - input_hold(INPUT.LEFT);
-	var input_h_final = input_h + ((hold_h == 7) * input_hold_h);
-	
-	//Vertical inputs
-	var input_v = input_press(INPUT.DOWN) - input_press(INPUT.UP);
-	var input_hold_v = input_hold(INPUT.DOWN) - input_hold(INPUT.UP);
-	var input_v_final = input_v + ((hold_v == 7) * input_hold_v);
-	
-	//Holding the horizontal input
-	if(input_hold(INPUT.RIGHT) - input_hold(INPUT.LEFT) != 0)
-	{
-		hold_h++;	
-		hold_h %= 8;	
-	}
-	else
-	{
-		hold_h = 0;	
-	}
-	
-	//Holding the vertical input
-	if(input_hold(INPUT.DOWN) - input_hold(INPUT.UP) != 0 && input_v == 0)
-	{
-		hold_v++;	
-		hold_v %= 8;	
-	}
-	else
-	{
-		hold_v = 0;	
-	}
+	var input_h_final = input_get_x(8),
+		input_v_final = -input_get_y(8);
 	
 	//Menu state machine
 	switch(state)

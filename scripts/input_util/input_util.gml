@@ -118,3 +118,84 @@ function input_release(input_id)
 {
 	return obj_global.input_data_release[input_id];	
 }
+
+/// @self									
+/// @description							Function that returns if horizontal inputs are being interacted with. 1 for right, 0 for none and -1 for left
+/// @param {real} hold_margin				When the timer reaches this value, it'll return if the inputs are being held instead of pressed
+/// @param {real} hold_interval				How many frames it should pause before returning an actual value
+/// @returns {Real}
+function input_get_x(hold_margin, hold_interval = 8)
+{
+	// Values
+	static input_h_timer = 0,
+		   input_h_pause = 0;
+		   
+	var input_x = input_hold(INPUT.RIGHT) - input_hold(INPUT.LEFT);
+	
+	// If you're holding, increment the timer, else reset the value
+	if(input_x != 0)
+	{
+		input_h_timer++;
+		
+		if(input_h_timer >= hold_margin)
+			input_h_pause++;
+	}
+	else
+	{
+		input_h_timer = 0;
+		input_h_pause = 0;
+	}
+	
+	// If the timer is smaller than the margin, return if they're pressed
+	if(input_h_timer < hold_margin)
+		input_x = input_press(INPUT.RIGHT) - input_press(INPUT.LEFT);
+	else
+	{
+		if(input_h_pause % hold_interval != 0)
+			input_x = input_press(INPUT.RIGHT) - input_press(INPUT.LEFT);
+	}
+	
+	// Return
+	return input_x;
+}
+
+
+/// @self									
+/// @description							Function that returns if vertical inputs are being interacted with. 1 for up, 0 for none and -1 for down
+/// @param {real} hold_margin				When the timer reaches this value, it'll return if the inputs are being held instead of pressed
+/// @param {real} hold_interval				How many frames it should pause before returning an actual value
+/// @returns {Real}
+function input_get_y(hold_margin, hold_interval = 8)
+{
+	// Values
+	static input_v_timer = 0,
+		   input_v_pause = 0;
+		   
+	var input_y = input_hold(INPUT.UP) - input_hold(INPUT.DOWN);
+	
+	// If you're holding, increment the timer, else reset the value
+	if(input_y != 0)
+	{
+		input_v_timer++;
+		
+		if(input_v_timer >= hold_margin)
+			input_v_pause++;
+	}
+	else
+	{
+		input_v_timer = 0;
+		input_v_pause = 0;
+	}
+	
+	// If the timer is smaller than the margin, return if they're pressed
+	if(input_v_timer < hold_margin)
+		input_y = input_press(INPUT.UP) - input_press(INPUT.DOWN);
+	else
+	{
+		if(input_v_pause % hold_interval != 0)
+			input_y = input_press(INPUT.UP) - input_press(INPUT.DOWN);
+	}
+	
+	// Return
+	return input_y;
+}
