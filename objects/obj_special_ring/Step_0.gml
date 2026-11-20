@@ -57,22 +57,8 @@
 			global.special_ring_y = y;
 			
 			global.special_ring_store[| id] = true
-
-			// This project ships only one Blue Spheres room, so every special ring leads here.
-			var _bss_room = rm_blue_spheres;
-
-			/*
-				To set up seven separate special stages: first create your rooms
-				(example: rm_special_stage1 .. rm_special_stage7), uncomment the block below and
-				delete the single-room line above. You'll then be sent to the stage that
-				matches how many emeralds you have (0 emeralds -> stage 1, 1 -> stage 2, ...).
-
-				var _stages = [rm_special_stage1, rm_special_stage2, rm_special_stage3, rm_special_stage4,
-				               rm_special_stage5, rm_special_stage6, rm_special_stage7];
-				_bss_room = _stages[game_emerald_count()];
-			*/
-
-			fade_to_room(_bss_room, 2, FADE_COLOR.WHITE, 30);
+			
+			fade_to_room(game_special_stage_room(), 2, FADE_COLOR.WHITE, 30);
 			music_set_fade(FADE.OUT, 2);
 			
 			sound_play(sfx_specialring_warp);

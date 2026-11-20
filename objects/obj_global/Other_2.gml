@@ -18,7 +18,6 @@
 	input_init();
 	music_init();
 	fade_init();
-	bss_init();
 	game_call_window_resize();
 	
 	// Define input actions

@@ -73,3 +73,26 @@ function game_emerald_count()
 		if (global.emeralds[i]) n++;
 	return n;
 }
+
+/// @self		
+/// @description		Function used for getting the special stage room that special rings send the player to
+/// @returns {Asset.GMRoom}
+function game_special_stage_room()
+{
+	//Every special ring leads to the Blue Spheres room. For one stage per emerald, create the rooms and return
+	//[rm_special_stage1, rm_special_stage2, ..., rm_special_stage7][game_emerald_count()] instead
+	return rm_blue_spheres;
+}
+
+/// @self		
+/// @description		Function used for showing the special stage results screen. Call it on a white screen, after granting any emerald
+/// @param {Real} _result		SS_RESULT of the stage
+/// @param {Real} _rings		Rings collected
+/// @param {Bool} _perfect		Earned the PERFECT bonus
+function game_special_stage_finish(_result, _rings, _perfect)
+{
+	var _clear = instance_create_depth(0, 0, 0, obj_special_stage_clear);
+	_clear.result = _result;
+	_clear.rings = _rings;
+	_clear.perfect = _perfect;
+}

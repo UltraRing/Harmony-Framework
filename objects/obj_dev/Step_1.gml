@@ -53,7 +53,6 @@
 				animator_reset(animator);
 
 			}
-			with(obj_bss_controller) bss_setup_character();
 		}
 		
 		if(keyboard_check(vk_f6)) game_set_speed(5, gamespeed_fps);

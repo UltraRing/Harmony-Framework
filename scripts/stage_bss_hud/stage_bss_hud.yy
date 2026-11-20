@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"stage_bss_engine",
+  "%Name":"stage_bss_hud",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"stage_bss_engine",
+  "name":"stage_bss_hud",
   "parent":{
-    "name":"Stage Scripts",
-    "path":"folders/Scripts/Stage Scripts.yy",
+    "name":"Blue Spheres",
+    "path":"folders/Scripts/Stage Scripts/Blue Spheres.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
